@@ -25,7 +25,7 @@ function App() {
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
       </Suspense>
-      <Results />
+      {/* <Results /> */}
       <Footer />
     </BrowserRouter>
   );
