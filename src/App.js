@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import Logo from './components/Logo/index';
 import Header from './components/Header';
-import AuthView from './views/AuthView'
+import AuthView from './views/AuthView';
 import Footer from './components/Footer';
 
 const MainView = lazy(() =>
