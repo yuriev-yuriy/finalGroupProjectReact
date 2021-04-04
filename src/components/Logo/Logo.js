@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Logo.module.css';
 
-function Logo() {
+function Logo({ to }) {
   return (
-    <NavLink to="/">
+    <NavLink to={to}>
       <div className={styles.logo}>
         <p className={styles.whiteText}>Pro</p>
         <p className={styles.darkText}>[Test_]</p>
