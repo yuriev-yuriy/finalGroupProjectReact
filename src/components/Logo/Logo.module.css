@@ -1,0 +1,57 @@
+.logo {
+  height: 26px;
+  width: 127px;
+  border: 1px solid #121d2e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.logo:after {
+  content: '';
+  display: block;
+  clip-path: polygon(0% 0%, 33% 0, 40% 50%, 33% 100%, 0% 100%);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #121d2e;
+  z-index: -1;
+  transition: 0.7s;
+}
+
+.logo:hover::after {
+  content: '';
+  display: block;
+  clip-path: polygon(0% 0%, 100% 0, 100% 56%, 100% 100%, 0% 100%);
+  position: absolute;
+  background-color: #121d2e;
+  z-index: -1;
+  transition: 0.7s;
+}
+
+.logo:hover .darkText {
+  color: #fff;
+  transition: 0.7s;
+}
+
+p {
+  font-family: 'MontserratBold';
+  font-weight: bold;
+  font-size: 18px;
+  display: inline-block;
+  margin: 0;
+}
+
+.whiteText {
+  color: #fff;
+  padding-left: 8px;
+}
+
+.darkText {
+  color: #121d2e;
+  padding-right: 8px;
+  transition: 0.7s;
+}
