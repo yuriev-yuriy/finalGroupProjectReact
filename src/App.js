@@ -4,6 +4,7 @@ import routes from './routes';
 
 import { Component, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import Footer from './components/Footer';
 
 const MainView = lazy(() =>
   import('./views/MainView' /*webpackChunkName: "MainPage"*/),
@@ -23,6 +24,7 @@ function App() {
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
       </Suspense>
+      <Footer />
     </BrowserRouter>
   );
 }
