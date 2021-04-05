@@ -29,8 +29,8 @@ const Results = lazy(() =>
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Suspense fallback={'Loading'}>
-        <Header />
         <Switch>
           <Route path={routes.USEFUL_INFO_VIEW} component={UseFulInfoView} />
           <Route path={routes.CONTACTS_VIEW} component={ContactsView} />
