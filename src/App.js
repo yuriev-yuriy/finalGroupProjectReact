@@ -11,6 +11,7 @@ import AuthView from './views/AuthView';
 
 import Footer from './components/Footer';
 import Results from './components/Results';
+import UserAvatarUpdate from './components/UserAvatarUpdate';
 
 const MainView = lazy(() =>
   import('./views/MainView' /*webpackChunkName: "MainView"*/),
@@ -30,6 +31,7 @@ function App() {
       <Suspense fallback={'Loading'}>
         <Logo to={routes.MAIN_VIEW} />
         <Header to={routes.MAIN_VIEW} />
+        <UserAvatarUpdate />
         <Switch>
           <Route path={routes.USEFUL_INFO_VIEW} component={UseFulInfoView} />
           <Route path={routes.CONTACTS_VIEW} component={ContactsView} />
