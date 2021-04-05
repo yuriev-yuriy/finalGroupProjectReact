@@ -16,6 +16,9 @@ const MainView = lazy(() =>
   import('./views/MainView' /*webpackChunkName: "MainView"*/),
 );
 
+const UseFulInfoView = lazy(() =>
+  import('./views/UseFulInfoView' /*webpackChunkName: "UseFulInfoView"*/),
+);
 const ContactsView = lazy(() =>
   import('./views/ContactsView' /*webpackChunkName: "ContactsView"*/),
 );
@@ -27,8 +30,8 @@ function App() {
       <Suspense fallback={'Loading'}>
         <Logo to={routes.MAIN_VIEW} />
         <Header to={routes.MAIN_VIEW} />
-
         <Switch>
+          <Route path={routes.USEFUL_INFO_VIEW} component={UseFulInfoView} />
           <Route path={routes.CONTACTS_VIEW} component={ContactsView} />
           <Route path="/auth" component={AuthView} />
           <Route path={routes.MAIN_VIEW} component={MainView} />
