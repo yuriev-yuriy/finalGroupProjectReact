@@ -13,7 +13,11 @@ import Footer from './components/Footer';
 import Results from './components/Results';
 
 const MainView = lazy(() =>
-  import('./views/MainView' /*webpackChunkName: "MainPage"*/),
+  import('./views/MainView' /*webpackChunkName: "MainView"*/),
+);
+
+const ContactsView = lazy(() =>
+  import('./views/ContactsView' /*webpackChunkName: "ContactsView"*/),
 );
 
 function App() {
@@ -26,6 +30,7 @@ function App() {
        <Header to={routes.MAIN_VIEW} />
 
         <Switch>
+          <Route path={routes.CONTACTS_VIEW} component={ContactsView} />
           <Route path="/auth" component={AuthView} />
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
