@@ -1,0 +1,15 @@
+.button {
+  background-color: transparent;
+  border: none;
+}
+
+.burger {
+  display: block;
+  z-index: 100000;
+}
+
+@media (min-width: 768px) {
+  .burger {
+    display: none;
+  }
+}
