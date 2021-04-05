@@ -1,6 +1,10 @@
+.link {
+  display: inline-block;
+}
+
 .logo {
-  height: 26px;
-  width: 127px;
+  height: 28px;
+  width: 129px;
   border: 1px solid #121d2e;
   display: flex;
   align-items: center;
@@ -18,7 +22,7 @@
   bottom: 0;
   left: 0;
   background-color: #121d2e;
-  z-index: -1;
+  z-index: 1;
   transition: 0.7s;
 }
 
@@ -28,13 +32,14 @@
   clip-path: polygon(0% 0%, 100% 0, 100% 56%, 100% 100%, 0% 100%);
   position: absolute;
   background-color: #121d2e;
-  z-index: -1;
+  z-index: 1;
   transition: 0.7s;
 }
 
 .logo:hover .darkText {
   color: #fff;
   transition: 0.7s;
+  z-index: 2;
 }
 
 p {
@@ -48,10 +53,11 @@ p {
 .whiteText {
   color: #fff;
   padding-left: 8px;
+  z-index: 10;
 }
 
 .darkText {
   color: #121d2e;
   padding-right: 8px;
-  transition: 0.7s;
+  transition: 1s;
 }
