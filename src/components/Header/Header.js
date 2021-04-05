@@ -19,6 +19,7 @@ function Header() {
         <Navigation isOpen={isOpen} onOpenMobileMenu={setIsOpen} />
         <Burger isOpen={isOpen} onOpenMobileMenu={setIsOpen} />
         {/* {isLoggedIn ? <UserMenu /> : <AuthNav />} */}
+        <div className={styles.line}></div>
       </div>
     </header>
   );

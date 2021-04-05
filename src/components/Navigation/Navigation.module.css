@@ -61,6 +61,11 @@
     padding: 0;
     border-bottom: none;
   }
+
+  .link:not(:last-child) {
+    margin-right: 80px;
+  }
+
   .text:hover::before {
     width: 100%;
   }

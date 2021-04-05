@@ -4,7 +4,6 @@ import routes from './routes';
 import { Component, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import Logo from './components/Logo/index';
 import Header from './components/Header';
 
 import AuthView from './views/AuthView';
@@ -28,8 +27,6 @@ function App() {
     <BrowserRouter>
       <Header />
       <Suspense fallback={'Loading'}>
-        <Logo to={routes.MAIN_VIEW} />
-        <Header to={routes.MAIN_VIEW} />
         <Switch>
           <Route path={routes.USEFUL_INFO_VIEW} component={UseFulInfoView} />
           <Route path={routes.CONTACTS_VIEW} component={ContactsView} />

@@ -12,3 +12,18 @@
   height: 70px;
   padding: 0 20px;
 }
+
+.line {
+  position: absolute;
+  top: 0;
+  right: 65px;
+  height: 70px;
+  width: 1px;
+  background-color: #e2e3e5;
+}
+
+@media (min-width: 768px) {
+  .line {
+    display: none;
+  }
+}
