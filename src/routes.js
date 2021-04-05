@@ -3,7 +3,7 @@ const routes = {
   MAIN_VIEW: '/',
   TEST_VIEW: '/test',
   RESULT_VIEW: '/result',
-  MATERIALS_VIEW: '/materials',
+  USEFUL_INFO_VIEW: '/useful-info',
   CONTACTS_VIEW: '/contacts',
 };
 
