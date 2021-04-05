@@ -4,7 +4,6 @@ import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
 
-
 export default function AuthForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
