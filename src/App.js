@@ -1,9 +1,14 @@
 import React from 'react';
-// import MainPage from './components/MainPage';
 import routes from './routes';
 
 import { Component, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
+
+import Logo from './components/Logo/index';
+import Header from './components/Header';
+import AuthView from './views/AuthView'
+
 import Footer from './components/Footer';
 import Results from './components/Results';
 
@@ -13,15 +18,15 @@ const MainView = lazy(() =>
 
 function App() {
   return (
-    // <BrowserRouter>
-    //   <Route path={'/something'}>
-    //     <Switch></Switch>
-    //   </Route>
-    // </BrowserRouter>
-
     <BrowserRouter>
+      <Header />
       <Suspense fallback={'Loading'}>
+
+        <Logo to={routes.MAIN_VIEW} />
+       <Header to={routes.MAIN_VIEW} />
+
         <Switch>
+          <Route path="/auth" component={AuthView} />
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
       </Suspense>
