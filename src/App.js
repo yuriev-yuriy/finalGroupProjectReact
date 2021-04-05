@@ -6,7 +6,11 @@ import { Component, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 const MainView = lazy(() =>
-  import('./views/MainView' /*webpackChunkName: "MainPage"*/),
+  import('./views/MainView' /*webpackChunkName: "MainView"*/),
+);
+
+const ContactsView = lazy(() =>
+  import('./views/ContactsView' /*webpackChunkName: "ContactsView"*/),
 );
 
 function App() {
@@ -20,6 +24,7 @@ function App() {
     <BrowserRouter>
       <Suspense fallback={'Loading'}>
         <Switch>
+          <Route path={routes.CONTACTS_VIEW} component={ContactsView} />
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
       </Suspense>
