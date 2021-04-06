@@ -26,8 +26,6 @@ export default function AuthForm() {
   // const handleChangePass = event => {
   //   setPassword(event.target.value);
   // }
-  console.log(email);
-  console.log(password);
 
   const reset = () => {
     setEmail('');
@@ -36,20 +34,16 @@ export default function AuthForm() {
 
   const makeSubmit = event => {
     event.preventDefault();
-    // if (event.target.name === email) {
-    //   console.log("Boo");
-    //   console.log(event.target);
-    //    dispatch(authOperations.login({ email, password }));
-    //  setEmail('');
-    // setPassword('');
-
-    // }
-
-    dispatch(authOperations.register({ email, password }));
-    setEmail('');
-    setPassword('');
-    console.log(email);
-    console.log(password);
+    if (event.target.name === email) {
+      console.log('Boo');
+      console.log(event.target);
+      dispatch(authOperations.login({ email, password }));
+      reset();
+    } else {
+      dispatch(authOperations.register({ email, password }));
+      reset();
+      console.log('works');
+    }
   };
   return (
     <div className={s.forma}>
@@ -74,6 +68,7 @@ export default function AuthForm() {
             placeholder="Email"
             onChange={handleChange}
             required
+            value={email}
           />
         </label>
         <label>
@@ -84,15 +79,13 @@ export default function AuthForm() {
             placeholder="Password"
             onChange={handleChange}
             required
+            value={password}
           />
         </label>
         <div className={s.btnWrapperBottom}>
-          {/* <button
-          className={s.regBtn}
-          name="email"
-           >
+          <button className={s.regBtn} name="email">
             Sign In
-          </button> */}
+          </button>
           <button type="submit" name="password" className={s.regBtn}>
             Sign Up
           </button>
