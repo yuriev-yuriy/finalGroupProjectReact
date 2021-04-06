@@ -9,7 +9,7 @@ import routes from '../../routes';
 // import { authSelectors } from '../../redux/auth/auth-selectors';
 import styles from './Header.module.css';
 
-function Header() {
+function Header({ to }) {
   const [isOpen, setIsOpen] = useState(false);
   // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   return (
