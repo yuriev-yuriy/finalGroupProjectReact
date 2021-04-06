@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// axios.default.baseURL = 'https://final-group-project-node.herokuapp.com';
+axios.defaults.baseURL = 'https://final-group-project-node.herokuapp.com';
 
 const register = createAsyncThunk('auth/register', async credentials => {
   try {
@@ -15,7 +15,7 @@ const register = createAsyncThunk('auth/register', async credentials => {
 
 const login = createAsyncThunk('auth/login', async credentials => {
   try {
-    const data = await axios.post('https://final-group-project-node.herokuapp.com/auth/login', credentials);
+    const data = await axios.post('/auth/login', credentials);
 
     return data;
   } catch (err) {
