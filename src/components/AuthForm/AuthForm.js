@@ -19,27 +19,42 @@ export default function AuthForm() {
         return;
     }
   };
+  // const handleChangeEmail = event => {
+  //   setEmail(event.target.value);
+  // }
+
+  // const handleChangePass = event => {
+  //   setPassword(event.target.value);
+  // }
+  console.log(email);
+  console.log(password);
 
   const reset = () => {
     setEmail('');
     setPassword('');
   };
 
-  const handleSubmitRegistrate = event => {
+  const makeSubmit = event => {
     event.preventDefault();
-    dispatch(authOperations.register({ email, password }));
-    reset();
-  };
+    // if (event.target.name === email) {
+    //   console.log("Boo");
+    //   console.log(event.target);
+    //    dispatch(authOperations.login({ email, password }));
+    //  setEmail('');
+    // setPassword('');
+      
+    // }
 
-  const handleSubmitLog = event => {
-    event.preventDefault();
-    dispatch(authOperations.login({ email, password }));
-    reset();
-  };
+      dispatch(authOperations.register({ email, password }));
+      setEmail('');
+    setPassword('');
+      console.log(email);
+  console.log(password);
+  }
   return (
     <div className={s.forma}>
       <p className={s.para}>
-        Для авторизации можете использовать Googlt Account:
+        Для авторизации можете использовать Google Account:
       </p>
       <div className={s.btnWrapper}>
         <button className={s.gBtn} type="submit">
@@ -50,10 +65,11 @@ export default function AuthForm() {
       <p className={s.secondPara}>
         Or login to our app using e-mail and password:
       </p>
-      <form className={s.innerForm}>
+      <form className={s.innerForm} onSubmit={makeSubmit}>
         <label>
           <input
             className={s.input}
+            name="email"
             type="email"
             placeholder="Email"
             onChange={handleChange}
@@ -64,20 +80,24 @@ export default function AuthForm() {
           <input
             className={s.input}
             type="text"
+            name="password"
             placeholder="Password"
             onChange={handleChange}
             required
           />
         </label>
         <div className={s.btnWrapperBottom}>
-          <button className={s.regBtn} type="submit" onSubmit={handleSubmitLog}>
+          {/* <button
+          className={s.regBtn}
+          name="email"
+           >
             Sign In
-          </button>
+          </button> */}
           <button
+            type='submit'
+            name="password"
             className={s.regBtn}
-            type="submit"
-            onSubmit={handleSubmitRegistrate}
-          >
+            >
             Sign Up
           </button>
         </div>
