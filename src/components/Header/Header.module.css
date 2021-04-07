@@ -22,6 +22,11 @@
   background-color: #e2e3e5;
 }
 
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
 @media (min-width: 768px) {
   .line {
     display: none;
