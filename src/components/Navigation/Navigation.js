@@ -64,9 +64,6 @@ function Navigation({ isOpen, onOpenMobileMenu }) {
         </NavLink>
       </nav>
       <UserInfo onOpenMobileMenu={onOpenMobileMenu} />
-      {/* <NavLink to={routes.AUTH_VIEW} onClick={() => onOpenMobileMenu(false)}>
-        <SignOutIcon className={styles.signOutBtnLg} width="16px" height="16px" onClick={() => dispatch(authOperations.logOut())} />
-      </NavLink> */}
     </div>
   );
 }
