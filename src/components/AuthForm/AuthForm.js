@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
+import { getActiveElement } from 'formik';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -19,32 +20,24 @@ export default function AuthForm() {
         return;
     }
   };
-  // const handleChangeEmail = event => {
-  //   setEmail(event.target.value);
-  // }
-
-  // const handleChangePass = event => {
-  //   setPassword(event.target.value);
-  // }
 
   const reset = () => {
     setEmail('');
     setPassword('');
   };
 
+  const alterSubmit = event => {
+    event.preventDefault();
+    dispatch(authOperations.login({ email, password }));
+    reset();
+  }
+ 
   const makeSubmit = event => {
     event.preventDefault();
-    if (event.target.name === email) {
-      console.log('Boo');
-      console.log(event.target);
-      dispatch(authOperations.login({ email, password }));
-      reset();
-    } else {
-      dispatch(authOperations.register({ email, password }));
-      reset();
-      console.log('works');
+    dispatch(authOperations.register({ email, password }));
+    reset();
     }
-  };
+
   return (
     <div className={s.forma}>
       <p className={s.para}>
@@ -83,10 +76,10 @@ export default function AuthForm() {
           />
         </label>
         <div className={s.btnWrapperBottom}>
-          <button className={s.regBtn} name="email">
+          <button className={s.regBtn} onClick={alterSubmit}>
             Sign In
           </button>
-          <button type="submit" name="password" className={s.regBtn}>
+          <button data-auth="reg" className={s.regBtn}>
             Sign Up
           </button>
         </div>
