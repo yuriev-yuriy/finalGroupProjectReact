@@ -1,0 +1,41 @@
+.testPage__btnPrevNext {
+  display: flex;
+  justify-content: space-between;
+}
+
+.testPage__btnPrev,
+.testPage__btnNext {
+  background: none;
+  border: none;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+}
+
+.testPage__btnPrev {
+  background-color: orange;
+  color: #fff;
+}
+
+.testPage__btnNext {
+  background-color: #fff;
+}
+
+.arrowLeft {
+  transform: rotate(180deg);
+  fill: #fff;
+}
+
+.arrowLeft:hover {
+  fill: #000;
+}
+
+.arrowRight:hover {
+  fill: #fff;
+}
+

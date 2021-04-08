@@ -1,0 +1,36 @@
+.testPage__questionName {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #000000;
+}
+
+.testPage__questionName::after {
+  content: '';
+  width: 130px;
+  opacity: 0.15;
+  border-top: 1px solid #00122F;
+  display: block;
+  margin: 20px auto 0;
+}
+
+@media (min-width: 768px) {
+  .testPage__questionName {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .testPage__questionName {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .testPage__questionName::after {
+    width: 322px;
+    margin: 30px auto 0;
+  }
+}

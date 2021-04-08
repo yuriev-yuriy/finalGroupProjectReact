@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from "react";
 import T from 'prop-types';
 import { Link } from 'react-router-dom';
 import routes from '../../../routes';
