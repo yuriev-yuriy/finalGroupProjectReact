@@ -2,17 +2,19 @@ import React, { useEffect, lazy, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import routes from './routes';
 
-// import { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header/';
 
 import AuthView from './views/AuthView/';
 
+
 import Footer from './components/Footer/';
 import { authOperations } from './redux/auth/';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
+
+
 
 const MainView = lazy(() =>
   import('./views/MainView' /*webpackChunkName: "MainView"*/),
@@ -28,6 +30,10 @@ const ContactsView = lazy(() =>
 
 const Results = lazy(() =>
   import('./components/Results' /*webpackChunkName: "Results"*/),
+);
+
+const TestPage = lazy(() =>
+  import('./components/TestPage' /*webpackChunkName: "TestPage"*/),
 );
 
 function App() {

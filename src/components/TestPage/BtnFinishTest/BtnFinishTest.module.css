@@ -1,0 +1,22 @@
+.testPage__btnFinish {
+  width: 130px;
+  height: 48px;
+  background-color: #ff6b09;
+  justify-content: center;
+  font-family: Montserrat;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  testPage__btnFinish {
+    width: 190px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
