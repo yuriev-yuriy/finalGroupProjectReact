@@ -1,17 +1,17 @@
-// import { useSelector } from 'react-redux';
 import { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Logo from '../Logo';
 import Navigation from '../Navigation';
 import Burger from './Burger';
 import routes from '../../routes';
-// import { authSelectors } from '../../redux/auth/auth-selectors';
+import { authSelectors } from '../../redux/auth';
 import styles from './Header.module.css';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -20,8 +20,11 @@ function Header() {
           <Navigation isOpen={isOpen} onOpenMobileMenu={setIsOpen} />
           <Burger isOpen={isOpen} onOpenMobileMenu={setIsOpen} />
         </div>
-        {/* {isLoggedIn ? <UserMenu /> : <AuthNav />} */}
-        <div className={styles.line}></div>
+        {isLoggedIn ? (
+          <div className={styles.lineLog}></div>
+        ) : (
+          <div className={styles.line}></div>
+        )}
       </div>
     </header>
   );
