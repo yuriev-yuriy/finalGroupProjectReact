@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getValue, getStep } from '../../redux/questions/questions-selectors';
 import Value from './Value/Value';
 import * as questionsActions from '../../redux/questions/questions-actions';
+
 import s from './TestPage.module.css';
 
 const TestPage = () => {
@@ -26,6 +27,7 @@ const TestPage = () => {
           <div className={s.testPage__questionsNumber}>
             <h3 className={s.testPage__questionsNumberTitle}>Question</h3>
             <Value value={value} />
+
             <span className={s.testPage__totalAnswers}> / 12 </span>
           </div>
           <QuestionsCard />

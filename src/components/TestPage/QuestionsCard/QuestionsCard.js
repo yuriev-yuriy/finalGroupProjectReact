@@ -1,7 +1,9 @@
 import { getQuestions } from '../../../redux/questions/questions-selectors';
 import questionsOperations from '../../../redux/questions/questions-operations';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { useState, useEffect } from 'react';
+
 import s from './QuestionCard.module.css';
 
 const QuestionsCard = () => {
