@@ -33,15 +33,15 @@ const TestPage = lazy(() =>
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Suspense fallback={'Loading'}>
         <Switch>
-          <Route path={routes.USEFUL_INFO_VIEW} component={UseFulInfoView} />
+          {/* <Route path={routes.USEFUL_INFO_VIEW} component={UseFulInfoView} />
           <Route path={routes.CONTACTS_VIEW} component={ContactsView} />
-          <Route path={routes.AUTH_VIEW} component={AuthView} />
+          <Route path={routes.AUTH_VIEW} component={AuthView} /> */}
           <Route path={routes.TEST_VIEW} component={TestPage} />
-          <Route path={routes.RESULT_VIEW} component={Results} />
-          <Route path={routes.MAIN_VIEW} component={MainView} />
+          {/* <Route path={routes.RESULT_VIEW} component={Results} />
+          <Route path={routes.MAIN_VIEW} component={MainView} /> */}
         </Switch>
       </Suspense>
       <Footer />
