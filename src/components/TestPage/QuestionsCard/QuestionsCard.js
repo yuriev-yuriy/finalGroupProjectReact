@@ -14,7 +14,7 @@ const QuestionsCard = () => {
 
   useEffect(() => {
     dispatch(questionsOperations.fetchQuestions());
-  }, []);
+  });
 
   return (
     <ul>

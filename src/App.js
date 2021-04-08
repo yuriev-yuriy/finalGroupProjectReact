@@ -44,10 +44,6 @@ function App() {
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
       </Suspense>
-
-      <TestPage />
-      <Results />
-
       <Footer />
     </BrowserRouter>
   );

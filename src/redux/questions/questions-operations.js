@@ -21,6 +21,4 @@ const fetchQuestions = () => async dispatch => {
   }
 };
 
-export default {
-  fetchQuestions,
-};
+export default { fetchQuestions };
