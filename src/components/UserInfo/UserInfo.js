@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { authOperations } from '../../redux/auth';
-// import defaultAvatar from './default-avatar.png';
 import { NavLink } from 'react-router-dom';
-import routes from '../../routes';
-import { ReactComponent as SignOutIcon } from '../../assets/icons/svg/signOut.svg';
 
+import routes from '../../routes';
+import { authOperations } from '../../redux/auth';
+import { ReactComponent as SignOutIcon } from '../../assets/icons/svg/signOut.svg';
+// import defaultAvatar from './default-avatar.png';
 import styles from './UserInfo.module.css';
 
 function UserInfo({ onOpenMobileMenu }) {
