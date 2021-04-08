@@ -17,12 +17,12 @@ export default function AuthForm() {
   const formatUserEmail = 'https://' + userEmail;
 
 
-  console.log(typeof userCode);
+  console.log( userCode);
 
   const toggleModal = useCallback(() => {
       setShowModal(prevShowModal => !prevShowModal);
   }, []);
-  
+ 
   useEffect(() => {
     toggleModal()
   }, [toggleModal, userCode]);
@@ -101,11 +101,9 @@ export default function AuthForm() {
           </button>
         </div>
       </form>
-      {userCode === 201 && (
-                <Modal onClose={toggleModal}>
+     {userCode === 201 && <Modal onClose={toggleModal}>
                     <p>confirm registration on your <a href={formatUserEmail}>{userEmail}</a></p>
-                </Modal>
-            )}
+      </Modal>}
     </div>
   );
 }

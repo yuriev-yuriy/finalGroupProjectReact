@@ -15,11 +15,10 @@ const token = {
 const register = createAsyncThunk('auth/register', async credentials => {
   try {
     const data = await axios.post('/auth/register', credentials);
-    console.log(data)
     token.set(data.token);
     return data;
   } catch (err) {
-    throw new err();
+    throw new Error();
   }
 });
 
@@ -42,9 +41,25 @@ const logOut = createAsyncThunk('auth/logout', async () => {
   } catch (error) {}
 });
 
+const fetchCurrentUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const persistedToken = state.auth.token;
+
+  if (persistedToken === null) {
+    return thunkAPI.rejectWithValue();
+  }
+  
+  token.set(persistedToken);
+  try {
+    const data = await axios.get('/users/current');
+    return data;
+  } catch (err) { }
+});
+
 const operations = {
   register,
   login,
   logOut,
+  fetchCurrentUser,
 };
 export default operations;
