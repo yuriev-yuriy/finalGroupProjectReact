@@ -61,19 +61,28 @@ body {
     width: 1030px;
     flex-wrap: nowrap;
     flex-direction: row;
-    /* align-items: center; */
     margin: 0 auto;
-    padding-top: 100px;
+    align-items: start;
   }
 
   .innerWrapper {
     width: 536px;
+    margin-top: 170px;
   }
 
   .header {
+    margin: 0;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 41px;
+    letter-spacing: 0.02em;
   }
 
   .para {
     width: 420px;
+    margin: 10px 000;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 36px;
   }
 }
