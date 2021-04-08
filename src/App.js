@@ -8,7 +8,11 @@ import Header from './components/Header/';
 
 import AuthView from './views/AuthView/';
 
-import Footer from './components/Footer/';
+
+import Footer from './components/Footer';
+import Results from './components/Results';
+import TestPage from "./components/TestPage";
+
 
 const MainView = lazy(() =>
   import('./views/MainView' /*webpackChunkName: "MainView"*/),
@@ -39,6 +43,10 @@ function App() {
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
       </Suspense>
+
+      <TestPage />
+      <Results />
+
       <Footer />
     </BrowserRouter>
   );
