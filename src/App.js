@@ -8,7 +8,7 @@ import Header from './components/Header/';
 
 import AuthView from './views/AuthView/';
 
-import Footer from './components/Footer/';
+import Footer from './components/Footer';
 
 const MainView = lazy(() =>
   import('./views/MainView' /*webpackChunkName: "MainView"*/),
@@ -26,6 +26,10 @@ const Results = lazy(() =>
   import('./components/Results' /*webpackChunkName: "Results"*/),
 );
 
+const TestPage = lazy(() =>
+  import('./components/TestPage' /*webpackChunkName: "TestPage"*/),
+);
+
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +39,7 @@ function App() {
           <Route path={routes.USEFUL_INFO_VIEW} component={UseFulInfoView} />
           <Route path={routes.CONTACTS_VIEW} component={ContactsView} />
           <Route path={routes.AUTH_VIEW} component={AuthView} />
+          <Route path={routes.TEST_VIEW} component={TestPage} />
           <Route path={routes.RESULT_VIEW} component={Results} />
           <Route path={routes.MAIN_VIEW} component={MainView} />
         </Switch>
