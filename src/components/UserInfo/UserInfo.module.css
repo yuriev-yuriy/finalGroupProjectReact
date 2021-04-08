@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.signOutBtnLg {
+  display: none;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  margin-right: 35px;
+}
+
+.initial {
+  font-family: 'MontserratSemiBold';
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0px 1px 1px rgba(18, 29, 46, 0.1);
+}
+
+.name {
+  font-family: 'MontserratMedium';
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .userInfo {
+    margin-right: 40px;
+  }
+
+  .initial {
+    margin-right: 10px;
+  }
+
+  .name {
+    font-size: 14px;
+    display: block;
+  }
+
+  .signOutBtnLg {
+    display: flex;
+    fill: #000;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+
+  .signOutBtnLg:hover {
+    fill: #ff6b09;
+    transition: 0.4s;
+    transform: scale(1.05);
+  }
+}
+
+@media (min-width: 1280px) {
+  .initial {
+    font-size: 14px;
+    margin-right: 25px;
+  }
+}

@@ -39,8 +39,10 @@
 }
 
 .mainPage_descr {
+  display: block;
   margin-bottom: 30px;
   font-family: 'MontserratLight', sans-serif;
+  /* margin: 0; */
 }
 
 .buttonBlue {
@@ -71,6 +73,7 @@
   }
 
   .mainPage_descr {
+    display: block;
     margin-bottom: 65px;
   }
 
@@ -95,6 +98,7 @@
 
   .mainPage_descr {
     margin-bottom: 95px;
+    display: block;
   }
 
   .mainPage_buttons {
