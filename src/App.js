@@ -45,6 +45,8 @@ function App() {
       <Suspense fallback={'Loading'}>
         <Switch>
           <Route path={routes.TEST_VIEW} component={TestPage} />
+          <Route path={routes.MAIN_VIEW} component={MainView} />
+
           {/*           
           <PrivateRoute path={routes.USEFUL_INFO_VIEW}>
             <UseFulInfoView />

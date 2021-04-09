@@ -1,21 +1,23 @@
 import React from 'react';
+import { actionSetNameTest } from '../../redux/questions/questions-actions';
+import { useDispatch } from 'react-redux';
 import MainButton from '../../components/MainPage/MainButton';
 import s from './MainPage.module.css';
-
-// interface IId {
-//   id1: string,
-//   id2: string,
-// }
-
-// const ID_NEED_TEST: IId = {
-//   id1: '5e29edc351e2cd3a659a8e4e',
-//   id2: '5e2de905933b4f3b74d81d59',
-// };
 
 const TEXT_BUTTON = ['QA technical training', 'Testing theory'];
 const BUTTON_COLOR = ['orange', 'blue'];
 
 const MainPage = () => {
+  const dispatch = useDispatch();
+  const handleSetReduxQuery = e => {
+    const {
+      currentTarget: { dataset },
+    } = e;
+    if (dataset.nameTest) {
+      return dispatch(actionSetNameTest(dataset.nameTest));
+    }
+  };
+
   return (
     <section className={s.mainPage}>
       <div className={s.container}>
@@ -27,9 +29,19 @@ const MainPage = () => {
         <p className={s.mainPage_descr}>Linux kernel creator, hacker, 1969</p>
         <div className={s.mainPage_buttons}>
           <ul className={s.mainPage_buttonItems}>
-            <MainButton text={TEXT_BUTTON[0]} bg={BUTTON_COLOR[1]} />
+            <MainButton
+              onClick={handleSetReduxQuery}
+              dataSet="technic"
+              text={TEXT_BUTTON[0]}
+              bg={BUTTON_COLOR[1]}
+            />
 
-            <MainButton text={TEXT_BUTTON[1]} bg={BUTTON_COLOR[0]} />
+            <MainButton
+              onClick={handleSetReduxQuery}
+              dataSet="theoretical"
+              text={TEXT_BUTTON[1]}
+              bg={BUTTON_COLOR[0]}
+            />
           </ul>
         </div>
       </div>

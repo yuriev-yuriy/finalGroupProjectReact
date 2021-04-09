@@ -5,18 +5,17 @@ import {
   actionAddResult,
   actionUpdateResult,
 } from '../../redux/questions/questions-actions';
+import {
+  asyncActionGetTest,
+  asyncActionPostTest,
+} from '../../redux/questions/questions-operation.js';
 import { useSelector, useDispatch } from 'react-redux';
-
 import s from './TestPage.module.css';
 import { useState, useEffect } from 'react';
-import { technical } from './db.json';
 
 const TestPage = () => {
   const dispatch = useDispatch();
-  const [userAnswers, setUserAnswers] = useState([]);
-  const { answers } = useSelector(state => state);
-  // const [nameTest, setNameTest] = useState(null);
-  // const [resultTest, setResultTest] = useState(null);
+  const { answers, nameTest, questions } = useSelector(state => state);
 
   const [data, setData] = useState(null);
   const [i, setI] = useState(null);
@@ -24,9 +23,13 @@ const TestPage = () => {
   const [activeNext, setActiveNext] = useState(true);
 
   useEffect(() => {
-    setData(technical.splice(0, 12));
+    setData(questions);
     setI(0);
-  }, []);
+  }, [questions]);
+
+  useEffect(() => {
+    dispatch(asyncActionGetTest(nameTest));
+  }, [nameTest, dispatch]);
 
   let indexAnswer = 0;
 
@@ -34,7 +37,6 @@ const TestPage = () => {
     const {
       target: { dataset },
     } = e;
-    console.log(answers);
     const check = answers.some(el => el.answer !== undefined);
     const questionId = data[i].questionId;
     indexAnswer = dataset.index;
@@ -65,8 +67,6 @@ const TestPage = () => {
       currentTarget: { dataset },
     } = e;
     const flag = dataset.flag;
-    console.log(activePrev, `activePrev`);
-    console.log(activeNext, `activeNext`);
     if (flag === 'next') {
       if (i > 10) {
         return setActiveNext(false);
@@ -85,10 +85,14 @@ const TestPage = () => {
       return setI(() => i - 1);
     }
   };
+  const handlePostAnswer = async e => {
+    await dispatch(asyncActionPostTest(nameTest, answers));
+  };
 
   return (
     <section className={s.testPage}>
       <div className={s.container}>
+        <h1>{data && data.length === 12 && data[i].question}</h1>
         {data && data.length === 12 ? (
           <QuestionsCard
             counter={i}
@@ -102,13 +106,15 @@ const TestPage = () => {
           prev={activePrev}
           next={activeNext}
           handleClick={handleNextPrevClick}
-          disabled
         />
+        {answers && answers.length > 3 && (
+          <BtnFinishTest onClick={handlePostAnswer} />
+        )}
         {/* <div className={s.testPage__header}>
           <h2 className={s.testPage__testName}>
             <span className={s.testPage__testNameText}> [ Testing </span> theory_ ]
           </h2>
-          <BtnFinishTest />
+          
         </div>
         <div className={s.testPage__questions}>
           <div className={s.testPage__questionsNumber}>
@@ -118,9 +124,7 @@ const TestPage = () => {
           </div>
           <QuestionsCard />
         </div>
-        <BtnPrevNext
-          nextQuestion={() => dispatch(questionsActions.increment(step))}
-          prevQuestion={() => dispatch(questionsActions.decrement(step))}/> */}
+ */}
       </div>
     </section>
   );

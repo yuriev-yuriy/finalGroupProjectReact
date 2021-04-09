@@ -1,15 +1,19 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { resultQuestionsReducer } from '../questions';
+import { questionsReducer } from '../questions';
 import { LcSetReducer } from '../LC/index';
 
 const contactPersistConfig = {
   key: 'token',
   storage: storage,
 };
+
 export const rootReducer = combineReducers({
-  answers: resultQuestionsReducer,
+  answers: questionsReducer.resultQuestionsReducer,
+  nameTest: questionsReducer.setNameReducer,
+  questions: questionsReducer.setDataQuestions,
+  result: questionsReducer.setQuestionsResult,
   localSt: persistReducer(contactPersistConfig, LcSetReducer),
 });
 
