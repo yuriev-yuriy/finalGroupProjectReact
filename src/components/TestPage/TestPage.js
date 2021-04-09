@@ -51,7 +51,7 @@ const TestPage = () => {
     if (check) {
       answers.find(el => {
         if (el.index === indexAnswer) {
-          return {};
+          return newAnswer;
         } else if (el.answerId === questionId) {
           return newAnswer;
         }
