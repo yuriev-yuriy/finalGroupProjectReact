@@ -32,6 +32,27 @@
   width: 100%;
 }
 
+.signOutBtn {
+  display: block;
+  margin: 25px auto 0;
+  fill: #000;
+  cursor: pointer;
+}
+
+.signOutBtn:hover {
+  fill: #ff6b09;
+  transition: 0.2s;
+}
+
+.signOutBtnLg {
+  display: none;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 768px) {
   .navMenu {
     display: flex;
@@ -54,6 +75,45 @@
     transition: all 0.5s ease;
     z-index: 100;
   }
+
+  .link {
+    opacity: 0;
+    left: -50%;
+  }
+
+  .signOutBtn {
+    opacity: 0;
+    position: absolute;
+    left: -50%;
+  }
+
+  .navMenuActive .link:nth-child(1) {
+    opacity: 1;
+    left: 0;
+    transition: 0.4s;
+  }
+
+  .navMenuActive .link:nth-child(2) {
+    opacity: 1;
+    left: 0;
+    transition: 0.6s;
+  }
+  .navMenuActive .link:nth-child(3) {
+    opacity: 1;
+    left: 0;
+    transition: 0.8s;
+  }
+  .navMenuActive .link:nth-child(4) {
+    opacity: 1;
+    left: 0;
+    transition: 1s;
+  }
+
+  .navMenuActive .signOutBtn {
+    opacity: 1;
+    left: +50%;
+    transition: 0.8s;
+  }
 }
 
 @media (min-width: 768px) {
@@ -61,7 +121,50 @@
     padding: 0;
     border-bottom: none;
   }
+
+  .link:not(:last-of-type) {
+    margin-right: 80px;
+  }
+
   .text:hover::before {
     width: 100%;
+  }
+
+  .signOutBtn {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-right: 30px;
+  }
+
+  .signOutBtnLg {
+    display: block;
+    fill: #000;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+
+  .signOutBtnLg:hover {
+    fill: #ff6b09;
+    transition: 0.4s;
+    transform: scale(1.05);
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-right: 68px;
   }
 }
