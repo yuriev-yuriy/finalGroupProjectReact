@@ -1,18 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
+const actionAddResult = createAction('questions/add', newAnswer => ({
+  payload: newAnswer,
+}));
+const actionUpdateResult = createAction('questions/update', newAnswer => ({
+  payload: newAnswer,
+}));
 
-export const increment = createAction('questions/Increment');
-export const decrement = createAction('questions/Decrement');
-
-export const fetchQuestionsRequest = createAction(
-  'questions/fetchQuestionsRequest',
-);
-export const fetchQuestionsSuccess = createAction(
-  'questions/fetchQuestionsSuccess',
-);
-export const fetchQuestionsError = createAction(
-  'questions/fetchQuestionsError',
-);
-
-export const addAnswersRequest = createAction('questions/addAnswersRequest');
-export const addAnswersSuccess = createAction('questions/addAnswersSuccess');
-export const addAnswersError = createAction('questions/addAnswersError');
+export { actionAddResult, actionUpdateResult };

@@ -15,15 +15,8 @@
   display: flex;
   align-items: center;
   letter-spacing: 0.02em;
-}
-
-.testPage__btnPrev {
   background-color: orange;
   color: #fff;
-}
-
-.testPage__btnNext {
-  background-color: #fff;
 }
 
 .arrowLeft {
@@ -37,4 +30,7 @@
 
 .arrowRight:hover {
   fill: #fff;
+}
+.disactive {
+  background-color: rgb(98, 207, 47);
 }

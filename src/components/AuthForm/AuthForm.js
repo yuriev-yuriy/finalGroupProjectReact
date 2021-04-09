@@ -1,14 +1,30 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
+import Modal from '../Modal';
+import { authSelectors } from '../../redux/auth';
 import { getActiveElement } from 'formik';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+  const userEmail = useSelector(authSelectors.getUserEmail);
+  const userCode = useSelector(authSelectors.getCode);
+  const formatUserEmail = 'https://' + userEmail;
+
+  console.log(userCode);
+
+  const toggleModal = useCallback(() => {
+    setShowModal(prevShowModal => !prevShowModal);
+  }, []);
+
+  useEffect(() => {
+    toggleModal();
+  }, [toggleModal, userCode]);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -30,13 +46,13 @@ export default function AuthForm() {
     event.preventDefault();
     dispatch(authOperations.login({ email, password }));
     reset();
-  }
- 
+  };
+
   const makeSubmit = event => {
     event.preventDefault();
     dispatch(authOperations.register({ email, password }));
     reset();
-    }
+  };
 
   return (
     <div className={s.forma}>
@@ -84,6 +100,14 @@ export default function AuthForm() {
           </button>
         </div>
       </form>
+      {userCode === 201 && (
+        <Modal onClose={toggleModal}>
+          <p>
+            confirm registration on your{' '}
+            <a href={formatUserEmail}>{userEmail}</a>
+          </p>
+        </Modal>
+      )}
     </div>
   );
 }
