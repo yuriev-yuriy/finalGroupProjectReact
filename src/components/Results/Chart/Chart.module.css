@@ -1,0 +1,26 @@
+.chart {
+  margin: auto;
+  height: 50vh;
+  width: 50vw;
+}
+.container {
+  width: 320px;
+}
+@media (min-width: 768px) {
+  .chart {
+    height: 46vh;
+    width: 46vw;
+  }
+  .container {
+    width: 610px;
+  }
+}
+@media (min-width: 1280px) {
+  .chart {
+    height: 40vh;
+    width: 40vw;
+  }
+  .container {
+    width: 700px;
+  }
+}
