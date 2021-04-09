@@ -37,7 +37,7 @@ section {
 }
 .sectionSubtitle::after {
   content: '';
-  border-bottom: 1px solid #00122f;
+  border-bottom: 1px solid hsl(217, 100%, 9%);
   display: block;
   width: 130px;
   margin-top: 10px;
