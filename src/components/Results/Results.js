@@ -39,10 +39,17 @@ const Results = () => {
           <div className={s.container}>
             <h2 className={s.sectionTitle}>Results</h2>
             <h3 className={s.sectionSubtitle}>[TESTING THEOSY_]</h3>
-            <Diagram />
+            <Diagram
+              correctAnswers={dataAnswers.result.right}
+              allAnswers={dataAnswers.result.total}
+            />
             <div className={s.resultsWrapper}>
-              <p className={s.resultData}>Current answers- 10</p>
-              <p className={s.resultData}>Total questions- 12</p>
+              <p className={s.resultData}>
+                Current answers- {dataAnswers.result.right}
+              </p>
+              <p className={s.resultData}>
+                Total questions- {dataAnswers.result.total}
+              </p>
             </div>
             <picture>
               <source

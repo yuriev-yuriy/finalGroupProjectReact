@@ -31,7 +31,7 @@ const options = {
     },
   },
 };
-const Diagram = ({ correctAnswers = 10, allAnswers = 12 }) => {
+const Diagram = ({ correctAnswers, allAnswers }) => {
   const chartCorrect = Math.ceil((correctAnswers * 100) / allAnswers);
   const chartInCorrect = 100 - chartCorrect;
   // const chartInCorrect = allAnswers - correctAnswers;
