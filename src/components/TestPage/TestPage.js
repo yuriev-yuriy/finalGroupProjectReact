@@ -5,10 +5,7 @@ import {
   actionAddResult,
   actionUpdateResult,
 } from '../../redux/questions/questions-actions';
-import {
-  asyncActionGetTest,
-  asyncActionPostTest,
-} from '../../redux/questions/questions-operation.js';
+import { asyncActionGetTest } from '../../redux/questions/questions-operation.js';
 import { useSelector, useDispatch } from 'react-redux';
 import s from './TestPage.module.css';
 import { useState, useEffect } from 'react';
@@ -16,7 +13,6 @@ import { useState, useEffect } from 'react';
 const TestPage = () => {
   const dispatch = useDispatch();
   const { answers, nameTest, questions } = useSelector(state => state);
-
   const [data, setData] = useState(null);
   const [i, setI] = useState(null);
   const [activePrev, setActivePrev] = useState(false);
@@ -41,9 +37,9 @@ const TestPage = () => {
     const questionId = data[i].questionId;
     indexAnswer = dataset.index;
     const newAnswer = {
-      answerId: dataset.indexAnswer,
+      answerId: Number(dataset.indexAnswer),
       answer: dataset.answer,
-      index: dataset.index,
+      in: dataset.index,
     };
 
     if (!check) {
@@ -85,9 +81,6 @@ const TestPage = () => {
       return setI(() => i - 1);
     }
   };
-  const handlePostAnswer = async e => {
-    await dispatch(asyncActionPostTest(nameTest, answers));
-  };
 
   return (
     <section className={s.testPage}>
@@ -107,9 +100,7 @@ const TestPage = () => {
           next={activeNext}
           handleClick={handleNextPrevClick}
         />
-        {answers && answers.length > 3 && (
-          <BtnFinishTest onClick={handlePostAnswer} />
-        )}
+        {answers && answers.length > 3 && <BtnFinishTest />}
         {/* <div className={s.testPage__header}>
           <h2 className={s.testPage__testName}>
             <span className={s.testPage__testNameText}> [ Testing </span> theory_ ]
