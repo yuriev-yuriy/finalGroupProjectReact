@@ -5,7 +5,7 @@ import {
   actionAddResult,
   actionUpdateResult,
 } from '../../redux/questions/questions-actions';
-import { asyncActionGetTest } from '../../redux/questions/questions-operation.js';
+import { getQuestions } from '../../data/apiQueries';
 import { useSelector, useDispatch } from 'react-redux';
 import s from './TestPage.module.css';
 import { useState, useEffect } from 'react';
@@ -19,13 +19,23 @@ const TestPage = () => {
   const [activeNext, setActiveNext] = useState(true);
 
   useEffect(() => {
-    setData(questions);
+    // setData(questions);
     setI(0);
-  }, [questions]);
-
+  }, []);
   useEffect(() => {
-    dispatch(asyncActionGetTest(nameTest));
-  }, [nameTest, dispatch]);
+    async function getAnswers() {
+      try {
+        const { data } = await getQuestions(nameTest);
+        setData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getAnswers();
+  }, [nameTest]);
+  // useEffect(() => {
+  //   dispatch(asyncActionGetTest(nameTest));
+  // }, [nameTest, dispatch]);
 
   let indexAnswer = 0;
 
@@ -34,18 +44,16 @@ const TestPage = () => {
       target: { dataset },
     } = e;
     const check = answers.some(el => el.answer !== undefined);
-    const questionId = data[i].questionId;
+    const questionId = questions[i].questionId;
     indexAnswer = dataset.index;
     const newAnswer = {
       answerId: Number(dataset.indexAnswer),
       answer: dataset.answer,
       in: dataset.index,
     };
-
     if (!check) {
       dispatch(actionAddResult(newAnswer));
     }
-
     if (check) {
       answers.find(el => {
         if (el.index === indexAnswer) {
@@ -83,25 +91,24 @@ const TestPage = () => {
   };
 
   return (
-    <section className={s.testPage}>
-      <div className={s.container}>
-        <h1>{data && data.length === 12 && data[i].question}</h1>
-        {data && data.length === 12 ? (
+    data !== null &&
+    data.length === 12 && (
+      <section className={s.testPage}>
+        <div className={s.container}>
+          <h1>{data && data.length === 12 && data[i].question}</h1>
           <QuestionsCard
             counter={i}
             handelSet={handleTestList}
             apiData={data}
           />
-        ) : (
-          <div>Error</div>
-        )}
-        <BtnPrevNext
-          prev={activePrev}
-          next={activeNext}
-          handleClick={handleNextPrevClick}
-        />
-        {answers && answers.length > 3 && <BtnFinishTest />}
-        {/* <div className={s.testPage__header}>
+          <BtnPrevNext
+            prev={activePrev}
+            next={activeNext}
+            handleClick={handleNextPrevClick}
+          />
+          {answers && answers.length > 3 && <BtnFinishTest />}
+
+          {/* <div className={s.testPage__header}>
           <h2 className={s.testPage__testName}>
             <span className={s.testPage__testNameText}> [ Testing </span> theory_ ]
           </h2>
@@ -116,8 +123,9 @@ const TestPage = () => {
           <QuestionsCard />
         </div>
  */}
-      </div>
-    </section>
+        </div>
+      </section>
+    )
   );
 };
 export default TestPage;

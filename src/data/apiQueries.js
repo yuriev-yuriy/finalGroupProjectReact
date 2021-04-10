@@ -7,7 +7,6 @@ const getQuestions = async query => {
   const { data } = await axios.get(
     `/test/${query === 'theoretical' ? 'theory-questions' : 'tech-questions'}`,
   );
-  console.log(query, `query`);
   return data;
 };
 const postUserAnswers = async (nameTest, userAnswers) => {
