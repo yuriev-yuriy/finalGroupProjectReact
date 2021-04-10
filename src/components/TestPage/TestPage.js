@@ -95,7 +95,48 @@ const TestPage = () => {
     data.length === 12 && (
       <section className={s.testPage}>
         <div className={s.container}>
-          <h1>{data && data.length === 12 && data[i].question}</h1>
+          <div className={s.testPage__header}>
+            <h2 className={s.testPage__testName}>
+              {nameTest === 'QA technical training' ? (
+                <span className={s.testPage__testNameText}>
+                  {' '}
+                  QA technical training{' '}
+                </span>
+              ) : (
+                <span className={s.testPage__testNameText}>
+                  {' '}
+                  [ Testing <br />
+                  theory_ ]{' '}
+                </span>
+              )}
+            </h2>
+            <BtnFinishTest />
+          </div>
+          <div className={s.testPage__questions}>
+            <h3 className={s.testPage__questionsNumber}>
+              Question
+              <span className={s.testPage__currentQuestionNum}>
+                &#160; {i + 1}&#160;
+              </span>
+              / 12
+            </h3>
+
+            {data && data.length === 12 ? (
+              <QuestionsCard
+                counter={i}
+                handleSet={handleTestList}
+                apiData={data}
+              />
+            ) : (
+              <div>Error</div>
+            )}
+          </div>
+          <BtnPrevNext
+            prev={activePrev}
+            next={activeNext}
+            handleClick={handleNextPrevClick}
+          />
+          {/* <h1>{data && data.length === 12 && data[i].question}</h1>
           <QuestionsCard
             counter={i}
             handelSet={handleTestList}
@@ -106,23 +147,7 @@ const TestPage = () => {
             next={activeNext}
             handleClick={handleNextPrevClick}
           />
-          {answers && answers.length > 3 && <BtnFinishTest />}
-
-          {/* <div className={s.testPage__header}>
-          <h2 className={s.testPage__testName}>
-            <span className={s.testPage__testNameText}> [ Testing </span> theory_ ]
-          </h2>
-          
-        </div>
-        <div className={s.testPage__questions}>
-          <div className={s.testPage__questionsNumber}>
-            <h3 className={s.testPage__questionsNumberTitle}>Question</h3>
-             <Value value={value} />
-            <span className={s.testPage__totalAnswers}> / 12 </span>
-          </div>
-          <QuestionsCard />
-        </div>
- */}
+          {answers && answers.length > 3 && <BtnFinishTest />} */}
         </div>
       </section>
     )
