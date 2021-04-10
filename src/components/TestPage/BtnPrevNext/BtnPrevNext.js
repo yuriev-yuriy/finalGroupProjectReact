@@ -9,19 +9,17 @@ const BtnPrevNext = ({ handleClick, prev, next }) => {
         className={prev ? s.testPage__btnPrev : s.disactive}
         type="button"
         data-flag="prev"
-        disabled={!prev}
       >
         <Arrow className={s.arrowLeft} width="25px" alt="arrow" />
-        Previous question
+        <span className={s.testPage__btnPrevNextText}> Previous question </span>
       </button>
       <button
         onClick={handleClick}
         className={next ? s.testPage__btnNext : s.disactive}
         type="button"
         data-flag="next"
-        disabled={!next}
       >
-        Next question
+        <span className={s.testPage__btnPrevNextText}> Next question </span>
         <Arrow className={s.arrowRight} width="25px" alt="arrow" />
       </button>
     </div>

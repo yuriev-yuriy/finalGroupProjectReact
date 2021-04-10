@@ -47,7 +47,7 @@ function App() {
           <Route exact path={routes.TEST_VIEW} component={TestPage} />
           <Route exact path={routes.MAIN_VIEW} component={MainView} />
           <Route exact path={routes.RESULT_VIEW} component={Results} />
-          <Route exact path={routes.AUTH_VIEW} component={AuthView} />
+          {/* <Route exact path={routes.AUTH_VIEW} component={AuthView} /> */}
 
           {/*           
           <PrivateRoute path={routes.USEFUL_INFO_VIEW}>

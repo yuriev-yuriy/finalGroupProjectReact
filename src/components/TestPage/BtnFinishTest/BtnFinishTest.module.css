@@ -11,6 +11,7 @@
   align-items: center;
   letter-spacing: 0.02em;
   color: #fff;
+  text-transform: uppercase;
 }
 
 @media (min-width: 768px) {

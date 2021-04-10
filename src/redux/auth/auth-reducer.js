@@ -9,9 +9,10 @@ const initialState = {
 };
 
 const authReducer = createReducer(initialState, {
-  [authOperations.register.fulfilled](state, action) {
-    state.code = action.payload.data.code;
-  },
+  // [authOperations.register.fulfilled](state, {pay}) {
+  //   const =
+  //   state.code = action.payload.data.code;
+  // },
   [authOperations.login.fulfilled](state, action) {
     console.log(JSON.stringify(action));
     state.user = action.payload.data.data.user;

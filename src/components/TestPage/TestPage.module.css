@@ -1,3 +1,6 @@
+.item__checked {
+  background-color: rgb(214, 98, 30);
+}
 .item {
   background-color: orange;
   width: 150px;
@@ -13,7 +16,18 @@
 .container {
   width: 280px;
 }
-
+.container__head {
+  display: flex;
+  justify-content: space-between;
+}
+.container__head__title {
+  width: 30%;
+  height: 50px;
+  text-align: left;
+}
+.container__head__span {
+  display: block;
+}
 .testPage__header {
   display: flex;
   justify-content: space-between;
