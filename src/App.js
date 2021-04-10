@@ -34,17 +34,20 @@ const TestPage = lazy(() =>
 );
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(authOperations.fetchCurrentUser());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(authOperations.fetchCurrentUser());
+  // }, [dispatch]);
   return (
     <BrowserRouter>
       {/* <Header /> */}
       <Suspense fallback={'Loading'}>
         <Switch>
-          <Route path={routes.TEST_VIEW} component={TestPage} />
+          <Route exact path={routes.TEST_VIEW} component={TestPage} />
+          <Route exact path={routes.MAIN_VIEW} component={MainView} />
+          <Route exact path={routes.RESULT_VIEW} component={Results} />
+
           {/*           
           <PrivateRoute path={routes.USEFUL_INFO_VIEW}>
             <UseFulInfoView />

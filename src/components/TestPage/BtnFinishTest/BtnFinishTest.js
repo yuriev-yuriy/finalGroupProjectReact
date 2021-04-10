@@ -4,7 +4,7 @@ import s from './BtnFinishTest.module.css';
 
 const BtnFinishTest = () => {
   return (
-    <Link to={routes.MAIN_VIEW} className={s.testPage__btnFinish}>
+    <Link to={routes.RESULT_VIEW} className={s.testPage__btnFinish}>
       Finish test
     </Link>
   );

@@ -5,5 +5,21 @@ const actionAddResult = createAction('questions/add', newAnswer => ({
 const actionUpdateResult = createAction('questions/update', newAnswer => ({
   payload: newAnswer,
 }));
+const actionSetNameTest = createAction('questions/setName', newAnswer => ({
+  payload: newAnswer,
+}));
 
-export { actionAddResult, actionUpdateResult };
+const actionGetTest = createAction('data/getTest', value => ({
+  payload: value,
+}));
+const actionPostTest = createAction('data/postName', value => ({
+  payload: value,
+}));
+
+export {
+  actionAddResult,
+  actionUpdateResult,
+  actionSetNameTest,
+  actionGetTest,
+  actionPostTest,
+};
