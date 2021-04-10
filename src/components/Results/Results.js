@@ -28,20 +28,20 @@ const Results = () => {
   const location = useLocation();
 
   const handleTryAgane = () => {
-    // console.log(location.state.from);
-    history.push(location.state.from);
+    console.log(location.state.from);
+    // history.push(location.state.from);
   };
-
+  dataAnswers !== null && console.log(dataAnswers.right);
   return (
     <>
-      {dataAnswers && (
+      {dataAnswers !== undefined && dataAnswers !== null && (
         <section>
           <div className={s.container}>
             <h2 className={s.sectionTitle}>Results</h2>
             <h3 className={s.sectionSubtitle}>[TESTING THEOSY_]</h3>
             <Diagram
-              correctAnswers={dataAnswers.result.right}
-              allAnswers={dataAnswers.result.total}
+              correctAnswers={dataAnswers.right}
+              allAnswers={dataAnswers.total}
             />
             <div className={s.resultsWrapper}>
               <p className={s.resultData}>

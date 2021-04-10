@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 
 const TestPage = () => {
   const dispatch = useDispatch();
-  const { answers, nameTest, questions } = useSelector(state => state);
+  const { answers, nameTest } = useSelector(state => state);
   const [data, setData] = useState(null);
   const [i, setI] = useState(null);
   const [activePrev, setActivePrev] = useState(false);
@@ -32,7 +32,7 @@ const TestPage = () => {
       }
     }
     getAnswers();
-  }, [nameTest]);
+  }, []);
   // useEffect(() => {
   //   dispatch(asyncActionGetTest(nameTest));
   // }, [nameTest, dispatch]);
@@ -44,7 +44,7 @@ const TestPage = () => {
       target: { dataset },
     } = e;
     const check = answers.some(el => el.answer !== undefined);
-    const questionId = questions[i].questionId;
+    const questionId = data[i].questionId;
     indexAnswer = dataset.index;
     const newAnswer = {
       answerId: Number(dataset.indexAnswer),
