@@ -1,13 +1,30 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
+import Modal from '../Modal';
+import { authSelectors } from '../../redux/auth';
+import { getActiveElement } from 'formik';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+  const userEmail = useSelector(authSelectors.getUserEmail);
+  const userCode = useSelector(authSelectors.getCode);
+  const formatUserEmail = 'https://' + userEmail;
+
+  console.log(userCode);
+
+  const toggleModal = useCallback(() => {
+    setShowModal(prevShowModal => !prevShowModal);
+  }, []);
+
+  useEffect(() => {
+    toggleModal();
+  }, [toggleModal, userCode]);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -19,32 +36,25 @@ export default function AuthForm() {
         return;
     }
   };
-  // const handleChangeEmail = event => {
-  //   setEmail(event.target.value);
-  // }
-
-  // const handleChangePass = event => {
-  //   setPassword(event.target.value);
-  // }
 
   const reset = () => {
     setEmail('');
     setPassword('');
   };
 
+  const alterSubmit = event => {
+    event.preventDefault();
+
+    dispatch(authOperations.login({ email, password }));
+    reset();
+  };
+
   const makeSubmit = event => {
     event.preventDefault();
-    if (event.target.name === email) {
-      console.log('Boo');
-      console.log(event.target);
-      dispatch(authOperations.login({ email, password }));
-      reset();
-    } else {
-      dispatch(authOperations.register({ email, password }));
-      reset();
-      console.log('works');
-    }
+    dispatch(authOperations.register({ email, password }));
+    reset();
   };
+
   return (
     <div className={s.forma}>
       <p className={s.para}>
@@ -83,14 +93,22 @@ export default function AuthForm() {
           />
         </label>
         <div className={s.btnWrapperBottom}>
-          <button className={s.regBtn} name="email">
+          <button className={s.regBtn} onClick={alterSubmit}>
             Sign In
           </button>
-          <button type="submit" name="password" className={s.regBtn}>
+          <button data-auth="reg" className={s.regBtn}>
             Sign Up
           </button>
         </div>
       </form>
+      {userCode === 201 && (
+        <Modal onClose={toggleModal}>
+          <p>
+            confirm registration on your{' '}
+            <a href={formatUserEmail}>{userEmail}</a>
+          </p>
+        </Modal>
+      )}
     </div>
   );
 }

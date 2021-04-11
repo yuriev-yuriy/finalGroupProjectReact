@@ -1,4 +1,5 @@
 import AuthForm from '../../components/AuthForm';
+// import Modal from '../../components/Modal';
 import s from './AuthView.module.css';
 
 const AuthView = () => {

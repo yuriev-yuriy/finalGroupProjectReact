@@ -13,7 +13,8 @@
   padding: 0 20px;
 }
 
-.line {
+.line,
+.lineLog {
   position: absolute;
   top: 0;
   right: 65px;
@@ -22,8 +23,17 @@
   background-color: #e2e3e5;
 }
 
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
 @media (min-width: 768px) {
   .line {
     display: none;
+  }
+
+  .lineLog {
+    /* right: 65px; */
   }
 }

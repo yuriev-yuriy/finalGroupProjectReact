@@ -1,19 +1,15 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import T from 'prop-types';
 import { Link } from 'react-router-dom';
 import routes from '../../../routes';
 import { ReactComponent as Arrow } from '../../../assets/icons/svg/arrow.svg';
 import s from './MainButton.module.css';
 
-const MainButton = ({ text, bg }) => {
-  const handleClick = () => {
-    console.log('click');
-  };
-
+const MainButton = ({ text, bg, onClick, dataSet }) => {
   return (
-    <li className={s.listButton}>
+    <li className={s.listButton} onClick={onClick} data-name-test={dataSet}>
       <Link
-        onClick={handleClick}
+        onClick={onClick}
         to={routes.TEST_VIEW}
         className={bg === 'orange' ? s.buttonOrange : s.buttonBlue}
       >
