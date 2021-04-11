@@ -1,16 +1,19 @@
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import s from './Results.module.css';
+import routes from '../../routes';
 import cat176 from '../../assets/images/cat176.png';
 import cat120 from '../../assets/images/cat120.png';
 import defaultImg from '../../assets/images/cat120default.png';
 import Diagram from './Chart/Chart.js';
 import { postUserAnswers } from '../../data/apiQueries';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { actionResetAnswers } from '../../redux/questions/questions-actions';
 
 const Results = () => {
   const { answers, nameTest } = useSelector(state => state);
   const [dataAnswers, setSetaAnswers] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getAnswers() {
@@ -24,14 +27,10 @@ const Results = () => {
     getAnswers();
   }, [nameTest, answers]);
 
-  const history = useHistory();
-  const location = useLocation();
-
   const handleTryAgane = () => {
-    console.log(location.state.from);
-    // history.push(location.state.from);
+    dispatch(actionResetAnswers([]));
   };
-  dataAnswers !== null && console.log(dataAnswers.right);
+
   return (
     <>
       {dataAnswers !== undefined && dataAnswers !== null && (
@@ -45,10 +44,10 @@ const Results = () => {
             />
             <div className={s.resultsWrapper}>
               <p className={s.resultData}>
-                Current answers- {dataAnswers.result.right}
+                Current answers- {dataAnswers.right}
               </p>
               <p className={s.resultData}>
-                Total questions- {dataAnswers.result.total}
+                Total questions- {dataAnswers.total}
               </p>
             </div>
             <picture>
@@ -64,16 +63,35 @@ const Results = () => {
               />
               <img src={defaultImg} alt="cat with a heart" />
             </picture>
-            <p className={s.testResult}>Not bad!</p>
-            <p className={s.testResultDescription}>
-              But you still need to learn some materials.
-            </p>
-            <button
-              type="button"
-              onClick={handleTryAgane}
-              className={s.sectionButton}
-            >
-              Try again
+            {dataAnswers.right === dataAnswers.total && (
+              <>
+                <p className={s.testResult}>Vary Good!</p>
+                <p className={s.testResultDescription}>Don't stop there!</p>
+              </>
+            )}
+            {dataAnswers.total / 2 < dataAnswers.right ? (
+              <>
+                <p className={s.testResult}>Not bad!</p>
+                <p className={s.testResultDescription}>
+                  But you still need to learn some materials.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className={s.testResult}>Not very good :(</p>
+                <p className={s.testResultDescription}>
+                  Your result is below average.
+                </p>
+              </>
+            )}
+            <button>
+              <Link
+                to={routes.TEST_VIEW}
+                onClick={handleTryAgane}
+                className={s.sectionButton}
+              >
+                Try again
+              </Link>
             </button>
           </div>
         </section>

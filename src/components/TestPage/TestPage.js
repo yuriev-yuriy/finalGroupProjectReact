@@ -9,33 +9,31 @@ import { getQuestions } from '../../data/apiQueries';
 import { useSelector, useDispatch } from 'react-redux';
 import s from './TestPage.module.css';
 import { useState, useEffect } from 'react';
+import { asyncActionGetTest } from '../../redux/questions/questions-operation';
 
 const TestPage = () => {
   const dispatch = useDispatch();
-  const { answers, nameTest } = useSelector(state => state);
-  const [data, setData] = useState(null);
+  const { answers, nameTest, questions } = useSelector(state => state);
+  // const [data, setData] = useState(null);
   const [i, setI] = useState(null);
   const [activePrev, setActivePrev] = useState(false);
   const [activeNext, setActiveNext] = useState(true);
 
   useEffect(() => {
-    // setData(questions);
     setI(0);
   }, []);
+
   useEffect(() => {
     async function getAnswers() {
       try {
         const { data } = await getQuestions(nameTest);
-        setData(data);
+        return dispatch(asyncActionGetTest(data));
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
     getAnswers();
   }, []);
-  // useEffect(() => {
-  //   dispatch(asyncActionGetTest(nameTest));
-  // }, [nameTest, dispatch]);
 
   let indexAnswer = 0;
 
@@ -44,7 +42,7 @@ const TestPage = () => {
       target: { dataset },
     } = e;
     const check = answers.some(el => el.answer !== undefined);
-    const questionId = data[i].questionId;
+    const questionId = questions[i].questionId;
     indexAnswer = dataset.index;
     const newAnswer = {
       answerId: Number(dataset.indexAnswer),
@@ -91,15 +89,17 @@ const TestPage = () => {
   };
 
   return (
-    data !== null &&
-    data.length === 12 && (
+    questions !== [] &&
+    questions[i] !== undefined &&
+    questions[i].answers !== undefined &&
+    questions.length === 12 && (
       <section className={s.testPage}>
         <div className={s.container}>
-          <h1>{data && data.length === 12 && data[i].question}</h1>
+          <h1>{questions[i].question}</h1>
           <QuestionsCard
             counter={i}
             handelSet={handleTestList}
-            apiData={data}
+            apiData={questions}
           />
           <BtnPrevNext
             prev={activePrev}
