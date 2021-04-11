@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:3030';
+axios.defaults.baseURL = 'https://final-group-project-node.herokuapp.com';
 const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjljY2VjMjA2NTU2Mjk3ODY1MDdlYSIsImlhdCI6MTYxODA3MTUwNywiZXhwIjoxNjE4MTU3OTA3fQ.PnlHE3eQbNyDuNfbdNbqwT9Gkp-ZAEnetc98FgudpFI';
 axios.defaults.headers.common.Authorization = `Bearer ${token}`;

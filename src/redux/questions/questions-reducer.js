@@ -3,6 +3,7 @@ import {
   actionAddResult,
   actionUpdateResult,
   actionSetNameTest,
+  actionResetAnswers,
   actionGetTest,
   actionPostTest,
 } from './questions-actions';
@@ -18,6 +19,10 @@ const resultQuestionsReducer = createReducer([], {
       payload,
     ];
     return answerRemove;
+  },
+  [actionResetAnswers]: (state, { payload }) => {
+    const resetAnswers = payload;
+    return resetAnswers;
   },
 });
 const setNameReducer = createReducer('', {

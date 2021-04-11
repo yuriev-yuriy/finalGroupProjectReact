@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import routes from '../../../routes';
 import s from './BtnFinishTest.module.css';
 
+
 const BtnFinishTest = ({ checkData }) => {
   const handleTryTest = e => {
     console.log(`go to result view`);
@@ -9,7 +10,7 @@ const BtnFinishTest = ({ checkData }) => {
   console.log(checkData);
   return !checkData ? (
     <div className={s.testPage__btnFinish}>
-      <Link to={routes.RESULT_VIEW} onClick={handleTryTest}>
+      <Link to={routes.RESULT_VIEW} >
         Finish test
       </Link>
     </div>
