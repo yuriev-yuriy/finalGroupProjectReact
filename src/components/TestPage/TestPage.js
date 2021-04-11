@@ -84,7 +84,7 @@ const TestPage = () => {
       setActivePrev(true);
       return;
     }
-
+    // 1 2 3 4 5 ,  0 1 2 3 4
     if (flag === 'prev') {
       allLi.forEach(item => {
         item.classList.remove(s.item__checked);
@@ -103,13 +103,23 @@ const TestPage = () => {
       <section className={s.testPage}>
         <div className={s.container}>
           <div className={s.container__head}>
-            <p className={s.container__head__title}>
-              <span className={s.container__head__span}> [ Testing</span>
-              theory.. ]
-            </p>
-            <BtnFinishTest />
+            <h2 className={s.testPage__testName}>
+              <span className={s.testPage__testNameText}>
+                {' '}
+                [ Testing <br />
+                theory_ ]{' '}
+              </span>
+            </h2>
+            <BtnFinishTest checkData={answers.length === 12 ? true : false} />
           </div>
 
+          <h3 className={s.testPage__questionsNumber}>
+            Question
+            <span className={s.testPage__currentQuestionNum}>
+              &#160; {i + 1}&#160;
+            </span>
+            / 12
+          </h3>
           <h2>{data[i].question}</h2>
 
           <QuestionsCard
