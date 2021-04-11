@@ -16,7 +16,7 @@ const Results = () => {
     async function getAnswers() {
       try {
         const { data } = await postUserAnswers(nameTest, answers);
-        setSetaAnswers(data);
+        await setSetaAnswers(data);
       } catch (error) {
         console.error(error);
       }
@@ -24,14 +24,10 @@ const Results = () => {
     getAnswers();
   }, [nameTest, answers]);
 
-  const history = useHistory();
-  const location = useLocation();
-
-  const handleTryAgane = () => {
-    console.log(location.state.from);
-    // history.push(location.state.from);
+  const handleTryAgane = e => {
+    console.log(e);
   };
-  dataAnswers !== null && console.log(dataAnswers.right);
+  console.log(`ffffff`);
   return (
     <>
       {dataAnswers !== undefined && dataAnswers !== null && (

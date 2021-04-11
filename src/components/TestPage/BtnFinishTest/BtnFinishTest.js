@@ -7,9 +7,13 @@ const BtnFinishTest = ({ checkData }) => {
     console.log(`go to result view`);
   };
   console.log(checkData);
-  return !checkData ? (
-    <div className={s.testPage__btnFinish}>
-      <Link to={routes.RESULT_VIEW} onClick={handleTryTest}>
+  return checkData ? (
+    <div>
+      <Link
+        className={s.testPage__btnFinish}
+        to={routes.RESULT_VIEW}
+        onClick={handleTryTest}
+      >
         Finish test
       </Link>
     </div>
