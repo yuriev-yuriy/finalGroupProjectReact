@@ -1,5 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { actionAddResult, actionUpdateResult } from './questions-actions';
+import {
+  actionAddResult,
+  actionUpdateResult,
+  actionSetNameTest,
+  actionGetTest,
+  actionPostTest,
+} from './questions-actions';
 
 const resultQuestionsReducer = createReducer([], {
   [actionAddResult]: (state, { payload }) => {
@@ -14,5 +20,26 @@ const resultQuestionsReducer = createReducer([], {
     return answerRemove;
   },
 });
+const setNameReducer = createReducer('', {
+  [actionSetNameTest]: (state, { payload }) => {
+    return payload;
+  },
+});
+const setDataQuestions = createReducer([], {
+  [actionGetTest]: (state, { payload }) => {
+    return payload;
+  },
+});
+const setQuestionsResult = createReducer([], {
+  [actionPostTest]: (state, { payload }) => {
+    console.log(payload, `payload setQuestionsResult`);
+    return payload;
+  },
+});
 
-export default resultQuestionsReducer;
+export default {
+  resultQuestionsReducer,
+  setNameReducer,
+  setDataQuestions,
+  setQuestionsResult,
+};

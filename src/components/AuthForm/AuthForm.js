@@ -44,6 +44,7 @@ export default function AuthForm() {
 
   const alterSubmit = event => {
     event.preventDefault();
+
     dispatch(authOperations.login({ email, password }));
     reset();
   };
