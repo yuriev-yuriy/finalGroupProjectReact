@@ -49,6 +49,7 @@ function App() {
           <Route path={routes.RESULT_VIEW} component={Results} />
           {/*           
           <PrivateRoute path={routes.USEFUL_INFO_VIEW}>
+
             <UseFulInfoView />
           </PrivateRoute>
           <PublicRoute path={routes.CONTACTS_VIEW}>
