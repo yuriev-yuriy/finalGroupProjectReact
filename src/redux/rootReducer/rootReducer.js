@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { questionsReducer } from '../questions';
 import { LcSetReducer } from '../LC/index';
+import { authReducer } from '../auth';
 
 const contactPersistConfig = {
   key: 'token',
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   questions: questionsReducer.setDataQuestions,
   result: questionsReducer.setQuestionsResult,
   localSt: persistReducer(contactPersistConfig, LcSetReducer),
+  authLogin: authReducer.user,
 });
 
 export default rootReducer;

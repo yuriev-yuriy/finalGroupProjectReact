@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header/';
 
-import AuthView from './views/AuthView/';
+// import AuthView from './views/AuthView/';
 
 import Footer from './components/Footer/';
 import { authOperations } from './redux/auth/';
@@ -33,6 +33,10 @@ const TestPage = lazy(() =>
   import('./components/TestPage' /*webpackChunkName: "TestPage"*/),
 );
 
+const AuthView = lazy(() =>
+  import('./views/AuthView' /*webpackChunkName: "AuthView"*/),
+);
+
 function App() {
   // const dispatch = useDispatch();
 
@@ -47,8 +51,8 @@ function App() {
           <Route exact path={routes.TEST_VIEW} component={TestPage} />
           <Route exact path={routes.MAIN_VIEW} component={MainView} />
           <Route exact path={routes.RESULT_VIEW} component={Results} />
-          {/* <Route exact path={routes.AUTH_VIEW} component={AuthView} /> */}
 
+          <Route exact path={routes.AUTH_VIEW} component={AuthView} />
           {/*           
           <PrivateRoute path={routes.USEFUL_INFO_VIEW}>
             <UseFulInfoView />
