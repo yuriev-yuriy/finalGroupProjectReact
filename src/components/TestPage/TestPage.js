@@ -9,12 +9,11 @@ import { getQuestions } from '../../data/apiQueries';
 import { useSelector, useDispatch } from 'react-redux';
 import s from './TestPage.module.css';
 import { useState, useEffect } from 'react';
-import { asyncActionGetTest } from '../../redux/questions/questions-operation';
 
 const TestPage = () => {
   const dispatch = useDispatch();
-  const { answers, nameTest, questions } = useSelector(state => state);
-  // const [data, setData] = useState(null);
+  const { answers, nameTest } = useSelector(state => state);
+  const [data, setData] = useState(null);
   const [i, setI] = useState(null);
   const [activePrev, setActivePrev] = useState(false);
   const [activeNext, setActiveNext] = useState(true);
@@ -27,49 +26,54 @@ const TestPage = () => {
     async function getAnswers() {
       try {
         const { data } = await getQuestions(nameTest);
-        return dispatch(asyncActionGetTest(data));
+        setData(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     getAnswers();
-  }, []);
-
-  let indexAnswer = 0;
+  }, [nameTest]);
 
   const handleTestList = e => {
     const {
-      target: { dataset },
+      target: { dataset, id, nodeName },
     } = e;
+    if (nodeName !== 'LI') return;
+
     const check = answers.some(el => el.answer !== undefined);
-    const questionId = questions[i].questionId;
-    indexAnswer = dataset.index;
     const newAnswer = {
       answerId: Number(dataset.indexAnswer),
       answer: dataset.answer,
       in: dataset.index,
     };
+    const allLi = document.getElementsByName('check');
+    allLi.forEach(item => {
+      item.classList.remove(s.item__checked);
+    });
+    const currentLi = document.getElementById(id);
+    currentLi.classList.add(s.item__checked);
     if (!check) {
       dispatch(actionAddResult(newAnswer));
+      return;
     }
     if (check) {
-      answers.find(el => {
-        if (el.index === indexAnswer) {
-          return newAnswer;
-        } else if (el.answerId === questionId) {
-          return newAnswer;
-        }
-      });
       dispatch(actionUpdateResult(newAnswer));
+      return;
     }
   };
 
   const handleNextPrevClick = e => {
     const {
-      currentTarget: { dataset },
+      currentTarget: {
+        dataset: { flag },
+      },
     } = e;
-    const flag = dataset.flag;
+    const allLi = document.getElementsByName('check');
+
     if (flag === 'next') {
+      allLi.forEach(item => {
+        item.classList.remove(s.item__checked);
+      });
       if (i > 10) {
         return setActiveNext(false);
       }
@@ -78,8 +82,10 @@ const TestPage = () => {
       setActivePrev(true);
       return;
     }
-
     if (flag === 'prev') {
+      allLi.forEach(item => {
+        item.classList.remove(s.item__checked);
+      });
       if (i === 0) {
         return setActivePrev(false);
       }
@@ -89,40 +95,43 @@ const TestPage = () => {
   };
 
   return (
-    questions !== [] &&
-    questions[i] !== undefined &&
-    questions[i].answers !== undefined &&
-    questions.length === 12 && (
+    data !== null &&
+    data.length === 12 && (
       <section className={s.testPage}>
         <div className={s.container}>
-          <h1>{questions[i].question}</h1>
-          <QuestionsCard
-            counter={i}
-            handelSet={handleTestList}
-            apiData={questions}
-          />
+          <div className={s.container__head}>
+            <h2 className={s.testPage__testName}>
+              <span className={s.testPage__testNameText}>
+                {' '}
+                [ Testing <br />
+                {nameTest}_ ]{' '}
+              </span>
+            </h2>
+            <BtnFinishTest checkData={answers.length === 12 ? true : false} />
+          </div>
+          <div className={s.testPage__question}>
+            <h1 className={s.testPage__questionsNumber}>
+              Question
+              <span className={s.testPage__currentQuestionNum}>
+                &#160; {i + 1}&#160;
+              </span>
+              / 12
+            </h1>
+            <h4 className={s.testPage__titleQuestions}>{data[i].question}</h4>
+
+            <QuestionsCard
+              counter={i}
+              handelSet={handleTestList}
+              apiData={data}
+              currentAnswer={answers}
+            />
+          </div>
+
           <BtnPrevNext
             prev={activePrev}
             next={activeNext}
             handleClick={handleNextPrevClick}
           />
-          {answers && answers.length > 3 && <BtnFinishTest />}
-
-          {/* <div className={s.testPage__header}>
-          <h2 className={s.testPage__testName}>
-            <span className={s.testPage__testNameText}> [ Testing </span> theory_ ]
-          </h2>
-          
-        </div>
-        <div className={s.testPage__questions}>
-          <div className={s.testPage__questionsNumber}>
-            <h3 className={s.testPage__questionsNumberTitle}>Question</h3>
-             <Value value={value} />
-            <span className={s.testPage__totalAnswers}> / 12 </span>
-          </div>
-          <QuestionsCard />
-        </div>
- */}
         </div>
       </section>
     )

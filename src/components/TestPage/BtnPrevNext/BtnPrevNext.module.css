@@ -1,11 +1,15 @@
 .testPage__btnPrevNext {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.testPage__btnPrevNextText {
+  display: none;
 }
 
 .testPage__btnPrev,
 .testPage__btnNext {
-  background: none;
   border: none;
   font-family: Montserrat;
   font-style: normal;
@@ -14,9 +18,24 @@
   line-height: 15px;
   display: flex;
   align-items: center;
+  justify-content: center;
   letter-spacing: 0.02em;
-  background-color: orange;
+  width: 56px;
+  height: 34px;
+  background-color: #fff;
+  color: #000;
+}
+
+.testPage__btnPrev,
+.testPage__btnNext:hover {
+  background-color: #ffa500;
   color: #fff;
+}
+
+.arrowLeft,
+.arrowRight {
+  width: 24px;
+  height: 16px;
 }
 
 .arrowLeft {
@@ -24,13 +43,37 @@
   fill: #fff;
 }
 
-.arrowLeft:hover {
+.disactive {
+  background-color: #fff;
+  border: none;
+  width: 56px;
+  height: 34px;
+  color: #000;
   fill: #000;
 }
 
-.arrowRight:hover {
-  fill: #fff;
-}
-.disactive {
-  background-color: rgb(98, 207, 47);
+@media (min-width: 768px) {
+  .testPage__btnPrevNextText {
+    display: inline-block;
+  }
+
+  .testPage__btnPrev,
+  .testPage__btnNext {
+    width: 210px;
+    height: 34px;
+    justify-content: space-around;
+  }
+
+  .arrowLeft:hover {
+    fill: #000;
+  }
+
+  .arrowRight:hover {
+    fill: #fff;
+  }
+
+  .disactive {
+    width: 210px;
+    height: 34px;
+  }
 }
