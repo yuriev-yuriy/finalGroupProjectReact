@@ -15,13 +15,14 @@ const TestPage = () => {
   const { answers, nameTest } = useSelector(state => state);
   const [data, setData] = useState(null);
   const [i, setI] = useState(null);
+  const [prevAnswer, setPrevAnswer] = useState({});
   const [activePrev, setActivePrev] = useState(false);
   const [activeNext, setActiveNext] = useState(true);
 
   useEffect(() => {
-    // setData(questions);
     setI(0);
   }, []);
+
   useEffect(() => {
     async function getAnswers() {
       try {
@@ -33,45 +34,48 @@ const TestPage = () => {
     }
     getAnswers();
   }, []);
-  // useEffect(() => {
-  //   dispatch(asyncActionGetTest(nameTest));
-  // }, [nameTest, dispatch]);
-
-  let indexAnswer = 0;
 
   const handleTestList = e => {
     const {
-      target: { dataset },
+      target: { dataset, id, nodeName },
     } = e;
+    if (nodeName !== 'LI') return;
+
     const check = answers.some(el => el.answer !== undefined);
-    const questionId = data[i].questionId;
-    indexAnswer = dataset.index;
     const newAnswer = {
       answerId: Number(dataset.indexAnswer),
       answer: dataset.answer,
       in: dataset.index,
     };
+    const allLi = document.getElementsByName('check');
+    allLi.forEach(item => {
+      item.classList.remove(s.item__checked);
+    });
+    const currentLi = document.getElementById(id);
+    currentLi.classList.add(s.item__checked);
     if (!check) {
       dispatch(actionAddResult(newAnswer));
+      setPrevAnswer(() => newAnswer);
+      return;
     }
     if (check) {
-      answers.find(el => {
-        if (el.index === indexAnswer) {
-          return newAnswer;
-        } else if (el.answerId === questionId) {
-          return newAnswer;
-        }
-      });
+      setPrevAnswer(() => newAnswer);
       dispatch(actionUpdateResult(newAnswer));
+      return;
     }
   };
 
   const handleNextPrevClick = e => {
     const {
-      currentTarget: { dataset },
+      currentTarget: {
+        dataset: { flag },
+      },
     } = e;
-    const flag = dataset.flag;
-    if (flag === 'next') {
+    const allLi = document.getElementsByName('check');
+    if (flag === 'next' && answers.length - 1 === i) {
+      allLi.forEach(item => {
+        item.classList.remove(s.item__checked);
+      });
       if (i > 10) {
         return setActiveNext(false);
       }
@@ -80,8 +84,11 @@ const TestPage = () => {
       setActivePrev(true);
       return;
     }
-
+    // 1 2 3 4 5 ,  0 1 2 3 4
     if (flag === 'prev') {
+      allLi.forEach(item => {
+        item.classList.remove(s.item__checked);
+      });
       if (i === 0) {
         return setActivePrev(false);
       }
@@ -95,34 +102,37 @@ const TestPage = () => {
     data.length === 12 && (
       <section className={s.testPage}>
         <div className={s.container}>
-          <h1>{data && data.length === 12 && data[i].question}</h1>
+          <div className={s.container__head}>
+            <h2 className={s.testPage__testName}>
+              <span className={s.testPage__testNameText}>
+                {' '}
+                [ Testing <br />
+                theory_ ]{' '}
+              </span>
+            </h2>
+            <BtnFinishTest checkData={answers.length === 12 ? true : false} />
+          </div>
+
+          <h3 className={s.testPage__questionsNumber}>
+            Question
+            <span className={s.testPage__currentQuestionNum}>
+              &#160; {i + 1}&#160;
+            </span>
+            / 12
+          </h3>
+          <h2>{data[i].question}</h2>
+
           <QuestionsCard
             counter={i}
             handelSet={handleTestList}
             apiData={data}
+            currentAnswer={answers}
           />
           <BtnPrevNext
             prev={activePrev}
             next={activeNext}
             handleClick={handleNextPrevClick}
           />
-          {answers && answers.length > 3 && <BtnFinishTest />}
-
-          {/* <div className={s.testPage__header}>
-          <h2 className={s.testPage__testName}>
-            <span className={s.testPage__testNameText}> [ Testing </span> theory_ ]
-          </h2>
-          
-        </div>
-        <div className={s.testPage__questions}>
-          <div className={s.testPage__questionsNumber}>
-            <h3 className={s.testPage__questionsNumberTitle}>Question</h3>
-             <Value value={value} />
-            <span className={s.testPage__totalAnswers}> / 12 </span>
-          </div>
-          <QuestionsCard />
-        </div>
- */}
         </div>
       </section>
     )

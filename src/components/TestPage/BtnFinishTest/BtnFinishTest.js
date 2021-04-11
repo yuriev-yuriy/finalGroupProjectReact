@@ -1,25 +1,20 @@
 import { Link } from 'react-router-dom';
 import routes from '../../../routes';
 import s from './BtnFinishTest.module.css';
-import { useHistory, useLocation } from 'react-router-dom';
 
-const BtnFinishTest = () => {
-  const history = useHistory();
-  const location = useLocation();
-
-  const handleTryTest = () => {
-    // console.log(location.state.from);
-    // location.state = '/test'
-    // history.push('/test');
+const BtnFinishTest = ({ checkData }) => {
+  const handleTryTest = e => {
+    console.log(`go to result view`);
   };
-  return (
-    <Link
-      to={routes.RESULT_VIEW}
-      className={s.testPage__btnFinish}
-      onClick={handleTryTest}
-    >
-      Finish test
-    </Link>
+  console.log(checkData);
+  return !checkData ? (
+    <div className={s.testPage__btnFinish}>
+      <Link to={routes.RESULT_VIEW} onClick={handleTryTest}>
+        Finish test
+      </Link>
+    </div>
+  ) : (
+    <div className={s.testPage__btnFinish__disactive}>Finish test</div>
   );
 };
 
