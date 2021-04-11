@@ -14,20 +14,12 @@
   text-transform: uppercase;
 }
 .testPage__btnFinish {
-  background-color: #ff6b09;
   color: #fff;
-  position: relative;
+  background-color: #e27a34;
 }
-.testPage__btnFinish::after {
-  position: absolute;
-  top: 100px;
-  content: '';
-  background-color: #ff6b09;
-  width: 90px;
-  height: 4px;
-}
+
 .testPage__btnFinish:hover {
-  background-color: #3aff09;
+  background-color: #fd6601;
 }
 .testPage__btnFinish__disactive {
   background-color: #fff;

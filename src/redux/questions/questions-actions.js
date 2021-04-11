@@ -11,6 +11,9 @@ const actionUpdateResult = createAction('questions/update', newAnswer => ({
 const actionSetNameTest = createAction('questions/setName', newAnswer => ({
   payload: newAnswer,
 }));
+const actionResetAnswers = createAction('answers/reset', newAnswer => ({
+  payload: newAnswer,
+}));
 
 const actionGetTest = createAction('data/getTest', value => ({
   payload: value,
@@ -24,6 +27,7 @@ export {
   actionAddResult,
   actionUpdateResult,
   actionSetNameTest,
+  actionResetAnswers,
   actionGetTest,
   actionPostTest,
 };
