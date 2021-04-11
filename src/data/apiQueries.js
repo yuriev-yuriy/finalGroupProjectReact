@@ -18,4 +18,39 @@ const postUserAnswers = async (nameTest, userAnswers) => {
   return data;
 };
 
-export { getQuestions, postUserAnswers };
+const setToken = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = '';
+  },
+};
+
+const registerUser = ({ name, email, password }) => {
+  return axios
+    .post('/auth/register', { name, email, password })
+    .then(data => data);
+};
+
+const login = ({ email, password }) => {
+  return axios.post('/auth/login', { email, password }).then(data => data);
+};
+
+const logout = () => {
+  return axios.post('auth/logout').then(data => data);
+};
+
+const getUser = () => {
+  return axios.get('/users/current').then(data => data);
+};
+
+export {
+  getQuestions,
+  postUserAnswers,
+  registerUser,
+  login,
+  logout,
+  setToken,
+  getUser,
+};

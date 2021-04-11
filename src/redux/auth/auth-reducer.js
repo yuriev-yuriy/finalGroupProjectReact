@@ -1,37 +1,78 @@
-import authOperations from './auth-operations';
 import { createReducer } from '@reduxjs/toolkit';
+import {
+  registerUserRequest,
+  registerUserSuccess,
+  registerUserError,
+  loginUserRequest,
+  loginUserSuccess,
+  loginUserError,
+  logoutUserRequest,
+  logoutUserSuccess,
+  logoutUserError,
+  fetchCurrentUserRequest,
+  fetchCurrentUserSuccess,
+  fetchCurrentUserError,
+} from './auth-actions';
 
 const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
-  code: null,
 };
 
-const authReducer = createReducer(initialState, {
-  // [authOperations.register.fulfilled](state, {pay}) {
-  //   const =
-  //   state.code = action.payload.data.code;
-  // },
-  // [authOperations.register](state, { payload }) {
-  //   const data = [...state.user.na];
-  //   return data;
-  // },
-  // [actionLogin](state, action) {
-  //   state.user = action.payload.data.data.user;
-  //   state.token = action.payload.data.data.token;
-  //   state.isLoggedIn = true;
-  //   state.code = action.payload.data.code;
-  // },
-  // [authOperations.logOut.fulfilled](state, action) {
-  //   state.user = { name: null, email: null };
-  //   state.token = null;
-  //   state.isLoggedIn = false;
-  // },
-  // [authOperations.fetchCurrentUser.fulfilled](state, action) {
-  //   state.user = action.payload.data.data.user;
-  //   state.isLoggedIn = true;
-  // },
+const user = createReducer(initialState, {
+  [registerUserSuccess]: (_, { payload }) => payload,
+  [loginUserSuccess]: (_, { payload }) => payload,
+  [fetchCurrentUserSuccess]: (_, { payload }) => payload,
+  [logoutUserSuccess]: () => null,
 });
 
-export default authReducer;
+const token = createReducer(null, {
+  [registerUserSuccess]: (_, { payload }) => payload.token,
+  [loginUserSuccess]: (_, { payload }) => payload.token,
+  [fetchCurrentUserError]: () => null,
+  [logoutUserSuccess]: () => null,
+});
+
+const isLoggedIn = createReducer(false, {
+  [loginUserSuccess]: () => true,
+  [fetchCurrentUserSuccess]: () => true,
+  [fetchCurrentUserRequest]: () => true,
+
+  [loginUserError]: () => false,
+  [logoutUserSuccess]: () => false,
+  [fetchCurrentUserError]: () => false,
+});
+
+const loading = createReducer(false, {
+  [registerUserRequest]: () => true,
+  [registerUserSuccess]: () => false,
+  [registerUserError]: () => false,
+
+  [loginUserRequest]: () => true,
+  [loginUserSuccess]: () => false,
+  [loginUserError]: () => false,
+
+  [logoutUserRequest]: () => true,
+  [logoutUserSuccess]: () => false,
+  [logoutUserError]: () => false,
+
+  [fetchCurrentUserRequest]: () => true,
+  [fetchCurrentUserSuccess]: () => false,
+  [fetchCurrentUserError]: () => false,
+});
+
+export default {
+  user,
+  token,
+  isLoggedIn,
+  loading,
+};
+
+// const isAuthenticated = createReducer(false, {
+// [registerUserSuccess]: () => true,
+// [loginUserSuccess]: () => true,
+// [registerUserError]: () => false,
+// [loginUserError]: () => false,
+// [logoutUserSuccess]: () => false,
+// });

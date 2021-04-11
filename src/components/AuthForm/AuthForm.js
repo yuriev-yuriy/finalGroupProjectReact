@@ -12,19 +12,17 @@ export default function AuthForm() {
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const userEmail = useSelector(authSelectors.getUserEmail);
-  const userCode = useSelector(authSelectors.getCode);
+  const userEmail = useSelector(state => state);
+  // const userCode = useSelector(authSelectors.getCode);
   const formatUserEmail = 'https://' + userEmail;
-
-  console.log(userCode);
 
   const toggleModal = useCallback(() => {
     setShowModal(prevShowModal => !prevShowModal);
   }, []);
 
-  useEffect(() => {
-    toggleModal();
-  }, [toggleModal, userCode]);
+  // useEffect(() => {
+  //   toggleModal();
+  // }, [toggleModal, userCode]);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -101,14 +99,14 @@ export default function AuthForm() {
           </button>
         </div>
       </form>
-      {userCode === 201 && (
+      {/* {userCode === 201 && (
         <Modal onClose={toggleModal}>
           <p>
             confirm registration on your{' '}
             <a href={formatUserEmail}>{userEmail}</a>
           </p>
         </Modal>
-      )}
+      )} */}
     </div>
   );
 }
