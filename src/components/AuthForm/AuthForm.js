@@ -10,15 +10,16 @@ import { getActiveElement } from 'formik';
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const userEmail = useSelector(state => state);
-  // const userCode = useSelector(authSelectors.getCode);
-  const formatUserEmail = 'https://' + userEmail;
 
-  const toggleModal = useCallback(() => {
-    setShowModal(prevShowModal => !prevShowModal);
-  }, []);
+  // const [showModal, setShowModal] = useState(false);
+  // const userEmail = useSelector(state => state);
+  // const userCode = useSelector(authSelectors.getCode);
+  // const formatUserEmail = 'https://' + userEmail;
+
+  // const toggleModal = useCallback(() => {
+  //   setShowModal(prevShowModal => !prevShowModal);
+  // }, []);
 
   // useEffect(() => {
   //   toggleModal();
@@ -40,18 +41,23 @@ export default function AuthForm() {
     setPassword('');
   };
 
-  const alterSubmit = event => {
+  const handleSignIn = event => {
     event.preventDefault();
-
-    dispatch(authOperations.login({ email, password }));
+    dispatch(authOperations.logIn({ email, password }));
     reset();
   };
 
-  const makeSubmit = event => {
+  const handleSignUp = event => {
     event.preventDefault();
     dispatch(authOperations.register({ email, password }));
     reset();
   };
+
+  // const makeSubmit = event => {
+  //   event.preventDefault();
+  //   dispatch(authOperations.register({ email, password }));
+  //   reset();
+  // };
 
   return (
     <div className={s.forma}>
@@ -67,7 +73,7 @@ export default function AuthForm() {
       <p className={s.secondPara}>
         Or login to our app using e-mail and password:
       </p>
-      <form className={s.innerForm} onSubmit={makeSubmit}>
+      <form className={s.innerForm}>
         <label>
           <input
             className={s.input}
@@ -91,10 +97,10 @@ export default function AuthForm() {
           />
         </label>
         <div className={s.btnWrapperBottom}>
-          <button className={s.regBtn} onClick={alterSubmit}>
+          <button className={s.regBtn} onClick={handleSignIn}>
             Sign In
           </button>
-          <button data-auth="reg" className={s.regBtn}>
+          <button data-auth="reg" className={s.regBtn} onClick={handleSignUp}>
             Sign Up
           </button>
         </div>

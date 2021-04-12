@@ -1,4 +1,5 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, combineReducers } from '@reduxjs/toolkit';
+
 import {
   registerUserRequest,
   registerUserSuccess,
@@ -20,15 +21,24 @@ const initialState = {
   isLoggedIn: false,
 };
 
-const user = createReducer(initialState, {
-  [registerUserSuccess]: (_, { payload }) => payload,
-  [loginUserSuccess]: (_, { payload }) => payload,
-  [fetchCurrentUserSuccess]: (_, { payload }) => payload,
-  [logoutUserSuccess]: () => null,
-});
+//  name: null,
+
+const registration = createReducer(
+  {
+    user: { email: null },
+    token: null,
+    isLoggedIn: false,
+  },
+  {
+    [registerUserSuccess]: (_, { payload }) => payload.registration.user.email,
+    [loginUserSuccess]: (_, { payload }) => payload.registration.user.email,
+    [fetchCurrentUserSuccess]: (_, { payload }) => payload.auth,
+    [logoutUserSuccess]: () => null,
+  },
+);
 
 const token = createReducer(null, {
-  [registerUserSuccess]: (_, { payload }) => payload.token,
+  // [registerUserSuccess]: (_, { payload }) => payload.token,
   [loginUserSuccess]: (_, { payload }) => payload.token,
   [fetchCurrentUserError]: () => null,
   [logoutUserSuccess]: () => null,
@@ -62,13 +72,14 @@ const loading = createReducer(false, {
   [fetchCurrentUserError]: () => false,
 });
 
-export default {
-  user,
+const authReducer = combineReducers({
+  registration,
   token,
   isLoggedIn,
   loading,
-};
+});
 
+export default authReducer;
 // const isAuthenticated = createReducer(false, {
 // [registerUserSuccess]: () => true,
 // [loginUserSuccess]: () => true,
