@@ -65,9 +65,9 @@ export default function AuthForm() {
         Для авторизации можете использовать Google Account:
       </p>
       <div className={s.btnWrapper}>
-        <button className={s.gBtn} type="submit">
+        <a href="https://final-group-project-node.herokuapp.com/auth/google"><button className={s.gBtn} type="submit">
           Google
-        </button>
+        </button></a>
         <img className={s.gLogo} src={gIcon} alt={'gIcon'} />
       </div>
       <p className={s.secondPara}>
