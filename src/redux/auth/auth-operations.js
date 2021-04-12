@@ -1,63 +1,83 @@
-import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-axios.defaults.baseURL = 'http://localhost:3030';
-const token = {
-  set(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = '';
-  },
+import {
+  registerUser,
+  login,
+  logout,
+  setToken,
+  getUser,
+} from '../../data/apiQueries.js';
+
+import {
+  registerUserRequest,
+  registerUserSuccess,
+  registerUserError,
+  loginUserRequest,
+  loginUserSuccess,
+  loginUserError,
+  logoutUserRequest,
+  logoutUserSuccess,
+  logoutUserError,
+  fetchCurrentUserRequest,
+  fetchCurrentUserSuccess,
+  fetchCurrentUserError,
+} from './auth-actions';
+
+const register = ({ name, email, password }) => async dispatch => {
+  dispatch(registerUserRequest());
+  try {
+    await registerUser({ name, email, password });
+    dispatch(registerUserSuccess());
+  } catch (error) {
+    dispatch(registerUserError(error.message));
+  }
 };
 
-const register = createAsyncThunk('auth/register', async credentials => {
+const logIn = ({ email, password }) => async dispatch => {
+  dispatch(loginUserRequest());
+
   try {
-    const data = await axios.post('/auth/register', credentials);
-    token.set(data.token);
-    return data;
-  } catch (err) {
-    throw new Error();
+    const { data } = await login({ email, password });
+    const { name, token } = data.result;
+    setToken.set(token);
+    dispatch(loginUserSuccess({ name, token }));
+  } catch (error) {
+    dispatch(loginUserError(error.message));
   }
-});
+};
 
-const login = createAsyncThunk('auth/login', async credentials => {
+const logOut = () => async dispatch => {
+  dispatch(logoutUserRequest());
+
   try {
-    const data = await axios.post('/auth/login', credentials);
-    return data;
-  } catch (err) {
-    throw new err();
+    await logout();
+    setToken.unset();
+    dispatch(logoutUserSuccess());
+  } catch (error) {
+    dispatch(logoutUserError(error.message));
   }
-});
+};
 
-const logOut = createAsyncThunk('auth/logout', async () => {
+const fetchCurrentUser = () => async (dispatch, getState) => {
+  const {
+    auth: { token: persistedToken },
+  } = getState();
+  if (!persistedToken) return;
+  setToken.set(persistedToken);
+  dispatch(fetchCurrentUserRequest());
+
   try {
-    await axios.post('/auth/logout');
-    token.unset();
-  } catch (error) {}
-});
+    const { data } = await getUser();
+    const { result } = data;
+    dispatch(fetchCurrentUserSuccess(result.name));
+  } catch (error) {
+    dispatch(fetchCurrentUserError(error.message));
+  }
+};
 
-const fetchCurrentUser = createAsyncThunk(
-  'auth/refresh',
-  async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
-
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue();
-    }
-
-    token.set(persistedToken);
-    try {
-      const data = await axios.get('/users/current');
-      return data;
-    } catch (err) {}
-  },
-);
-
-const operations = {
+const authOperations = {
   register,
-  login,
+  logIn,
   logOut,
   fetchCurrentUser,
 };
-export default operations;
+
+export default authOperations;
