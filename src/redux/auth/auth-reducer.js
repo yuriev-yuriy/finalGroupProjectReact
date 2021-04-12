@@ -29,11 +29,13 @@ const registration = createReducer(initialState, {
     return payload.user;
   },
   [logoutUserSuccess]: () => null,
-  // [fetchCurrentUserSuccess]: (_, { payload }) => payload.auth,
+  [fetchCurrentUserSuccess]: (_, { payload }) => {
+    return payload.data.user;
+},
 });
 
 const token = createReducer(null, {
-  // [registerUserSuccess]: (_, { payload }) => payload.token,
+  [registerUserSuccess]: (_, { payload }) => payload.token,
   [loginUserSuccess]: (_, { payload }) => {
     return payload.token;
   },

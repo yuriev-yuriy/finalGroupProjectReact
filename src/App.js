@@ -9,7 +9,7 @@ import Header from './components/Header/';
 // import AuthView from './views/AuthView/';
 
 import Footer from './components/Footer/';
-// import { authOperations } from './redux/auth/';
+import { authOperations } from './redux/auth/';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
 
@@ -38,11 +38,16 @@ const AuthView = lazy(() =>
 );
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(authOperations.fetchCurrentUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+  // if (!token) {
+  //   return
+  // }
+    dispatch(authOperations.fetchCurrentUser(token));
+  }, []);
   return (
     <BrowserRouter>
       <Header />
@@ -54,21 +59,24 @@ function App() {
           <Route exact path={routes.AUTH_VIEW} component={AuthView} /> */}
 
                     
-          <PrivateRoute path={routes.USEFUL_INFO_VIEW}>
+          <PrivateRoute exact path={routes.USEFUL_INFO_VIEW}>
 
             <UseFulInfoView />
           </PrivateRoute>
-          <PublicRoute path={routes.CONTACTS_VIEW}>
+          <PublicRoute exact path={routes.CONTACTS_VIEW}>
             <ContactsView />
           </PublicRoute>
-          <PublicRoute path={routes.AUTH_VIEW} restricted>
+          <PublicRoute exact path={routes.AUTH_VIEW} restricted>
             <AuthView />
           </PublicRoute>
-          <PrivateRoute path={routes.RESULT_VIEW}>
+          <PrivateRoute exact path={routes.RESULT_VIEW}>
             <Results />
             </PrivateRoute>
-          <PrivateRoute path={routes.MAIN_VIEW}>
+          <PrivateRoute exact path={routes.MAIN_VIEW}>
             <MainView />
+          </PrivateRoute>
+          <PrivateRoute exact path={routes.TEST_VIEW}>
+            <TestPage />
             </PrivateRoute>
         </Switch>
       </Suspense>

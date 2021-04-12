@@ -32,7 +32,7 @@ const TestPage = () => {
       }
     }
     getAnswers();
-  }, [nameTest]);
+  }, []);
 
   const handleTestList = e => {
     const {

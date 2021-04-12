@@ -40,6 +40,7 @@ const logIn = ({ email, password }) => async dispatch => {
   try {
     const { data } = await login({ email, password });
     setToken.set(data.token);
+    localStorage.setItem('token', data.token);
     dispatch(loginUserSuccess(data));
   } catch (error) {
     dispatch(loginUserError(error.message));
@@ -58,17 +59,18 @@ const logOut = () => async dispatch => {
   }
 };
 
-const fetchCurrentUser = () => async (dispatch, getState) => {
-  const {
-    auth: { token: persistedToken },
-  } = getState();
-  if (!persistedToken) return;
-  setToken.set(persistedToken);
+const fetchCurrentUser = (token) => async (dispatch) => {
+  setToken.set(token);
+  // const {
+  //   auth: { token: persistedToken },
+  // } = getState();
+  // if (!persistedToken) return;
+  // setToken.set(persistedToken);
   dispatch(fetchCurrentUserRequest());
 
   try {
     const { data } = await getUser();
-    // ?
+    console.log(`DAAAATTTAAA! ${data}`)
     dispatch(fetchCurrentUserSuccess(data));
   } catch (error) {
     dispatch(fetchCurrentUserError(error.message));
