@@ -1,6 +1,3 @@
-// import axios from 'axios';
-// import { createAsyncThunk } from '@reduxjs/toolkit';
-// axios.defaults.baseURL = 'http://localhost:3030';
 import {
   registerUser,
   login,
@@ -27,9 +24,11 @@ import {
 const register = ({ email, password }) => async dispatch => {
   dispatch(registerUserRequest());
   try {
-    const { data } = await registerUser({ email, password });
-    console.log('register', data);
-    dispatch(registerUserSuccess());
+    const {
+      data: { avatar },
+    } = await registerUser({ email, password });
+    const user = { user: { name: null, email, avatarURL: avatar } };
+    dispatch(registerUserSuccess(user));
   } catch (error) {
     dispatch(registerUserError(error.message));
   }
@@ -40,8 +39,6 @@ const logIn = ({ email, password }) => async dispatch => {
 
   try {
     const { data } = await login({ email, password });
-    console.log('login', data);
-
     setToken.set(data.token);
     dispatch(loginUserSuccess(data));
   } catch (error) {
