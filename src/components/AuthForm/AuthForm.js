@@ -1,11 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
 import { getActiveElement } from 'formik';
+import routes from '../../routes';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -42,7 +44,6 @@ export default function AuthForm() {
   };
 
   const handleSignIn = event => {
-    event.preventDefault();
     dispatch(authOperations.logIn({ email, password }));
     reset();
   };
@@ -97,9 +98,15 @@ export default function AuthForm() {
           />
         </label>
         <div className={s.btnWrapperBottom}>
-          <button className={s.regBtn} onClick={handleSignIn}>
-            Sign In
-          </button>
+          <div className={s.regBtn}>
+            <Link
+              to={routes.MAIN_VIEW}
+              onClick={handleSignIn}
+              className={s.sectionButton}
+            >
+              Sing In
+            </Link>
+          </div>
           <button data-auth="reg" className={s.regBtn} onClick={handleSignUp}>
             Sign Up
           </button>

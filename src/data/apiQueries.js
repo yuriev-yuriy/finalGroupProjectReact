@@ -7,7 +7,6 @@ const getQuestions = async query => {
   const { data } = await axios.get(
     `/test/${query === 'theoretical' ? 'theory-questions' : 'tech-questions'}`,
   );
-  console.log(query);
   return data;
 };
 
@@ -19,7 +18,6 @@ const postUserAnswers = async (nameTest, userAnswers) => {
 
 const setToken = {
   set(token) {
-    console.log(token);
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
