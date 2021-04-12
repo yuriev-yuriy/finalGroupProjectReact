@@ -16,7 +16,7 @@ export const rootReducer = combineReducers({
   questions: questionsReducer.setDataQuestions,
   result: questionsReducer.setQuestionsResult,
   localSt: persistReducer(contactPersistConfig, LcSetReducer),
-  authLogin: authReducer.user,
+  auth: authReducer,
 });
 
 export default rootReducer;

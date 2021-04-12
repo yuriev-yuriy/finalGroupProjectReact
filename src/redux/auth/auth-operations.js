@@ -1,3 +1,6 @@
+// import axios from 'axios';
+// import { createAsyncThunk } from '@reduxjs/toolkit';
+// axios.defaults.baseURL = 'http://localhost:3030';
 import {
   registerUser,
   login,
@@ -21,10 +24,11 @@ import {
   fetchCurrentUserError,
 } from './auth-actions';
 
-const register = ({ name, email, password }) => async dispatch => {
+const register = ({ email, password }) => async dispatch => {
   dispatch(registerUserRequest());
   try {
-    await registerUser({ name, email, password });
+    const { data } = await registerUser({ email, password });
+    console.log('register', data);
     dispatch(registerUserSuccess());
   } catch (error) {
     dispatch(registerUserError(error.message));
@@ -36,9 +40,10 @@ const logIn = ({ email, password }) => async dispatch => {
 
   try {
     const { data } = await login({ email, password });
-    const { name, token } = data.result;
-    setToken.set(token);
-    dispatch(loginUserSuccess({ name, token }));
+    console.log('login', data);
+
+    setToken.set(data.token);
+    dispatch(loginUserSuccess(data));
   } catch (error) {
     dispatch(loginUserError(error.message));
   }
@@ -66,8 +71,8 @@ const fetchCurrentUser = () => async (dispatch, getState) => {
 
   try {
     const { data } = await getUser();
-    const { result } = data;
-    dispatch(fetchCurrentUserSuccess(result.name));
+    // ?
+    dispatch(fetchCurrentUserSuccess(data));
   } catch (error) {
     dispatch(fetchCurrentUserError(error.message));
   }
