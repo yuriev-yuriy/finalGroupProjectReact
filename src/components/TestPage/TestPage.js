@@ -31,8 +31,9 @@ const TestPage = () => {
         console.error(error);
       }
     }
+    console.log(`ffffgggghhhhh`);
     getAnswers();
-  }, [nameTest]);
+  }, []);
 
   const handleTestList = e => {
     const {
