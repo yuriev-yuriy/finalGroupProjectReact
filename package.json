@@ -39,6 +39,7 @@
     "deploy": "netlify deploy -p",
     "api-server": "json-server --port 4040 --watch db.json"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
