@@ -1,8 +1,7 @@
 import axios from 'axios';
+// http://localhost:3030
+// https://final-group-project-node.herokuapp.com
 axios.defaults.baseURL = 'https://final-group-project-node.herokuapp.com';
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjljY2VjMjA2NTU2Mjk3ODY1MDdlYSIsImlhdCI6MTYxODE1ODI3MSwiZXhwIjoxNjE4MjQ0NjcxfQ.pB9ZtDde7msw8770GdXrVkym8D1L_taVa6mclPetBRk';
-axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 const getQuestions = async query => {
   const { data } = await axios.get(
@@ -20,6 +19,7 @@ const postUserAnswers = async (nameTest, userAnswers) => {
 
 const setToken = {
   set(token) {
+    console.log(token);
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
@@ -27,14 +27,14 @@ const setToken = {
   },
 };
 
-const registerUser = ({ name, email, password }) => {
-  return axios
-    .post('/auth/register', { name, email, password })
-    .then(data => data);
+const registerUser = async ({ email, password }) => {
+  const { data } = await axios.post('/auth/register', { email, password });
+  return data;
 };
 
-const login = ({ email, password }) => {
-  return axios.post('/auth/login', { email, password }).then(data => data);
+const login = async ({ email, password }) => {
+  const { data } = await axios.post('/auth/login', { email, password });
+  return data;
 };
 
 const logout = () => {

@@ -16,30 +16,27 @@ import {
 } from './auth-actions';
 
 const initialState = {
-  user: { name: null, email: null },
+  user: { name: null, email: null, avatarURL: null },
   token: null,
   isLoggedIn: false,
 };
 
-//  name: null,
-
-const registration = createReducer(
-  {
-    user: { email: null },
-    token: null,
-    isLoggedIn: false,
+const registration = createReducer(initialState, {
+  [registerUserSuccess]: (_, { payload }) => {
+    return payload.user;
   },
-  {
-    [registerUserSuccess]: (_, { payload }) => payload.registration.user.email,
-    [loginUserSuccess]: (_, { payload }) => payload.registration.user.email,
-    [fetchCurrentUserSuccess]: (_, { payload }) => payload.auth,
-    [logoutUserSuccess]: () => null,
+  [loginUserSuccess]: (state, { payload }) => {
+    return payload.user;
   },
-);
+  [logoutUserSuccess]: () => null,
+  // [fetchCurrentUserSuccess]: (_, { payload }) => payload.auth,
+});
 
 const token = createReducer(null, {
   // [registerUserSuccess]: (_, { payload }) => payload.token,
-  [loginUserSuccess]: (_, { payload }) => payload.token,
+  [loginUserSuccess]: (_, { payload }) => {
+    return payload.token;
+  },
   [fetchCurrentUserError]: () => null,
   [logoutUserSuccess]: () => null,
 });
