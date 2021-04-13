@@ -15,7 +15,6 @@ const TestPage = () => {
   const { answers, nameTest } = useSelector(state => state);
   const [data, setData] = useState(null);
   const [i, setI] = useState(null);
-  const [prevAnswer, setPrevAnswer] = useState({});
   const [activePrev, setActivePrev] = useState(false);
   const [activeNext, setActiveNext] = useState(true);
 
@@ -28,6 +27,7 @@ const TestPage = () => {
       try {
         const { data } = await getQuestions(nameTest);
         setData(data);
+        console.log(data, `data`);
       } catch (error) {
         console.error(error);
       }
@@ -55,11 +55,9 @@ const TestPage = () => {
     currentLi.classList.add(s.item__checked);
     if (!check) {
       dispatch(actionAddResult(newAnswer));
-      setPrevAnswer(() => newAnswer);
       return;
     }
     if (check) {
-      setPrevAnswer(() => newAnswer);
       dispatch(actionUpdateResult(newAnswer));
       return;
     }
@@ -72,7 +70,8 @@ const TestPage = () => {
       },
     } = e;
     const allLi = document.getElementsByName('check');
-    if (flag === 'next' && answers.length - 1 === i) {
+
+    if (flag === 'next') {
       allLi.forEach(item => {
         item.classList.remove(s.item__checked);
       });
@@ -84,7 +83,6 @@ const TestPage = () => {
       setActivePrev(true);
       return;
     }
-    // 1 2 3 4 5 ,  0 1 2 3 4
     if (flag === 'prev') {
       allLi.forEach(item => {
         item.classList.remove(s.item__checked);
@@ -107,27 +105,29 @@ const TestPage = () => {
               <span className={s.testPage__testNameText}>
                 {' '}
                 [ Testing <br />
-                theory_ ]{' '}
+                {nameTest}_ ]{' '}
               </span>
             </h2>
             <BtnFinishTest checkData={answers.length === 12 ? true : false} />
           </div>
+          <div className={s.testPage__question}>
+            <h1 className={s.testPage__questionsNumber}>
+              Question
+              <span className={s.testPage__currentQuestionNum}>
+                &#160; {i + 1}&#160;
+              </span>
+              / 12
+            </h1>
+            <h4 className={s.testPage__titleQuestions}>{data[i].question}</h4>
 
-          <h3 className={s.testPage__questionsNumber}>
-            Question
-            <span className={s.testPage__currentQuestionNum}>
-              &#160; {i + 1}&#160;
-            </span>
-            / 12
-          </h3>
-          <h2>{data[i].question}</h2>
+            <QuestionsCard
+              counter={i}
+              handelSet={handleTestList}
+              apiData={data}
+              currentAnswer={answers}
+            />
+          </div>
 
-          <QuestionsCard
-            counter={i}
-            handelSet={handleTestList}
-            apiData={data}
-            currentAnswer={answers}
-          />
           <BtnPrevNext
             prev={activePrev}
             next={activeNext}

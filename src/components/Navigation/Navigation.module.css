@@ -123,7 +123,7 @@
   }
 
   .link:not(:last-of-type) {
-    margin-right: 80px;
+    margin-right: 50px;
   }
 
   .text:hover::before {
@@ -139,7 +139,7 @@
   .wrapper {
     display: flex;
     flex-direction: row;
-    margin-right: 30px;
+    margin-right: 40px;
   }
 
   .signOutBtnLg {
@@ -161,10 +161,20 @@
   }
 }
 
+@media (min-width: 980px) {
+  .link:not(:last-of-type) {
+    margin-right: 80px;
+  }
+}
+
 @media (min-width: 1280px) {
   .wrapper {
     display: flex;
     flex-direction: row;
-    margin-right: 68px;
+    margin-right: 70px;
+  }
+
+  .link:not(:last-of-type) {
+    margin-right: 70px;
   }
 }

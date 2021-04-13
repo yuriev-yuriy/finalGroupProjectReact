@@ -1,15 +1,17 @@
+import { NavLink } from 'react-router-dom';
+import routes from '../../routes';
 import s from './Footer.module.css';
 
 const Footer = () => {
-  const url = '#';
+  // const url = '#';
   return (
     <footer className={s.footer}>
       <p className={s.description}>
         &#169; 2021 | All Rights Reserved | Developed with{' '}
         <span className={s.icon}>&#10084;</span> by{' '}
-        <a className={s.link} href={url}>
+        <NavLink to={routes.CONTACTS_VIEW} className={s.link}>
           GoIT Students
-        </a>
+        </NavLink>
       </p>
     </footer>
   );
