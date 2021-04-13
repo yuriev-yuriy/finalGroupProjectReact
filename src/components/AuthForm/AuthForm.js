@@ -6,27 +6,26 @@ import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
 import { getActiveElement } from 'formik';
+import ModalContent from '../ModalContent';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-
   const [showModal, setShowModal] = useState(false);
+
   const userEmail = useSelector(authSelectors.getUserEmail);
   const userCode = useSelector(authSelectors.getCode);
   const formatUserEmail = 'https://' + userEmail;
-  console.log(`CODE ${userCode}`);
-  console.log(`USER-Email ${userEmail}`)
 
-const toggleModal = () => setShowModal(state => !state);
+  const toggleModal = () => setShowModal(state => !state);
 
   useEffect(() => {
     if (userCode === 201) {
       toggleModal();
     }
     return;
-  }, [toggleModal, userCode]);
+  }, [userCode]);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -104,10 +103,13 @@ const toggleModal = () => setShowModal(state => !state);
       </form>
       {showModal && (
         <Modal onClose={toggleModal}>
-          <p>
-            confirm registration on your
-            <a href={formatUserEmail}>{userEmail}</a>
-          </p>
+          <ModalContent
+            onClose={toggleModal}
+          />
+          {/* <p>
+            confirm your email{' '}
+            <a target="blank" href={formatUserEmail} onClose={toggleModal}>{userEmail}</a>
+          </p> */}
         </Modal>
       )}
     </div>
