@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import routes from './routes';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/Header/';
-// import AuthView from './views/AuthView/';
+import Loader from './components/Loader';
 import Footer from './components/Footer/';
-// import { authOperations } from './redux/auth/';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
 const MainView = lazy(() =>
@@ -35,7 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Suspense fallback={'Loading'}>
+      <Suspense fallback={<Loader />}>
         <Switch>
           <PrivateRoute exact path={routes.USEFUL_INFO_VIEW}>
             <UseFulInfoView />
