@@ -19,7 +19,6 @@ const postUserAnswers = async (nameTest, userAnswers) => {
 
 const setToken = {
   set(token) {
-    console.log(token);
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
@@ -28,7 +27,7 @@ const setToken = {
 };
 
 const registerUser = async ({ email, password }) => {
-  const { data } = await axios.post('/auth/register', { email, password });
+  const {data} = await axios.post('/auth/register', { email, password });
   return data;
 };
 

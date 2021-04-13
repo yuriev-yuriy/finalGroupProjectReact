@@ -16,21 +16,23 @@ import {
 } from './auth-actions';
 
 const initialState = {
-  user: { name: null, email: null, avatarURL: null },
+  data: { name: null, email: null, avatarURL: null },
   token: null,
   isLoggedIn: false,
 };
 
 const registration = createReducer(initialState, {
   [registerUserSuccess]: (_, { payload }) => {
-    return payload.user;
+    return payload;
   },
   [loginUserSuccess]: (state, { payload }) => {
     return payload.user;
   },
   [logoutUserSuccess]: () => null,
-  [fetchCurrentUserSuccess]: (_, { payload }) => {
-    return payload.data.user;
+  [fetchCurrentUserSuccess]: (_, { payload }) =>  {
+     return { user: payload.data.user,
+    token : payload.data.token,}
+    
 },
 });
 

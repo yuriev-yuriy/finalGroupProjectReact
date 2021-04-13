@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
@@ -12,18 +12,21 @@ export default function AuthForm() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  // const [showModal, setShowModal] = useState(false);
-  // const userEmail = useSelector(state => state);
-  // const userCode = useSelector(authSelectors.getCode);
-  // const formatUserEmail = 'https://' + userEmail;
+  const [showModal, setShowModal] = useState(false);
+  const userEmail = useSelector(authSelectors.getUserEmail);
+  const userCode = useSelector(authSelectors.getCode);
+  const formatUserEmail = 'https://' + userEmail;
+  console.log(`CODE ${userCode}`);
+  console.log(`USER-Email ${userEmail}`)
 
-  // const toggleModal = useCallback(() => {
-  //   setShowModal(prevShowModal => !prevShowModal);
-  // }, []);
+const toggleModal = () => setShowModal(state => !state);
 
-  // useEffect(() => {
-  //   toggleModal();
-  // }, [toggleModal, userCode]);
+  useEffect(() => {
+    if (userCode === 201) {
+      toggleModal();
+    }
+    return;
+  }, [toggleModal, userCode]);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -52,12 +55,6 @@ export default function AuthForm() {
     dispatch(authOperations.register({ email, password }));
     reset();
   };
-
-  // const makeSubmit = event => {
-  //   event.preventDefault();
-  //   dispatch(authOperations.register({ email, password }));
-  //   reset();
-  // };
 
   return (
     <div className={s.forma}>
@@ -105,14 +102,14 @@ export default function AuthForm() {
           </button>
         </div>
       </form>
-      {/* {userCode === 201 && (
+      {showModal && (
         <Modal onClose={toggleModal}>
           <p>
-            confirm registration on your{' '}
+            confirm registration on your
             <a href={formatUserEmail}>{userEmail}</a>
           </p>
         </Modal>
-      )} */}
+      )}
     </div>
   );
 }

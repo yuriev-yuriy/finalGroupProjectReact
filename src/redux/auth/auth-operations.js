@@ -24,11 +24,10 @@ import {
 const register = ({ email, password }) => async dispatch => {
   dispatch(registerUserRequest());
   try {
-    const {
-      data: { avatar },
-    } = await registerUser({ email, password });
-    const user = { user: { name: null, email, avatarURL: avatar } };
-    dispatch(registerUserSuccess(user));
+    const data = await registerUser({ email, password });
+    console.log(data);
+    // const user = { user: { name: null, email, avatarURL: avatar} };
+    dispatch(registerUserSuccess(data));
   } catch (error) {
     dispatch(registerUserError(error.message));
   }
@@ -49,6 +48,7 @@ const logIn = ({ email, password }) => async dispatch => {
 
 const logOut = () => async dispatch => {
   dispatch(logoutUserRequest());
+  localStorage.clear();
 
   try {
     await logout();
@@ -70,7 +70,6 @@ const fetchCurrentUser = (token) => async (dispatch) => {
 
   try {
     const { data } = await getUser();
-    console.log(`DAAAATTTAAA! ${data}`)
     dispatch(fetchCurrentUserSuccess(data));
   } catch (error) {
     dispatch(fetchCurrentUserError(error.message));

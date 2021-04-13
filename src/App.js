@@ -42,12 +42,11 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(token);
-  // if (!token) {
-  //   return
-  // }
+  if (!token) {
+    return
+  }
     dispatch(authOperations.fetchCurrentUser(token));
-  }, []);
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <Header />
