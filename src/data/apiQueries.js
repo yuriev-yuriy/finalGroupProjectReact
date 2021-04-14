@@ -20,9 +20,7 @@ const patchUpdateUserName = async userName => {
   return data;
 };
 const patchUpdateUserAvatar = async userAvatar => {
-  const data = await axios.patch('/users/avatars', userAvatar);
-  console.log(userAvatar, `user update avatar userAvatar`);
-  console.log(data, `user update avatar`);
+  const { data } = await axios.patch('/users/avatars', userAvatar);
   return data;
 };
 

@@ -6,7 +6,6 @@ import routes from '../../routes';
 import { authOperations } from '../../redux/auth';
 import { ReactComponent as SignOutIcon } from '../../assets/icons/svg/signOut.svg';
 import { ReactComponent as AddIcon } from '../../assets/icons/svg/checkmark.svg';
-import defaultAvatar from '../../assets/images/default-avatar.png';
 import styles from './UserInfo.module.css';
 
 function UserInfo({ onOpenMobileMenu }) {
@@ -15,9 +14,7 @@ function UserInfo({ onOpenMobileMenu }) {
     state => state.auth.registration,
   );
 
-  const avatar = defaultAvatar;
   const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState('');
   const [checkName, setCheckName] = useState('');
   const [nameInput, setNameInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,9 +22,16 @@ function UserInfo({ onOpenMobileMenu }) {
   const toggleModal = useCallback(() => {
     setShowModal(prevShowModal => !prevShowModal);
   }, []);
+
   useEffect(() => {
     setCheckName(name);
   }, [name]);
+
+  useEffect(() => {
+    if (avatarURL !== undefined) {
+      document.getElementById('img-insert').src = avatarURL;
+    }
+  });
 
   useEffect(() => {
     const handleKeyDown = e => {
@@ -43,28 +47,24 @@ function UserInfo({ onOpenMobileMenu }) {
     };
   }, [toggleModal]);
 
-  const uploadImage = async e => {
-    const files = e.target.files;
+  const uploadImage = e => {
+    const avatar = e.target.files[0];
     const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'kyhvjqja');
+    data.append('avatar', avatar);
     setLoading(true);
-    const res = await fetch(
-      '	https://api.cloudinary.com/v1_1/andray838/image/upload',
-      {
-        method: 'POST',
-        body: data,
-        api_key: 914256646727944,
-      },
-    );
+    dispatch(authOperations.updateAvatar(data));
+    let fr = new FileReader();
+    fr.onload = function () {
+      document.getElementById('img-insert').src = fr.result;
+    };
+    fr.readAsDataURL(avatar);
 
-    const file = await res.json();
-
-    setImage(file.secure_url);
     setLoading(false);
   };
 
   const handleChange = e => setNameInput(e.currentTarget.value);
+
+  const handleSubmit = e => e.preventDefault();
 
   const onChangeName = () => {
     const userName =
@@ -75,8 +75,6 @@ function UserInfo({ onOpenMobileMenu }) {
     setNameInput('');
   };
 
-  const handleSubmit = e => e.preventDefault();
-
   return (
     <div className={styles.container}>
       <div className={styles.userInfo}>
@@ -85,7 +83,7 @@ function UserInfo({ onOpenMobileMenu }) {
             <h3 className={styles.loading}>Loading...</h3>
           ) : (
             <img
-              src={image || avatar}
+              id="img-insert"
               alt="avatar"
               width="40"
               className={styles.avatarImg}
@@ -99,14 +97,14 @@ function UserInfo({ onOpenMobileMenu }) {
           >
             <label
               htmlFor="fileUpload"
-              name="file"
+              name="avatar"
               className={styles.customFileUpload}
             >
               Change avatar
             </label>
             <input
               type="file"
-              name="file"
+              name="avatar"
               id="fileUpload"
               placeholder="Upload an image"
               onChange={uploadImage}
@@ -147,7 +145,9 @@ function UserInfo({ onOpenMobileMenu }) {
             </form>
           </div>
         </div>
-        <span className={styles.name}>{checkName} </span>
+        <span className={styles.name}>
+          {checkName !== '' ? checkName : email}{' '}
+        </span>
       </div>
 
       <NavLink to={routes.AUTH_VIEW} onClick={() => onOpenMobileMenu(false)}>

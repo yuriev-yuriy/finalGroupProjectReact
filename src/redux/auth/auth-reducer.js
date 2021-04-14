@@ -16,6 +16,9 @@ import {
   changeNameUserRequest,
   changeNameUserSuccess,
   changeNameUserError,
+  changeUserAvatarRequest,
+  changeUserAvatarSuccess,
+  changeUserAvatarError,
 } from './auth-actions';
 
 const initialState = {
@@ -34,6 +37,12 @@ const registration = createReducer(initialState, {
   [changeNameUserSuccess]: (state, { payload: { name, email } }) => {
     const avatarURL = state.user.avatarURL;
     const user = { user: { name, email, avatarURL } };
+    return user;
+  },
+  [changeUserAvatarSuccess]: (state, { payload }) => {
+    const name = state.name;
+    const email = state.email;
+    const user = { user: { name, email, avatarURL: payload } };
     return user;
   },
   [logoutUserSuccess]: () => null,
@@ -79,6 +88,10 @@ const loading = createReducer(false, {
   [changeNameUserRequest]: () => true,
   [changeNameUserSuccess]: () => false,
   [changeNameUserError]: () => false,
+
+  [changeUserAvatarRequest]: () => true,
+  [changeUserAvatarSuccess]: () => false,
+  [changeUserAvatarError]: () => false,
 });
 
 const authReducer = combineReducers({

@@ -1,5 +1,6 @@
 import {
   patchUpdateUserName,
+  patchUpdateUserAvatar,
   registerUser,
   login,
   logout,
@@ -23,6 +24,9 @@ import {
   changeNameUserRequest,
   changeNameUserSuccess,
   changeNameUserError,
+  changeUserAvatarRequest,
+  changeUserAvatarSuccess,
+  changeUserAvatarError,
 } from './auth-actions';
 
 const register = ({ email, password }) => async dispatch => {
@@ -94,12 +98,26 @@ const updateName = userName => async dispatch => {
   }
 };
 
+const updateAvatar = avatar => async dispatch => {
+  dispatch(changeUserAvatarRequest());
+  const {
+    data: { avatarUrl },
+  } = await patchUpdateUserAvatar(avatar);
+  try {
+  } catch (error) {
+    dispatch(changeUserAvatarError(error.message));
+  } finally {
+    await dispatch(changeUserAvatarSuccess(avatarUrl));
+  }
+};
+
 const authOperations = {
   register,
   logIn,
   logOut,
   fetchCurrentUser,
   updateName,
+  updateAvatar,
 };
 
 export default authOperations;
