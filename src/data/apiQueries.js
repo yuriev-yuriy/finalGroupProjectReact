@@ -15,6 +15,14 @@ const postUserAnswers = async (nameTest, userAnswers) => {
   const { data } = await axios.post(`/test/result`, dataPost);
   return data;
 };
+const patchUpdateUserName = async userName => {
+  const { data } = await axios.patch('/users/current', userName);
+  return data;
+};
+const patchUpdateUserAvatar = async userAvatar => {
+  const { data } = await axios.patch('/users/avatars', userAvatar);
+  return data;
+};
 
 const setToken = {
   set(token) {
@@ -35,6 +43,11 @@ const login = async ({ email, password }) => {
   return data;
 };
 
+const loginGoogle = async () => {
+  const data = await axios.get('/auth/google');
+  return data;
+};
+
 const logout = () => {
   return axios.post('auth/logout').then(data => data);
 };
@@ -46,8 +59,11 @@ const getUser = () => {
 export {
   getQuestions,
   postUserAnswers,
+  patchUpdateUserName,
+  patchUpdateUserAvatar,
   registerUser,
   login,
+  loginGoogle,
   logout,
   setToken,
   getUser,

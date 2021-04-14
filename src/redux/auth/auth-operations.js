@@ -1,4 +1,6 @@
 import {
+  patchUpdateUserName,
+  patchUpdateUserAvatar,
   registerUser,
   login,
   logout,
@@ -19,6 +21,12 @@ import {
   fetchCurrentUserRequest,
   fetchCurrentUserSuccess,
   fetchCurrentUserError,
+  changeNameUserRequest,
+  changeNameUserSuccess,
+  changeNameUserError,
+  changeUserAvatarRequest,
+  changeUserAvatarSuccess,
+  changeUserAvatarError,
 } from './auth-actions';
 
 const register = ({ email, password }) => async dispatch => {
@@ -30,7 +38,8 @@ const register = ({ email, password }) => async dispatch => {
     const user = { user: { name: null, email, avatarURL: avatar } };
     dispatch(registerUserSuccess(user));
   } catch (error) {
-    dispatch(registerUserError(error.message));
+    console.log(error.message);
+    dispatch(registerUserError(null));
   }
 };
 
@@ -39,8 +48,8 @@ const logIn = ({ email, password }) => async dispatch => {
 
   try {
     const { data } = await login({ email, password });
-    setToken.set(data.token);
-    localStorage.setItem('token', data.token);
+    setToken.set(data.accessToken);
+    localStorage.setItem('token', data.accessToken);
     dispatch(loginUserSuccess(data));
   } catch (error) {
     dispatch(loginUserError(error.message));
@@ -75,12 +84,40 @@ const fetchCurrentUser = () => async (dispatch, getState) => {
     dispatch(fetchCurrentUserError(error.message));
   }
 };
+const updateName = userName => async dispatch => {
+  dispatch(changeNameUserRequest());
+
+  try {
+    const {
+      data: { user },
+    } = await patchUpdateUserName(userName);
+    console.log(user);
+    dispatch(changeNameUserSuccess(user));
+  } catch (error) {
+    dispatch(changeNameUserError(error.message));
+  }
+};
+
+const updateAvatar = avatar => async dispatch => {
+  dispatch(changeUserAvatarRequest());
+  const {
+    data: { avatarUrl },
+  } = await patchUpdateUserAvatar(avatar);
+  try {
+  } catch (error) {
+    dispatch(changeUserAvatarError(error.message));
+  } finally {
+    await dispatch(changeUserAvatarSuccess(avatarUrl));
+  }
+};
 
 const authOperations = {
   register,
   logIn,
   logOut,
   fetchCurrentUser,
+  updateName,
+  updateAvatar,
 };
 
 export default authOperations;

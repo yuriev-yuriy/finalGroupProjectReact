@@ -13,6 +13,12 @@ import {
   fetchCurrentUserRequest,
   fetchCurrentUserSuccess,
   fetchCurrentUserError,
+  changeNameUserRequest,
+  changeNameUserSuccess,
+  changeNameUserError,
+  changeUserAvatarRequest,
+  changeUserAvatarSuccess,
+  changeUserAvatarError,
 } from './auth-actions';
 
 const initialState = {
@@ -27,6 +33,17 @@ const registration = createReducer(initialState, {
   },
   [loginUserSuccess]: (state, { payload }) => {
     return payload.user;
+  },
+  [changeNameUserSuccess]: (state, { payload: { name, email } }) => {
+    const avatarURL = state.user.avatarURL;
+    const user = { user: { name, email, avatarURL } };
+    return user;
+  },
+  [changeUserAvatarSuccess]: (state, { payload }) => {
+    const name = state.name;
+    const email = state.email;
+    const user = { user: { name, email, avatarURL: payload } };
+    return user;
   },
   [logoutUserSuccess]: () => null,
   // [fetchCurrentUserSuccess]: (_, { payload }) => payload.auth,
@@ -67,6 +84,14 @@ const loading = createReducer(false, {
   [fetchCurrentUserRequest]: () => true,
   [fetchCurrentUserSuccess]: () => false,
   [fetchCurrentUserError]: () => false,
+
+  [changeNameUserRequest]: () => true,
+  [changeNameUserSuccess]: () => false,
+  [changeNameUserError]: () => false,
+
+  [changeUserAvatarRequest]: () => true,
+  [changeUserAvatarSuccess]: () => false,
+  [changeUserAvatarError]: () => false,
 });
 
 const authReducer = combineReducers({
