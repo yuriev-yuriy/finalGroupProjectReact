@@ -1,0 +1,39 @@
+.header {
+  border-bottom: 1px solid #e2e3e5;
+  background-color: #f5f6fb;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 20px;
+}
+
+.line,
+.lineLogin {
+  position: absolute;
+  top: 0;
+  right: 65px;
+  height: 70px;
+  width: 1px;
+  background-color: #e2e3e5;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .line {
+    display: none;
+  }
+
+  .lineLogin {
+    display: none;
+  }
+}

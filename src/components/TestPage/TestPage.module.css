@@ -1,0 +1,122 @@
+.item__checked {
+  position: relative;
+}
+.item__checked::before {
+  position: absolute;
+  content: '';
+  display: block;
+  left: -26px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: orange;
+  z-index: 5;
+}
+.testPage__titleQuestions {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.testPage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.container {
+  width: 280px;
+}
+.container__head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3%;
+}
+.container__head__title {
+  width: 30%;
+  height: 50px;
+  text-align: left;
+}
+.container__head__span {
+  display: block;
+}
+.testPage__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.testPage__testName {
+  align-self: center;
+  width: 130px;
+  height: 36px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.02em;
+  color: #000;
+}
+
+.testPage__testNameText {
+  display: flex;
+}
+
+.testPage__question {
+  margin-top: 26px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 15px rgba(2, 23, 42, 0.1);
+  padding: 40px 45px 65px;
+  background-color: #fff;
+}
+
+.testPage__questionsNumber {
+  display: flex;
+  justify-content: center;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.testPage__currentQuestionNum {
+  color: #ff6b09;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 652px;
+  }
+
+  .testPage__question {
+    padding: 50px 38px 60px 56px;
+  }
+
+  .testPage__questionsNumber {
+    font-size: 14px;
+  }
+
+  .testPage__testName {
+    width: 210px;
+    height: 50px;
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 820px;
+  }
+
+  .testPage__question {
+    padding: 50px 88px 60px 86px;
+  }
+}

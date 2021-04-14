@@ -1,0 +1,31 @@
+.footer {
+  background: #02172a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 17px;
+  line-height: 15px;
+  font-size: 12px;
+}
+
+.description {
+  text-align: center;
+  font-family: 'MontserratRegular', sans-serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.icon {
+  color: #ff6b09;
+}
+
+.link {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding: 19px 0;
+  }
+}

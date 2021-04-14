@@ -1,0 +1,36 @@
+.testPage__btnFinish,
+.testPage__btnFinish__disactive {
+  width: 130px;
+  height: 48px;
+  justify-content: center;
+  font-family: Montserrat;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.testPage__btnFinish {
+  color: #fff;
+  background-color: #e27a34;
+}
+
+.testPage__btnFinish:hover {
+  background-color: #fd6601;
+}
+.testPage__btnFinish__disactive {
+  background-color: #fff;
+  color: rgb(190, 189, 189);
+}
+
+@media (min-width: 768px) {
+  .testPage__btnFinish,
+  .testPage__btnFinish__disactive {
+    width: 190px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}

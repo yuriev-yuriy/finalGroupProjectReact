@@ -1,0 +1,22 @@
+.chooseAvatar_input {
+  visibility: hidden;
+}
+
+.chooseAvatar_btn,
+.chooseAvatar_btnSaveAvatar {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-family: 'MontserratMedium', sans-serif;
+  letter-spacing: 0.03em;
+  line-height: 16px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.chooseAvatar_btn:hover,
+.chooseAvatar_btnSaveAvatar:hover {
+  color: #fff;
+  background: #ff6b09;
+}

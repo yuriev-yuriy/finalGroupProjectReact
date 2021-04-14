@@ -1,0 +1,79 @@
+.testPage__btnPrevNext {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.testPage__btnPrevNextText {
+  display: none;
+}
+
+.testPage__btnPrev,
+.testPage__btnNext {
+  border: none;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  width: 56px;
+  height: 34px;
+  background-color: #fff;
+  color: #000;
+}
+
+.testPage__btnPrev,
+.testPage__btnNext:hover {
+  background-color: #ffa500;
+  color: #fff;
+}
+
+.arrowLeft,
+.arrowRight {
+  width: 24px;
+  height: 16px;
+}
+
+.arrowLeft {
+  transform: rotate(180deg);
+  fill: #fff;
+}
+
+.disactive {
+  background-color: #fff;
+  border: none;
+  width: 56px;
+  height: 34px;
+  color: #000;
+  fill: #000;
+}
+
+@media (min-width: 768px) {
+  .testPage__btnPrevNextText {
+    display: inline-block;
+  }
+
+  .testPage__btnPrev,
+  .testPage__btnNext {
+    width: 210px;
+    height: 34px;
+    justify-content: space-around;
+  }
+
+  .arrowLeft:hover {
+    fill: #000;
+  }
+
+  .arrowRight:hover {
+    fill: #fff;
+  }
+
+  .disactive {
+    width: 210px;
+    height: 34px;
+  }
+}

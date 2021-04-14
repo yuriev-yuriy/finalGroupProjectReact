@@ -1,0 +1,145 @@
+section {
+  background-color: #f5f6fb;
+  padding-bottom: 40px;
+  /* min-height: calc(100vh - 59px); */
+}
+.container {
+  width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sectionTitle,
+.testResult {
+  font-family: 'MontserratBold';
+  color: #000000;
+}
+.sectionButton,
+.sectionSubtitle,
+.resultData,
+.testResultDescription {
+  font-family: 'MontserratMedium';
+  color: #000000;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.sectionSubtitle {
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.sectionSubtitle::after {
+  content: '';
+  border-bottom: 1px solid hsl(217, 100%, 9%);
+  display: block;
+  width: 130px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+.resultsWrapper {
+  width: 278px;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 17px;
+  display: flex;
+  justify-content: space-around;
+  background-image: url('../../assets/icons/Vector.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.resultData {
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 0.02em;
+}
+.testResult {
+  font-size: 16px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  margin-top: 21px;
+  margin-bottom: 10px;
+}
+.testResultDescription {
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  margin-bottom: 22px;
+}
+.sectionButton {
+  width: 190px;
+  height: 48px;
+  background: #ff6b09;
+  font-family: 'MontserratMedium';
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  border: none;
+}
+.sectionButton:hover {
+  transition: 0.2s;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.22);
+}
+@media (min-width: 768px) {
+  section {
+    padding-bottom: 107px;
+  }
+  .container {
+    width: 610px;
+  }
+  .sectionTitle {
+    font-size: 22px;
+  }
+  .sectionSubtitle {
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 10px;
+  }
+  .sectionSubtitle::after {
+    width: 322px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .resultsWrapper {
+    width: 390px;
+    margin-bottom: 29px;
+  }
+  .resultData {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .testResult {
+    margin-top: 10px;
+    font-size: 22px;
+    line-height: 30px;
+  }
+  .testResultDescription {
+    margin-bottom: 47px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+@media (min-width: 1280px) {
+  section {
+    padding-bottom: 60px;
+  }
+  .container {
+    width: 700px;
+  }
+  .resultsWrapper {
+    margin-top: 30px;
+  }
+}
