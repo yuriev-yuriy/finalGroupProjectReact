@@ -6,25 +6,27 @@ import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
 import ModalContent from '../ModalContent';
-import {registerUserSuccess} from '../../redux/auth/auth-actions';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [btnClick, setBtnClick] = useState('');
+
+  const dispatch = useDispatch();
   const isModalAuthSelector = useSelector(authSelectors.getIsModalAuth);
-  console.log(isModalAuthSelector)
+
   const openModal = () => {
     setShowModal(true);
   };
   const closeModal = () => {
     setShowModal(false);
   };
-  // useEffect(() => {
-  //   openModal();
-  // }, [isModalAuthSelector]);
-
+  useEffect(() => {
+  if (isModalAuthSelector === true) {
+     openModal();
+  }
+  }, [isModalAuthSelector]);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -44,19 +46,21 @@ export default function AuthForm() {
     event.preventDefault();
     dispatch(authOperations.logIn({ email, password }));
     reset();
+    setBtnClick('log');
   };
   const handleSignUp = (event) => {
       event.preventDefault();
     dispatch(authOperations.register({ email, password }));
-    dispatch(registerUserSuccess({ isModalAuth: true }));
+    // dispatch(registerUserSuccess({ isModalAuth: true }));
     reset();
+    setBtnClick('reg');
   };
 
   console.log(showModal);
   return (
     <div className={s.forma}>
       <p className={s.para}>
-        Для авторизации можете использовать Google Account:
+        You can use your Google Account to authorize:
       </p>
       <div className={s.btnWrapper}>
         <a href="https://final-group-project-node.herokuapp.com/auth/google">
@@ -101,11 +105,11 @@ export default function AuthForm() {
           </button>
         </div>
       </form>
-{showModal && (
+{showModal && ( btnClick === 'reg' ?
         <Modal onClose={closeModal}>
-          <ModalContent
+           <ModalContent
             onClose={closeModal}/>
-        </Modal>
+        </Modal> : <Modal onClose={closeModal}> <p> invalid credentials </p> </Modal>
       )}
     </div>
   );

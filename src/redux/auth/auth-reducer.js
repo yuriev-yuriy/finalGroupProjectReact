@@ -23,7 +23,7 @@ const initialState = {
 
 const registration = createReducer(initialState, {
   [registerUserSuccess]: (_, { payload }) => {
-    return payload;
+    return payload.user;
   },
   [loginUserSuccess]: (state, { payload }) => {
     return payload.user;
