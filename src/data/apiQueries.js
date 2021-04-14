@@ -1,7 +1,7 @@
 import axios from 'axios';
 // http://localhost:3030
 // https://final-group-project-node.herokuapp.com
-axios.defaults.baseURL = 'https://final-group-project-node.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:3030';
 
 const getQuestions = async query => {
   const { data } = await axios.get(
@@ -34,6 +34,10 @@ const login = async ({ email, password }) => {
   const { data } = await axios.post('/auth/login', { email, password });
   return data;
 };
+const loginGoogle = async () => {
+  const data = await axios.get('/auth/google');
+  return data;
+};
 
 const logout = () => {
   return axios.post('auth/logout').then(data => data);
@@ -48,6 +52,7 @@ export {
   postUserAnswers,
   registerUser,
   login,
+  loginGoogle,
   logout,
   setToken,
   getUser,

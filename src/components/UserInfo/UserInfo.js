@@ -63,7 +63,7 @@ function UserInfo({ onOpenMobileMenu }) {
     setName(e.currentTarget.value);
   }, []);
 
-  const onChangeName = () => {
+  const onChangeName = async () => {
     setNewName(name.length < 12 ? name : name.slice(0, 12) + '...');
     setName('');
   };
