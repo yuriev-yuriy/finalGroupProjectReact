@@ -27,12 +27,13 @@ const TestPage = () => {
       try {
         const { data } = await getQuestions(nameTest);
         setData(data);
+        console.log(data, `data`);
       } catch (error) {
         console.error(error);
       }
     }
     getAnswers();
-  }, [nameTest]);
+  }, []);
 
   const handleTestList = e => {
     const {

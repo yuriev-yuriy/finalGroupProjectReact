@@ -5,13 +5,21 @@ import { ReactComponent as CloseIcon } from '../../../assets/icons/svg/close.svg
 function Burger({ isOpen, onOpenMobileMenu }) {
   return (
     <div className={styles.burger}>
-      <button
-        className={styles.button}
+      <div
+        className={
+          !isOpen ? styles.toggle : `${styles.toggle} + ' ' + ${styles.active}`
+        }
         type="button"
         onClick={() => onOpenMobileMenu(!isOpen)}
       >
-        {!isOpen ? <MenuIcon /> : <CloseIcon />}
-      </button>
+        {/* {!isOpen ? <MenuIcon /> : <CloseIcon />} */}
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   );
 }

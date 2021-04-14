@@ -10,22 +10,107 @@
 .userInfo {
   display: flex;
   align-items: center;
-  margin-right: 35px;
+  margin-right: 40px;
+  position: relative;
 }
 
-.initial {
-  font-family: 'MontserratSemiBold';
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
+.avatar {
+  position: relative;
   display: flex;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
   align-items: center;
-  justify-content: center;
-  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+  border-radius: 50%;
   box-shadow: 0px 1px 1px rgba(18, 29, 46, 0.1);
+  cursor: pointer;
+}
+
+.userInfoModal {
+  position: absolute;
+  background-color: #02172a;
+  z-index: 100;
+  top: 45px;
+  width: 150px;
+  right: -30px;
+  border-radius: 5px;
+  border: 1px solid #02172a;
+  opacity: 0;
+  visibility: hidden;
+  color: #fff;
+}
+
+.userInfoModalActive {
+  composes: userInfoModal;
+  opacity: 1;
+  visibility: visible;
+}
+
+.userInfoModal::before {
+  content: '';
+  border: 6px solid transparent;
+  border-bottom: 6px solid #02172a;
+  top: -13px;
+  right: 19px;
+  position: absolute;
+}
+
+/* .userInfoModal::after {
+  content: '';
+  background-image: url(../../assets/images/userModalImg.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 30px;
+  height: 60px;
+  top: 0;
+  right: 17px;
+  position: absolute;
+} */
+
+.userInfoModalText,
+.customFileUpload {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  font-family: 'MontserratRegular';
+  font-weight: 500;
+  display: block;
+  cursor: pointer;
+  color: #fff;
+}
+
+.userInfoModalText:hover,
+.customFileUpload:hover {
+  color: #ff6b09;
+  transition: 0.2s;
+}
+
+.customFileUpload {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.customNameUpload {
+  display: none;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+}
+
+.dropdownCaret {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  content: '';
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
 }
 
 .name {
@@ -36,9 +121,80 @@
   display: none;
 }
 
+.userInfoModal input[type='file'] {
+  display: none;
+}
+
+/* .userInfoModal input[type='name'] {
+  display: none;
+} */
+
+.nameUpload {
+  composes: userInfoModalText;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nameUpload::placeholder {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+}
+
+.nameUpload:hover::placeholder {
+  color: #ff6b09;
+  transition: 0.2s;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.addBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.addIcon {
+  fill: #fff;
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.addIcon:hover {
+  fill: #ff6b09;
+  transition: 0.2s;
+  transform: scale(1.2);
+}
+
+.loading {
+  position: absolute;
+  color: #ff6b09;
+  font-size: 14px;
+  font-family: 'MontserratMedium';
+  font-weight: bold;
+  left: -50px;
+  z-index: 10000;
+  background-color: #f5f6fb;
+}
+
 @media (min-width: 768px) {
   .userInfo {
     margin-right: 40px;
+  }
+
+  .userInfo::after {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 70px;
+    width: 1px;
+    background-color: #e2e3e5;
+    right: -20px;
   }
 
   .initial {
@@ -55,6 +211,7 @@
     fill: #000;
     cursor: pointer;
     transition: 0.4s;
+    position: relative;
   }
 
   .signOutBtnLg:hover {

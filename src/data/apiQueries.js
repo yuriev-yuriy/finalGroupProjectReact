@@ -7,7 +7,6 @@ const getQuestions = async query => {
   const { data } = await axios.get(
     `/test/${query === 'theoretical' ? 'theory-questions' : 'tech-questions'}`,
   );
-  console.log(query);
   return data;
 };
 
@@ -19,7 +18,6 @@ const postUserAnswers = async (nameTest, userAnswers) => {
 
 const setToken = {
   set(token) {
-    console.log(token);
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
@@ -36,6 +34,10 @@ const login = async ({ email, password }) => {
   const { data } = await axios.post('/auth/login', { email, password });
   return data;
 };
+const loginGoogle = async () => {
+  const data = await axios.get('/auth/google');
+  return data;
+};
 
 const logout = () => {
   return axios.post('auth/logout').then(data => data);
@@ -50,6 +52,7 @@ export {
   postUserAnswers,
   registerUser,
   login,
+  loginGoogle,
   logout,
   setToken,
   getUser,
