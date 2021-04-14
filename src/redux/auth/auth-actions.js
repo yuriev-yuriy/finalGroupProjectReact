@@ -12,6 +12,10 @@ export const logoutUserRequest = createAction('auth/logoutUserRequest');
 export const logoutUserSuccess = createAction('auth/logoutUserSuccess');
 export const logoutUserError = createAction('auth/logoutUserError');
 
+export const changeNameUserRequest = createAction('auth/updateUserNameRequest');
+export const changeNameUserSuccess = createAction('auth/updateUserNameSuccess');
+export const changeNameUserError = createAction('auth/updateUserNameError');
+
 export const fetchCurrentUserRequest = createAction(
   'auth/fetchCurrentUserRequest',
 );

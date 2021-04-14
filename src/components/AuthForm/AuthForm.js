@@ -35,13 +35,11 @@ export default function AuthForm() {
     setEmail('');
     setPassword('');
   };
-  const handleSignIn = event => {
-    event.preventDefault();
+  const handleSignIn = () => {
     dispatch(authOperations.logIn({ email, password }));
     reset();
   };
-  const handleSignUp = event => {
-    event.preventDefault();
+  const handleSignUp = () => {
     dispatch(authOperations.register({ email, password }));
     reset();
   };

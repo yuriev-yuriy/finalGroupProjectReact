@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useState, useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import routes from '../../routes';
 import { authOperations } from '../../redux/auth';
@@ -11,18 +11,23 @@ import styles from './UserInfo.module.css';
 
 function UserInfo({ onOpenMobileMenu }) {
   const dispatch = useDispatch();
-  // const email = useSelector(authSelectors.getUseremail);
+  const { name, email, avatarURL } = useSelector(
+    state => state.auth.registration,
+  );
+
   const avatar = defaultAvatar;
   const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState('');
-  const [name, setName] = useState('');
-  const [newName, setNewName] = useState('');
+  const [checkName, setCheckName] = useState('');
+  const [nameInput, setNameInput] = useState('');
   const [loading, setLoading] = useState(false);
-  // const dispatch = useDispatch();
 
   const toggleModal = useCallback(() => {
     setShowModal(prevShowModal => !prevShowModal);
   }, []);
+  useEffect(() => {
+    setCheckName(name);
+  }, [name]);
 
   useEffect(() => {
     const handleKeyDown = e => {
@@ -59,18 +64,18 @@ function UserInfo({ onOpenMobileMenu }) {
     setLoading(false);
   };
 
-  const handleChange = useCallback(e => {
-    setName(e.currentTarget.value);
-  }, []);
+  const handleChange = e => setNameInput(e.currentTarget.value);
 
-  const onChangeName = async () => {
-    setNewName(name.length < 12 ? name : name.slice(0, 12) + '...');
-    setName('');
+  const onChangeName = () => {
+    const userName =
+      nameInput.length < 12 ? nameInput : nameInput.slice(0, 12) + '...';
+    const userNameArr = { name: userName };
+    dispatch(authOperations.updateName(userNameArr));
+    setCheckName(nameInput);
+    setNameInput('');
   };
 
-  const handleSubmit = useCallback(e => {
-    e.preventDefault();
-  }, []);
+  const handleSubmit = e => e.preventDefault();
 
   return (
     <div className={styles.container}>
@@ -121,7 +126,7 @@ function UserInfo({ onOpenMobileMenu }) {
                   type="name"
                   name="name"
                   id="nameUpload"
-                  value={name}
+                  value={nameInput}
                   placeholder="Change name"
                   onClick={toggleModal}
                   onChange={handleChange}
@@ -129,7 +134,7 @@ function UserInfo({ onOpenMobileMenu }) {
                   autoComplete="off"
                   autoFocus
                 />
-                {name && (
+                {nameInput && (
                   <button
                     className={styles.addBtn}
                     type="submit"
@@ -142,7 +147,7 @@ function UserInfo({ onOpenMobileMenu }) {
             </form>
           </div>
         </div>
-        <span className={styles.name}>{newName || 'test@gmail.com'} </span>
+        <span className={styles.name}>{checkName} </span>
       </div>
 
       <NavLink to={routes.AUTH_VIEW} onClick={() => onOpenMobileMenu(false)}>
