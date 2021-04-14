@@ -1,25 +1,31 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
-import { getActiveElement } from 'formik';
+import ModalContent from '../ModalContent';
+import {registerUserSuccess} from '../../redux/auth/auth-actions';
+
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  // const [showModal, setShowModal] = useState(false);
-  // const userEmail = useSelector(state => state);
-  // const userCode = useSelector(authSelectors.getCode);
-  // const formatUserEmail = 'https://' + userEmail;
-  // const toggleModal = useCallback(() => {
-  //   setShowModal(prevShowModal => !prevShowModal);
-  // }, []);
+  const [showModal, setShowModal] = useState(false);
+  const isModalAuthSelector = useSelector(authSelectors.getIsModalAuth);
+  console.log(isModalAuthSelector)
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   // useEffect(() => {
-  //   toggleModal();
-  // }, [toggleModal, userCode]);
+  //   openModal();
+  // }, [isModalAuthSelector]);
+
+
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'email':
@@ -39,16 +45,14 @@ export default function AuthForm() {
     dispatch(authOperations.logIn({ email, password }));
     reset();
   };
-  const handleSignUp = event => {
-    event.preventDefault();
+  const handleSignUp = (event) => {
+      event.preventDefault();
     dispatch(authOperations.register({ email, password }));
+    dispatch(registerUserSuccess({ isModalAuth: true }));
     reset();
   };
-  // const makeSubmit = event => {
-  //   event.preventDefault();
-  //   dispatch(authOperations.register({ email, password }));
-  //   reset();
-  // };
+
+  console.log(showModal);
   return (
     <div className={s.forma}>
       <p className={s.para}>
@@ -97,14 +101,12 @@ export default function AuthForm() {
           </button>
         </div>
       </form>
-      {/* {userCode === 201 && (
-        <Modal onClose={toggleModal}>
-          <p>
-            confirm registration on your{' '}
-            <a href={formatUserEmail}>{userEmail}</a>
-          </p>
+{showModal && (
+        <Modal onClose={closeModal}>
+          <ModalContent
+            onClose={closeModal}/>
         </Modal>
-      )} */}
+      )}
     </div>
   );
 }

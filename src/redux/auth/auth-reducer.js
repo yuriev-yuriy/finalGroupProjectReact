@@ -23,7 +23,7 @@ const initialState = {
 
 const registration = createReducer(initialState, {
   [registerUserSuccess]: (_, { payload }) => {
-    return payload.user;
+    return payload;
   },
   [loginUserSuccess]: (state, { payload }) => {
     return payload.user;
@@ -51,6 +51,16 @@ const isLoggedIn = createReducer(false, {
   [fetchCurrentUserError]: () => false,
 });
 
+const isModalAuth = createReducer(false, {
+  [registerUserRequest]: () => false,
+  [registerUserSuccess]: () => true,
+  [registerUserError]: () => false,
+
+  [loginUserRequest]: () => false,
+  [loginUserSuccess]: () => false,
+  [loginUserError]: () => true,
+});
+
 const loading = createReducer(false, {
   [registerUserRequest]: () => true,
   [registerUserSuccess]: () => false,
@@ -74,6 +84,7 @@ const authReducer = combineReducers({
   token,
   isLoggedIn,
   loading,
+  isModalAuth,
 });
 
 export default authReducer;

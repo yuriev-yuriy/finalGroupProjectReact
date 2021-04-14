@@ -28,6 +28,7 @@ const register = ({ email, password }) => async dispatch => {
       data: { avatar },
     } = await registerUser({ email, password });
     const user = { user: { name: null, email, avatarURL: avatar } };
+    console.log(user)
     dispatch(registerUserSuccess(user));
   } catch (error) {
     dispatch(registerUserError(error.message));
