@@ -79,12 +79,18 @@ const loading = createReducer(false, {
   [fetchCurrentUserError]: () => false,
 });
 
+// const errorHandle = createReducer(null, {
+//   [loginUserError]: () => (_, { payload }) => {
+//     return payload.error;
+//   },
+// })
 const authReducer = combineReducers({
   registration,
   token,
   isLoggedIn,
   loading,
   isModalAuth,
+  // errorHandle
 });
 
 export default authReducer;

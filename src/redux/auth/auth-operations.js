@@ -44,7 +44,8 @@ const logIn = ({ email, password }) => async dispatch => {
     localStorage.setItem('token', data.token);
     dispatch(loginUserSuccess(data));
   } catch (error) {
-    dispatch(loginUserError(error.message));
+    console.log(error)
+    dispatch(loginUserError(error));
   }
 };
 

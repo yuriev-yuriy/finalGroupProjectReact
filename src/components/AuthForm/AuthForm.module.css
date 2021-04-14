@@ -64,12 +64,15 @@
 }
 
 .gLogo {
-  height: 18px;
-  width: 18px;
-  position: absolute;
-  top: 16px;
-  left: 48px;
-  transform: translate(-50%, 0);
+  display: block;
+  /* border: 1px solid #000; */
+  fill: #000;
+  /* height: 18px;
+  width: 18px; */
+  /* position: absolute; */
+  /* top: 16px;
+  left: 48px; */
+  /* transform: translate(-50%, 0); */
 }
 
 .input {

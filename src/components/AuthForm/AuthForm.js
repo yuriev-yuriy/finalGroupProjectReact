@@ -6,6 +6,7 @@ import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
 import ModalContent from '../ModalContent';
+import { ReactComponent as googleIcon } from '../../assets/icons/svg/googleVector.svg';
 
 export default function AuthForm() {
   const [email, setEmail] = useState('');
@@ -56,7 +57,6 @@ export default function AuthForm() {
     setBtnClick('reg');
   };
 
-  console.log(showModal);
   return (
     <div className={s.forma}>
       <p className={s.para}>
@@ -68,7 +68,8 @@ export default function AuthForm() {
             Google
           </button>
         </a>
-        <img className={s.gLogo} src={gIcon} alt={'gIcon'} />
+        <googleIcon className={s.gLogo} width="25px" height="25px" alt='gIcon'/>
+        {/* <img className={s.gLogo} src={gIcon} alt={'gIcon'} /> */}
       </div>
       <p className={s.secondPara}>
         Or login to our app using e-mail and password:
