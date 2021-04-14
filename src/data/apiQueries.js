@@ -1,6 +1,4 @@
 import axios from 'axios';
-// http://localhost:3030
-// https://final-group-project-node.herokuapp.com
 axios.defaults.baseURL = 'https://final-group-project-node.herokuapp.com';
 
 const getQuestions = async query => {

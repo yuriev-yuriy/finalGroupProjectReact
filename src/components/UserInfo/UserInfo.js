@@ -24,10 +24,6 @@ function UserInfo({ onOpenMobileMenu }) {
   }, []);
 
   useEffect(() => {
-    setCheckName(name);
-  }, [name]);
-
-  useEffect(() => {
     if (avatarURL !== undefined) {
       document.getElementById('img-insert').src = avatarURL;
     }
@@ -74,6 +70,20 @@ function UserInfo({ onOpenMobileMenu }) {
     setCheckName(nameInput);
     setNameInput('');
   };
+
+  let isName;
+
+  const checkIsName = () => {
+    if (checkName !== '') {
+      return (isName = checkName);
+    }
+    if (name !== null) {
+      return (isName = name);
+    }
+    isName = email;
+  };
+
+  checkIsName();
 
   return (
     <div className={styles.container}>
@@ -145,9 +155,7 @@ function UserInfo({ onOpenMobileMenu }) {
             </form>
           </div>
         </div>
-        <span className={styles.name}>
-          {checkName !== '' ? checkName : email}{' '}
-        </span>
+        <span className={styles.name}>{isName}</span>
       </div>
 
       <NavLink to={routes.AUTH_VIEW} onClick={() => onOpenMobileMenu(false)}>
