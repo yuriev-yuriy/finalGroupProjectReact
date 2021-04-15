@@ -12,7 +12,6 @@ function Burger({ isOpen, onOpenMobileMenu }) {
         type="button"
         onClick={() => onOpenMobileMenu(!isOpen)}
       >
-        {/* {!isOpen ? <MenuIcon /> : <CloseIcon />} */}
         <span></span>
         <span></span>
         <span></span>

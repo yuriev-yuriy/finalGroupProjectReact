@@ -1,9 +1,12 @@
-import React, { useEffect, lazy, Suspense } from 'react';
-import { useDispatch } from 'react-redux';
-import routes from './routes';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { authOperations } from './redux/auth';
+import routes from './routes';
 import Header from './components/Header/';
 import Loader from './components/Loader';
+import GoogleLogin from './components/GoogleLogin';
 import Footer from './components/Footer/';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
@@ -26,16 +29,25 @@ const AuthView = lazy(() =>
   import('./views/AuthView' /*webpackChunkName: "AuthView"*/),
 );
 function App() {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
+  const dispatch = useDispatch();
 
-  //   dispatch(authOperations.fetchCurrentUser());
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      dispatch(authOperations.fetchCurrentUser(token));
+    }
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Header />
       <Suspense fallback={<Loader />}>
         <Switch>
+          <Route exact path={routes.GOOGLE_LOGIN}>
+            <GoogleLogin>
+              <Loader />
+            </GoogleLogin>
+          </Route>
           <PrivateRoute exact path={routes.USEFUL_INFO_VIEW}>
             <UseFulInfoView />
           </PrivateRoute>

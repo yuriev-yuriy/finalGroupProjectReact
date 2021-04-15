@@ -3,6 +3,8 @@
   padding-top: 95px;
   padding-bottom: 40px;
   min-height: calc(100vh - 59px);
+  display: flex;
+  align-items: center;
 }
 
 .container {

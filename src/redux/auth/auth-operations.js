@@ -56,8 +56,27 @@ const logIn = ({ email, password }) => async dispatch => {
   }
 };
 
+const logInGoogle = ({
+  email,
+  name,
+  picture,
+  refreshToken,
+  token,
+}) => async dispatch => {
+  dispatch(loginUserRequest());
+  try {
+    setToken.set(token);
+    localStorage.setItem('token', token);
+    const data = { user: { name: name, email, avatarURL: picture } };
+    dispatch(loginUserSuccess(data));
+  } catch (error) {
+    dispatch(loginUserError(error.message));
+  }
+};
+
 const logOut = () => async dispatch => {
   dispatch(logoutUserRequest());
+  localStorage.setItem('token', null);
 
   try {
     await logout();
@@ -68,17 +87,12 @@ const logOut = () => async dispatch => {
   }
 };
 
-const fetchCurrentUser = () => async (dispatch, getState) => {
-  const {
-    auth: { token: persistedToken },
-  } = getState();
-  if (!persistedToken) return;
-  setToken.set(persistedToken);
+const fetchCurrentUser = token => async dispatch => {
+  setToken.set(token);
   dispatch(fetchCurrentUserRequest());
 
   try {
     const { data } = await getUser();
-    // ?
     dispatch(fetchCurrentUserSuccess(data));
   } catch (error) {
     dispatch(fetchCurrentUserError(error.message));
@@ -91,7 +105,6 @@ const updateName = userName => async dispatch => {
     const {
       data: { user },
     } = await patchUpdateUserName(userName);
-    console.log(user);
     dispatch(changeNameUserSuccess(user));
   } catch (error) {
     dispatch(changeNameUserError(error.message));
@@ -114,6 +127,7 @@ const updateAvatar = avatar => async dispatch => {
 const authOperations = {
   register,
   logIn,
+  logInGoogle,
   logOut,
   fetchCurrentUser,
   updateName,

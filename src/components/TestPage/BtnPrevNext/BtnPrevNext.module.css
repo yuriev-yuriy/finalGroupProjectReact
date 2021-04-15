@@ -11,7 +11,7 @@
 .testPage__btnPrev,
 .testPage__btnNext {
   border: none;
-  font-family: Montserrat;
+  font-family: 'MontserratMedium';
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -28,15 +28,16 @@
 
 .testPage__btnPrev,
 .testPage__btnNext:hover {
-  background-color: #ffa500;
+  background-color: #ff6b09;
   color: #fff;
+  transition: 0.2s;
 }
 
-.arrowLeft,
+/* .arrowLeft,
 .arrowRight {
   width: 24px;
   height: 16px;
-}
+} */
 
 .arrowLeft {
   transform: rotate(180deg);
@@ -55,6 +56,11 @@
 @media (min-width: 768px) {
   .testPage__btnPrevNextText {
     display: inline-block;
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'MontserratMedium';
+    font-style: normal;
+    font-weight: 500;
   }
 
   .testPage__btnPrev,
@@ -64,16 +70,21 @@
     justify-content: space-around;
   }
 
-  .arrowLeft:hover {
-    fill: #000;
+  .testPage__btnNext:hover .arrowRight {
+    fill: #fff;
+    transition: 0.2s;
   }
 
-  .arrowRight:hover {
-    fill: #fff;
+  .testPage__btnPrev:hover .arrowLeft {
+    fill: #000;
+    transition: 0.2s;
   }
 
   .disactive {
     width: 210px;
     height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

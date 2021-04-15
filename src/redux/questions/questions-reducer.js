@@ -5,7 +5,6 @@ import {
   actionSetNameTest,
   actionResetAnswers,
   actionGetTest,
-  actionPostTest,
 } from './questions-actions';
 
 const resultQuestionsReducer = createReducer([], {
@@ -35,16 +34,9 @@ const setDataQuestions = createReducer([], {
     return payload;
   },
 });
-const setQuestionsResult = createReducer([], {
-  [actionPostTest]: (state, { payload }) => {
-    console.log(payload, `payload setQuestionsResult`);
-    return payload;
-  },
-});
 
 export default {
   resultQuestionsReducer,
   setNameReducer,
   setDataQuestions,
-  setQuestionsResult,
 };

@@ -34,6 +34,7 @@ const registration = createReducer(initialState, {
   [loginUserSuccess]: (state, { payload }) => {
     return payload.user;
   },
+  [fetchCurrentUserSuccess]: (_, { payload }) => payload.user,
   [changeNameUserSuccess]: (state, { payload: { name, email } }) => {
     const avatarURL = state.user.avatarURL;
     const user = { user: { name, email, avatarURL } };
@@ -45,16 +46,6 @@ const registration = createReducer(initialState, {
     const user = { user: { name, email, avatarURL: payload } };
     return user;
   },
-  [logoutUserSuccess]: () => null,
-  // [fetchCurrentUserSuccess]: (_, { payload }) => payload.auth,
-});
-
-const token = createReducer(null, {
-  // [registerUserSuccess]: (_, { payload }) => payload.token,
-  [loginUserSuccess]: (_, { payload }) => {
-    return payload.token;
-  },
-  [fetchCurrentUserError]: () => null,
   [logoutUserSuccess]: () => null,
 });
 
@@ -96,7 +87,6 @@ const loading = createReducer(false, {
 
 const authReducer = combineReducers({
   registration,
-  token,
   isLoggedIn,
   loading,
 });

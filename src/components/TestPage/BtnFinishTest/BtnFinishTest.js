@@ -10,7 +10,9 @@ const BtnFinishTest = ({ checkData }) => {
 
   return checkData ? (
     <div className={s.testPage__btnFinish}>
-      <Link to={routes.RESULT_VIEW}>Finish test</Link>
+      <Link className={s.testPage__btnFinishLink} to={routes.RESULT_VIEW}>
+        Finish test
+      </Link>
     </div>
   ) : (
     <div className={s.testPage__btnFinish__disactive}>Finish test</div>

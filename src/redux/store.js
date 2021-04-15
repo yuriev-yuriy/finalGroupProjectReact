@@ -14,5 +14,5 @@ const store = createStore(
     // other store enhancers if any
   ),
 );
-const persistor = persistStore(store);
-export { store, persistor };
+
+export { store };

@@ -24,10 +24,6 @@ function UserInfo({ onOpenMobileMenu }) {
   }, []);
 
   useEffect(() => {
-    setCheckName(name);
-  }, [name]);
-
-  useEffect(() => {
     if (avatarURL !== undefined) {
       document.getElementById('img-insert').src = avatarURL;
     }
@@ -74,6 +70,22 @@ function UserInfo({ onOpenMobileMenu }) {
     setCheckName(nameInput);
     setNameInput('');
   };
+
+  let isName = 'Guest';
+
+  const checkIsName = () => {
+    if (checkName !== '') {
+      return (isName = checkName);
+    }
+    if (name !== null && name !== undefined) {
+      return (isName = name);
+    }
+    if (email !== null && name !== undefined) {
+      return (isName = email);
+    }
+  };
+
+  checkIsName();
 
   return (
     <div className={styles.container}>
@@ -146,7 +158,7 @@ function UserInfo({ onOpenMobileMenu }) {
           </div>
         </div>
         <span className={styles.name}>
-          {checkName !== '' ? checkName : email}{' '}
+          {isName.length < 12 ? isName : isName.slice(0, 12) + '...'}
         </span>
       </div>
 
