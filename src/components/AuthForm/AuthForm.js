@@ -1,12 +1,11 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations } from '../../redux/auth';
-import { loginGoogle } from '../../data/apiQueries';
+
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
-import { authSelectors } from '../../redux/auth';
-import { getActiveElement } from 'formik';
+
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,20 +34,15 @@ export default function AuthForm() {
     setEmail('');
     setPassword('');
   };
-  const handleSignIn = event => {
-    event.preventDefault();
+  const handleSignIn = () => {
     dispatch(authOperations.logIn({ email, password }));
     reset();
   };
-  const handleSignUp = event => {
-    event.preventDefault();
+  const handleSignUp = () => {
     dispatch(authOperations.register({ email, password }));
     reset();
   };
-  const handleSignInGoogle = event => {
-    const data = loginGoogle();
-    console.log(data);
-  };
+
   return (
     <div className={s.forma}>
       <p className={s.para}>

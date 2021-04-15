@@ -1,6 +1,4 @@
 import axios from 'axios';
-// http://localhost:3030
-// https://final-group-project-node.herokuapp.com
 axios.defaults.baseURL = 'https://final-group-project-node.herokuapp.com';
 
 const getQuestions = async query => {
@@ -13,6 +11,14 @@ const getQuestions = async query => {
 const postUserAnswers = async (nameTest, userAnswers) => {
   const dataPost = await { answers: userAnswers, nameTest };
   const { data } = await axios.post(`/test/result`, dataPost);
+  return data;
+};
+const patchUpdateUserName = async userName => {
+  const { data } = await axios.patch('/users/current', userName);
+  return data;
+};
+const patchUpdateUserAvatar = async userAvatar => {
+  const { data } = await axios.patch('/users/avatars', userAvatar);
   return data;
 };
 
@@ -34,6 +40,7 @@ const login = async ({ email, password }) => {
   const { data } = await axios.post('/auth/login', { email, password });
   return data;
 };
+
 const loginGoogle = async () => {
   const data = await axios.get('/auth/google');
   return data;
@@ -50,6 +57,8 @@ const getUser = () => {
 export {
   getQuestions,
   postUserAnswers,
+  patchUpdateUserName,
+  patchUpdateUserAvatar,
   registerUser,
   login,
   loginGoogle,

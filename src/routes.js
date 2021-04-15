@@ -1,6 +1,6 @@
 const routes = {
   AUTH_VIEW: '/auth',
-  AUTH_REDIRECT: '/auth/google-redirect',
+  GOOGLE_LOGIN: '/google-auth',
   MAIN_VIEW: '/',
   TEST_VIEW: '/test',
   RESULT_VIEW: '/result',
