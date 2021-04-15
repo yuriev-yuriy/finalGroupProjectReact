@@ -5,7 +5,6 @@ import cat176 from '../../assets/images/cat176.png';
 import cat120 from '../../assets/images/cat120.png';
 import defaultImg from '../../assets/images/cat120default.png';
 import Diagram from './Chart/Chart.js';
-import ShareButton from '../ShareButton';
 import { postUserAnswers } from '../../data/apiQueries';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -94,7 +93,6 @@ const Results = () => {
                 Try again
               </Link>
             </button>
-            <ShareButton />
           </div>
         </section>
       )}
