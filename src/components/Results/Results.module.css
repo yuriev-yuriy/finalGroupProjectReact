@@ -1,7 +1,9 @@
 section {
   background-color: #f5f6fb;
   padding-bottom: 40px;
-  /* min-height: calc(100vh - 59px); */
+  min-height: calc(100vh - 124px);
+  display: flex;
+  align-items: center;
 }
 .container {
   width: 320px;

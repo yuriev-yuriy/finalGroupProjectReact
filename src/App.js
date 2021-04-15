@@ -1,13 +1,15 @@
 import React, { lazy, Suspense } from 'react';
-import routes from './routes';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { authOperations } from './redux/auth';
+import routes from './routes';
 import Header from './components/Header/';
 import Loader from './components/Loader';
 import GoogleLogin from './components/GoogleLogin';
 import Footer from './components/Footer/';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
-import s from './App.module.css';
 const MainView = lazy(() =>
   import('./views/MainView' /*webpackChunkName: "MainView"*/),
 );
@@ -27,41 +29,46 @@ const AuthView = lazy(() =>
   import('./views/AuthView' /*webpackChunkName: "AuthView"*/),
 );
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      dispatch(authOperations.fetchCurrentUser(token));
+    }
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
-      <div className={s.container}>
-        <Header />
-        <Suspense fallback={<Loader />}>
-          <Switch>
-            <main className={s.content}>
-              <Route exact path={routes.GOOGLE_LOGIN}>
-                <GoogleLogin>
-                  <Loader />
-                </GoogleLogin>
-              </Route>
-              <PrivateRoute exact path={routes.USEFUL_INFO_VIEW}>
-                <UseFulInfoView />
-              </PrivateRoute>
-              <PublicRoute exact path={routes.CONTACTS_VIEW}>
-                <ContactsView />
-              </PublicRoute>
-              <PublicRoute exact path={routes.AUTH_VIEW} restricted>
-                <AuthView />
-              </PublicRoute>
-              <PrivateRoute exact path={routes.RESULT_VIEW}>
-                <Results />
-              </PrivateRoute>
-              <PrivateRoute exact path={routes.MAIN_VIEW}>
-                <MainView />
-              </PrivateRoute>
-              <PrivateRoute exact path={routes.TEST_VIEW}>
-                <TestPage />
-              </PrivateRoute>
-            </main>
-          </Switch>
-        </Suspense>
-        <Footer />
-      </div>
+      <Header />
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route exact path={routes.GOOGLE_LOGIN}>
+            <GoogleLogin>
+              <Loader />
+            </GoogleLogin>
+          </Route>
+          <PrivateRoute exact path={routes.USEFUL_INFO_VIEW}>
+            <UseFulInfoView />
+          </PrivateRoute>
+          <PublicRoute exact path={routes.CONTACTS_VIEW}>
+            <ContactsView />
+          </PublicRoute>
+          <PublicRoute exact path={routes.AUTH_VIEW} restricted>
+            <AuthView />
+          </PublicRoute>
+          <PrivateRoute exact path={routes.RESULT_VIEW}>
+            <Results />
+          </PrivateRoute>
+          <PrivateRoute exact path={routes.MAIN_VIEW}>
+            <MainView />
+          </PrivateRoute>
+          <PrivateRoute exact path={routes.TEST_VIEW}>
+            <TestPage />
+          </PrivateRoute>
+        </Switch>
+      </Suspense>
+      <Footer />
     </BrowserRouter>
   );
 }

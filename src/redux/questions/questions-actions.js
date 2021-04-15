@@ -19,15 +19,10 @@ const actionGetTest = createAction('data/getTest', value => ({
   payload: value,
 }));
 
-const actionPostTest = createAction('data/postName', value => ({
-  payload: value,
-}));
-
 export {
   actionAddResult,
   actionUpdateResult,
   actionSetNameTest,
   actionResetAnswers,
   actionGetTest,
-  actionPostTest,
 };

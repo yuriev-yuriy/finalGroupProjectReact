@@ -50,7 +50,6 @@ const logIn = ({ email, password }) => async dispatch => {
     const { data } = await login({ email, password });
     setToken.set(data.accessToken);
     localStorage.setItem('token', data.accessToken);
-    console.log(data, `login just by form`);
     dispatch(loginUserSuccess(data));
   } catch (error) {
     dispatch(loginUserError(error.message));
@@ -77,6 +76,7 @@ const logInGoogle = ({
 
 const logOut = () => async dispatch => {
   dispatch(logoutUserRequest());
+  localStorage.setItem('token', null);
 
   try {
     await logout();
@@ -87,17 +87,12 @@ const logOut = () => async dispatch => {
   }
 };
 
-const fetchCurrentUser = () => async (dispatch, getState) => {
-  const {
-    auth: { token: persistedToken },
-  } = getState();
-  if (!persistedToken) return;
-  setToken.set(persistedToken);
+const fetchCurrentUser = token => async dispatch => {
+  setToken.set(token);
   dispatch(fetchCurrentUserRequest());
 
   try {
     const { data } = await getUser();
-    // ?
     dispatch(fetchCurrentUserSuccess(data));
   } catch (error) {
     dispatch(fetchCurrentUserError(error.message));
@@ -110,7 +105,6 @@ const updateName = userName => async dispatch => {
     const {
       data: { user },
     } = await patchUpdateUserName(userName);
-    console.log(user);
     dispatch(changeNameUserSuccess(user));
   } catch (error) {
     dispatch(changeNameUserError(error.message));

@@ -50,8 +50,9 @@ const logout = () => {
   return axios.post('auth/logout').then(data => data);
 };
 
-const getUser = () => {
-  return axios.get('/users/current').then(data => data);
+const getUser = async () => {
+  const { data } = await axios.get('/users/current');
+  return data;
 };
 
 export {
