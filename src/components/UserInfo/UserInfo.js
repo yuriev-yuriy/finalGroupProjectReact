@@ -32,7 +32,7 @@ function UserInfo({ onOpenMobileMenu }) {
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
-        toggleModal();
+        setShowModal(false);
       }
     };
 
@@ -41,7 +41,7 @@ function UserInfo({ onOpenMobileMenu }) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [toggleModal]);
+  }, []);
 
   const uploadImage = e => {
     const avatar = e.target.files[0];
