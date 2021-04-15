@@ -71,16 +71,18 @@ function UserInfo({ onOpenMobileMenu }) {
     setNameInput('');
   };
 
-  let isName;
+  let isName = 'Guest';
 
   const checkIsName = () => {
     if (checkName !== '') {
       return (isName = checkName);
     }
-    if (name !== null) {
+    if (name !== null && name !== undefined) {
       return (isName = name);
     }
-    isName = email;
+    if (email !== null && name !== undefined) {
+      return (isName = email);
+    }
   };
 
   checkIsName();
@@ -155,7 +157,9 @@ function UserInfo({ onOpenMobileMenu }) {
             </form>
           </div>
         </div>
-        <span className={styles.name}>{isName}</span>
+        <span className={styles.name}>
+          {isName.length < 12 ? isName : isName.slice(0, 12) + '...'}
+        </span>
       </div>
 
       <NavLink to={routes.AUTH_VIEW} onClick={() => onOpenMobileMenu(false)}>

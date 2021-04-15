@@ -50,6 +50,25 @@ const logIn = ({ email, password }) => async dispatch => {
     const { data } = await login({ email, password });
     setToken.set(data.accessToken);
     localStorage.setItem('token', data.accessToken);
+    console.log(data, `login just by form`);
+    dispatch(loginUserSuccess(data));
+  } catch (error) {
+    dispatch(loginUserError(error.message));
+  }
+};
+
+const logInGoogle = ({
+  email,
+  name,
+  picture,
+  refreshToken,
+  token,
+}) => async dispatch => {
+  dispatch(loginUserRequest());
+  try {
+    setToken.set(token);
+    localStorage.setItem('token', token);
+    const data = { user: { name: name, email, avatarURL: picture } };
     dispatch(loginUserSuccess(data));
   } catch (error) {
     dispatch(loginUserError(error.message));
@@ -114,6 +133,7 @@ const updateAvatar = avatar => async dispatch => {
 const authOperations = {
   register,
   logIn,
+  logInGoogle,
   logOut,
   fetchCurrentUser,
   updateName,

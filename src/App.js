@@ -1,8 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import routes from './routes';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/Header/';
 import Loader from './components/Loader';
+import GoogleLogin from './components/GoogleLogin';
 import Footer from './components/Footer/';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
@@ -33,6 +34,11 @@ function App() {
         <Suspense fallback={<Loader />}>
           <Switch>
             <main className={s.content}>
+              <Route exact path={routes.GOOGLE_LOGIN}>
+                <GoogleLogin>
+                  <Loader />
+                </GoogleLogin>
+              </Route>
               <PrivateRoute exact path={routes.USEFUL_INFO_VIEW}>
                 <UseFulInfoView />
               </PrivateRoute>
