@@ -64,7 +64,7 @@ function UserInfo({ onOpenMobileMenu }) {
 
   const onChangeName = () => {
     const userName =
-      nameInput.length < 12 ? nameInput : nameInput.slice(0, 12) + '...';
+      nameInput.length < 9 ? nameInput : nameInput.slice(0, 9) + '...';
     const userNameArr = { name: userName };
     dispatch(authOperations.updateName(userNameArr));
     setCheckName(nameInput);
@@ -91,16 +91,18 @@ function UserInfo({ onOpenMobileMenu }) {
     <div className={styles.container}>
       <div className={styles.userInfo}>
         <div className={styles.avatar} onClick={toggleModal}>
-          {loading ? (
-            <h3 className={styles.loading}>Loading...</h3>
-          ) : (
-            <img
-              id="img-insert"
-              alt="avatar"
-              width="40"
-              className={styles.avatarImg}
-            />
-          )}
+          <div className={styles.avatarImgWrapper}>
+            {loading ? (
+              <h3 className={styles.loading}>Loading...</h3>
+            ) : (
+              <img
+                id="img-insert"
+                alt="avatar"
+                width="40"
+                className={styles.avatarImg}
+              />
+            )}
+          </div>
           <span className={styles.dropdownCaret}></span>
           <div
             className={
@@ -158,7 +160,7 @@ function UserInfo({ onOpenMobileMenu }) {
           </div>
         </div>
         <span className={styles.name}>
-          {isName.length < 12 ? isName : isName.slice(0, 12) + '...'}
+          {isName.length < 9 ? isName : isName.slice(0, 9) + '...'}
         </span>
       </div>
 
