@@ -4,7 +4,7 @@ import routes from '../../routes';
 import cat176 from '../../assets/images/cat176.png';
 import cat120 from '../../assets/images/cat120.png';
 import defaultImg from '../../assets/images/cat120default.png';
-import Diagram from './Chart/Chart.js';
+// import Diagram from './Chart/Chart.js';
 import { postUserAnswers } from '../../data/apiQueries';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -38,10 +38,10 @@ const Results = () => {
           <div className={s.container}>
             <h2 className={s.sectionTitle}>Results</h2>
             <h3 className={s.sectionSubtitle}>[TESTING THEOSY_]</h3>
-            <Diagram
+            {/* <Diagram
               correctAnswers={dataAnswers.right}
               allAnswers={dataAnswers.total}
-            />
+            /> */}
             <div className={s.resultsWrapper}>
               <p className={s.resultData}>
                 Current answers- {dataAnswers.right}
