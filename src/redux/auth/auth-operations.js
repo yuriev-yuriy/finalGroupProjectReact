@@ -50,6 +50,7 @@ const logIn = ({ email, password }) => async dispatch => {
     const { data } = await login({ email, password });
     setToken.set(data.accessToken);
     localStorage.setItem('token', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     dispatch(loginUserSuccess(data));
   } catch (error) {
     dispatch(loginUserError(error.message));
@@ -66,7 +67,9 @@ const logInGoogle = ({
   dispatch(loginUserRequest());
   try {
     setToken.set(token);
+    console.log(refreshToken, `from logInGoogle`);
     localStorage.setItem('token', token);
+    localStorage.setItem('refreshToken', refreshToken);
     const data = { user: { name: name, email, avatarURL: picture } };
     dispatch(loginUserSuccess(data));
   } catch (error) {
@@ -76,7 +79,8 @@ const logInGoogle = ({
 
 const logOut = () => async dispatch => {
   dispatch(logoutUserRequest());
-  localStorage.setItem('token', null);
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('token');
 
   try {
     await logout();

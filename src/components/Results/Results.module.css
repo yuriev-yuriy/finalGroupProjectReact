@@ -5,6 +5,10 @@ section {
   display: flex;
   align-items: center;
 }
+button {
+  border: none;
+}
+
 .container {
   width: 320px;
   margin: 0 auto;
@@ -19,7 +23,6 @@ section {
 }
 .sectionButton,
 .sectionSubtitle,
-.resultData,
 .testResultDescription {
   font-family: 'MontserratMedium';
   color: #000000;
@@ -60,7 +63,12 @@ section {
   font-size: 10px;
   line-height: 12px;
   letter-spacing: 0.02em;
+  font-family: 'MontserratLight';
 }
+.resultDataNumber {
+  font-family: 'MontserratBold';
+}
+
 .testResult {
   font-size: 16px;
   line-height: 30px;
@@ -89,7 +97,6 @@ section {
   text-align: center;
   letter-spacing: 0.02em;
   color: #ffffff;
-  border: none;
 }
 .sectionButton:hover {
   transition: 0.2s;

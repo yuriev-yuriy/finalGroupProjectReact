@@ -44,10 +44,12 @@ const Results = () => {
             /> */}
             <div className={s.resultsWrapper}>
               <p className={s.resultData}>
-                Current answers- {dataAnswers.right}
+                Right answers -{' '}
+                <span className={s.resultDataNumber}>{dataAnswers.right}</span>
               </p>
               <p className={s.resultData}>
-                Total questions- {dataAnswers.total}
+                Total questions -{' '}
+                <span className={s.resultDataNumber}>{dataAnswers.total}</span>
               </p>
             </div>
             <picture>

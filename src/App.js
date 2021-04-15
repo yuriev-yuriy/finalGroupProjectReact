@@ -33,9 +33,8 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      dispatch(authOperations.fetchCurrentUser(token));
-    }
+    if (token === null) return;
+    dispatch(authOperations.fetchCurrentUser(token));
   }, [dispatch]);
 
   return (
