@@ -4,7 +4,7 @@ import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
-import ModalContent from '../ModalContent';
+import ModalContent from '../';
 import { ReactComponent as GoogleIcon } from '../../assets/icons/svg/googleVector.svg';
 
 export default function AuthForm() {

@@ -1,1 +1,1 @@
-export { default } from './ModalContent.js';
+export { default } from './ModalContent';
