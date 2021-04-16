@@ -4,7 +4,7 @@ import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
-import ModalContent from '../';
+import ModalContent from '../ModalContent';
 import { ReactComponent as GoogleIcon } from '../../assets/icons/svg/googleVector.svg';
 
 export default function AuthForm() {
@@ -28,7 +28,7 @@ export default function AuthForm() {
   }
   }, [isModalAuthSelector]);
   // const toggleModal = () => {
-  //   setShowModal(prevShowModal => !prevShowModal);
+  //   setShowModal(state => !state);
   // }, []);
 
   const handleChange = ({ target: { name, value } }) => {
@@ -45,18 +45,45 @@ export default function AuthForm() {
     setEmail('');
     setPassword('');
   };
+    const validMail = email.toLowerCase();
+  console.log(validMail);
+  const validPass = password;
+  console.log(validPass)
   const handleSignIn = event => {
-    event.preventDefault();
-    dispatch(authOperations.logIn({ email, password }));
-    reset();
-    setBtnClick('log');
+    if (validMail && password.lenght >= 5) {
+      event.preventDefault();
+      dispatch(authOperations.logIn({ validMail, password }));
+      reset();
+      setBtnClick('log');
+    }
   };
   const handleSignUp = event => {
-    event.preventDefault();
-    dispatch(authOperations.register({ email, password }));
-    reset();
-    setBtnClick('reg');
+    if (validMail && password.lenght >= 5) {
+      event.preventDefault();
+      dispatch(authOperations.register({ validMail, password }));
+      reset();
+      setBtnClick('reg');
+    }
   };
+    // const sendCredentials = (event) => {
+    //   event.preventDefault();
+    //   if (validMail && password.lenght >= 5) {
+        // switch (event.target.name) {
+        //   case 'reg':
+        //     dispatch(authOperations.register({ email, password }));
+        //     console.log('reg');
+        //     return;
+        //   case 'log':
+        //     dispatch(authOperations.logIn({ email, password }));
+        //     console.log('log');
+        //     return;
+        //   default:
+        //     return;
+        // }
+      // } else {
+      //     return
+      // }
+      //   }
 
   return (
     <div className={s.forma}>
@@ -89,7 +116,9 @@ export default function AuthForm() {
         <label>
           <input
             className={s.input}
-            type="text"
+            type="password"
+            minLength="5"
+            maxLength="15"
             name="password"
             placeholder="Password"
             onChange={handleChange}
@@ -98,10 +127,10 @@ export default function AuthForm() {
           />
         </label>
         <div className={s.btnWrapperBottom}>
-          <button className={s.regBtn} onClick={handleSignIn}>
+          <button className={s.regBtn} onClick={handleSignIn} name="log">
             Sign In
           </button>
-          <button data-auth="reg" className={s.regBtn} onClick={handleSignUp}>
+          <button className={s.regBtn} onClick={handleSignUp} name="reg">
             Sign Up
           </button>
         </div>
