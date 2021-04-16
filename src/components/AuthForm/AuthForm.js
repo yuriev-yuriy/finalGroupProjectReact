@@ -45,45 +45,19 @@ export default function AuthForm() {
     setEmail('');
     setPassword('');
   };
-    const validMail = email.toLowerCase();
-  console.log(validMail);
-  const validPass = password;
-  console.log(validPass)
+
   const handleSignIn = event => {
-    if (validMail && password.lenght >= 5) {
       event.preventDefault();
-      dispatch(authOperations.logIn({ validMail, password }));
+      dispatch(authOperations.logIn({ email, password }));
       reset();
       setBtnClick('log');
-    }
   };
   const handleSignUp = event => {
-    if (validMail && password.lenght >= 5) {
-      event.preventDefault();
-      dispatch(authOperations.register({ validMail, password }));
+    event.preventDefault();
+      dispatch(authOperations.register({ email, password }));
       reset();
       setBtnClick('reg');
-    }
   };
-    // const sendCredentials = (event) => {
-    //   event.preventDefault();
-    //   if (validMail && password.lenght >= 5) {
-        // switch (event.target.name) {
-        //   case 'reg':
-        //     dispatch(authOperations.register({ email, password }));
-        //     console.log('reg');
-        //     return;
-        //   case 'log':
-        //     dispatch(authOperations.logIn({ email, password }));
-        //     console.log('log');
-        //     return;
-        //   default:
-        //     return;
-        // }
-      // } else {
-      //     return
-      // }
-      //   }
 
   return (
     <div className={s.forma}>
@@ -102,7 +76,7 @@ export default function AuthForm() {
         Or login to our app using e-mail and password:
       </p>
       <form className={s.innerForm}>
-        <label>
+        <label htmlFor="email">
           <input
             className={s.input}
             name="email"
@@ -113,7 +87,7 @@ export default function AuthForm() {
             value={email}
           />
         </label>
-        <label>
+        <label htmlFor="password">
           <input
             className={s.input}
             type="password"
