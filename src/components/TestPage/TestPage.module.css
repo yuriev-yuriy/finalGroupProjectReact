@@ -36,9 +36,6 @@
 .testPage {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 124px);
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #f5f6fb;

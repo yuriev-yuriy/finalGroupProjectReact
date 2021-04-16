@@ -97,7 +97,7 @@ const logout = () => {
   try {
     return axios.post('auth/logout').then(data => data);
   } catch (e) {
-    console.log(e);
+    updateTokenByCode(e.message);
   }
 };
 

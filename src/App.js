@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -68,6 +69,7 @@ function App() {
         </Switch>
       </Suspense>
       <Footer />
+      <ToastContainer />
     </BrowserRouter>
   );
 }

@@ -67,7 +67,6 @@ const logInGoogle = ({
   dispatch(loginUserRequest());
   try {
     setToken.set(token);
-    console.log(email, name, picture, refreshToken, token);
     localStorage.setItem('token', token);
     localStorage.setItem('refreshToken', refreshToken);
     const data = { user: { name: name, email, avatarURL: picture } };

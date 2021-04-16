@@ -5,7 +5,13 @@
   width: 280px;
   background: #ffffff;
   box-shadow: 0px 4px 15px rgba(2, 23, 42, 0.1);
+  padding: 10px;
   margin: 30px auto 50px;
+}
+.section__forma {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 124px);
 }
 
 .para {

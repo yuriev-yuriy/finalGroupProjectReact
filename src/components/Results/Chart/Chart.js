@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Pie } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import s from './Chart.module.css';
 
 const getChartData = (correct, incorrect) => {
@@ -34,15 +34,15 @@ const options = {
 const Diagram = ({ correctAnswers, allAnswers }) => {
   const chartCorrect = Math.ceil((correctAnswers * 100) / allAnswers);
   const chartInCorrect = 100 - chartCorrect;
-  // const chartInCorrect = allAnswers - correctAnswers;
+
   return (
     <div>
       <div className={s.container}>
-        {/* <Pie
+        <Pie
           data={() => getChartData(chartCorrect, chartInCorrect)}
           options={options}
           className={s.chart}
-        /> */}
+        />
       </div>
     </div>
   );

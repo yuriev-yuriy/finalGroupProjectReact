@@ -44,54 +44,55 @@ export default function AuthForm() {
   };
 
   return (
-    <div className={s.forma}>
-      <p className={s.para}>
-        Для авторизации можете использовать Google Account:
-      </p>
-      <div className={s.btnWrapper}>
-        <a href="https://final-group-project-node.herokuapp.com/auth/google">
-          <button className={s.gBtn} type="submit">
-            Google
-          </button>
-        </a>
-        <img className={s.gLogo} src={gIcon} alt={'gIcon'} />
-      </div>
-      <p className={s.secondPara}>
-        Or login to our app using e-mail and password:
-      </p>
-      <form className={s.innerForm}>
-        <label>
-          <input
-            className={s.input}
-            name="email"
-            type="email"
-            placeholder="Email"
-            onChange={handleChange}
-            required
-            value={email}
-          />
-        </label>
-        <label>
-          <input
-            className={s.input}
-            type="text"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            required
-            value={password}
-          />
-        </label>
-        <div className={s.btnWrapperBottom}>
-          <button className={s.regBtn} onClick={handleSignIn}>
-            Sign In
-          </button>
-          <button data-auth="reg" className={s.regBtn} onClick={handleSignUp}>
-            Sign Up
-          </button>
+    <section className={s.section__forma}>
+      <div className={s.forma}>
+        <p className={s.para}>
+          Для авторизации можете использовать Google Account:
+        </p>
+        <div className={s.btnWrapper}>
+          <a href="https://final-group-project-node.herokuapp.com/auth/google">
+            <button className={s.gBtn} type="submit">
+              Google
+            </button>
+          </a>
+          <img className={s.gLogo} src={gIcon} alt={'gIcon'} />
         </div>
-      </form>
-      {/* {userCode === 201 && (
+        <p className={s.secondPara}>
+          Or login to our app using e-mail and password:
+        </p>
+        <form className={s.innerForm}>
+          <label>
+            <input
+              className={s.input}
+              name="email"
+              type="email"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+              value={email}
+            />
+          </label>
+          <label>
+            <input
+              className={s.input}
+              type="text"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+              value={password}
+            />
+          </label>
+          <div className={s.btnWrapperBottom}>
+            <button className={s.regBtn} onClick={handleSignIn}>
+              Sign In
+            </button>
+            <button data-auth="reg" className={s.regBtn} onClick={handleSignUp}>
+              Sign Up
+            </button>
+          </div>
+        </form>
+        {/* {userCode === 201 && (
         <Modal onClose={toggleModal}>
           <p>
             confirm registration on your{' '}
@@ -99,6 +100,7 @@ export default function AuthForm() {
           </p>
         </Modal>
       )} */}
-    </div>
+      </div>
+    </section>
   );
 }
