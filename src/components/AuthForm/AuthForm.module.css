@@ -1,4 +1,4 @@
-.forma {
+.forma__wrapper {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -6,12 +6,43 @@
   background: #ffffff;
   box-shadow: 0px 4px 15px rgba(2, 23, 42, 0.1);
   padding: 10px;
+  padding-bottom: 20px;
   margin: 30px auto 50px;
 }
-.section__forma {
+.btn__formik {
+  margin-bottom: 2%;
+}
+.TextField__formik {
+  margin-bottom: 5%;
+}
+
+.form__btn__container {
+  width: 100%;
   display: flex;
-  align-items: center;
-  min-height: calc(100vh - 124px);
+  justify-content: space-around;
+  margin-bottom: 4%;
+  padding-top: 1%;
+}
+.form__btn__container__btn {
+  width: 40%;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.02em;
+  color: #000000;
+  height: 50px;
+  width: 160px;
+  padding-left: 16px;
+  border: none;
+  background: #c2c1c1;
+}
+.btn__active {
+  background-color: rgb(241, 114, 10);
+}
+.form__btn__container__btn:first-child {
+  margin-right: 4%;
 }
 
 .para {
@@ -49,7 +80,7 @@
   box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.12);
   padding-left: 16px;
   border: none;
-  background: #fafafa;
+  background: #f3f0f0;
   padding-left: 30px;
 }
 
@@ -58,6 +89,7 @@
   display: flex;
   align-items: center;
   margin-top: 20px;
+  padding-bottom: 6%;
 }
 
 .btnWrapperBottom {
@@ -66,7 +98,6 @@
   /* align-items: center; */
   justify-content: space-around;
   margin-top: 20px;
-  padding-bottom: 30px;
 }
 
 .gLogo {
@@ -83,17 +114,6 @@
   height: 56px;
   margin-top: 20px;
   border: 1px solid #ced2d1;
-  padding-left: 10px;
-}
-
-.input:placeholder-shown {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  letter-spacing: 0.02em;
-  color: #bbbbbb;
   padding-left: 10px;
 }
 
@@ -124,7 +144,7 @@ label {
 }
 
 @media (min-width: 768px) and (max-width: 1280px) {
-  .forma {
+  .forma__wrapper {
     width: 536px;
     align-items: start;
     padding-left: 60px;
@@ -136,6 +156,7 @@ label {
     margin: 0;
     font-size: 14px;
     line-height: 17px;
+    text-align: center;
   }
 
   .secondPara {
@@ -146,7 +167,8 @@ label {
 
   .btnWrapper {
     margin-top: 30px;
-    align-self: start;
+    margin-bottom: 10%;
+    align-self: center;
   }
 
   .btnWrapperBottom {
@@ -169,7 +191,7 @@ label {
 }
 
 @media (min-width: 1280px) {
-  .forma {
+  .forma__wrapper {
     margin: 100px 0 100px 0;
     width: 506px;
   }

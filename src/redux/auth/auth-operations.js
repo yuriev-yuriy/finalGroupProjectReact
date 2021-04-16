@@ -28,6 +28,7 @@ import {
   changeUserAvatarSuccess,
   changeUserAvatarError,
 } from './auth-actions';
+import { toast } from 'react-toastify';
 
 const register = ({ email, password }) => async dispatch => {
   dispatch(registerUserRequest());
@@ -36,9 +37,13 @@ const register = ({ email, password }) => async dispatch => {
       data: { avatar },
     } = await registerUser({ email, password });
     const user = { user: { name: null, email, avatarURL: avatar } };
+    toast(
+      `User ${email} was created , please follow to your email and confirm request`,
+    );
     dispatch(registerUserSuccess(user));
   } catch (error) {
     console.log(error.message);
+    toast(`Wrong email`);
     dispatch(registerUserError(null));
   }
 };
@@ -51,8 +56,10 @@ const logIn = ({ email, password }) => async dispatch => {
     setToken.set(data.accessToken);
     localStorage.setItem('token', data.accessToken);
     localStorage.setItem('refreshToken', data.refreshToken);
+    toast(`Hello dear ${email}`);
     dispatch(loginUserSuccess(data));
   } catch (error) {
+    toast(`Wrong credentials`);
     dispatch(loginUserError(error.message));
   }
 };
@@ -70,9 +77,11 @@ const logInGoogle = ({
     localStorage.setItem('token', token);
     localStorage.setItem('refreshToken', refreshToken);
     const data = { user: { name: name, email, avatarURL: picture } };
+    toast(`Hello dear ${name}`);
     dispatch(loginUserSuccess(data));
   } catch (error) {
     dispatch(loginUserError(error.message));
+    toast(`Wrong credentials`);
   }
 };
 
@@ -84,8 +93,10 @@ const logOut = () => async dispatch => {
   try {
     await logout();
     setToken.unset();
+    toast(`Goodbye dear user`);
     dispatch(logoutUserSuccess());
   } catch (error) {
+    toast(`Ups Something wrong:)`);
     dispatch(logoutUserError(error.message));
   }
 };
@@ -97,8 +108,10 @@ const fetchCurrentUser = token => async dispatch => {
   try {
     const { data } = await getUser();
     dispatch(fetchCurrentUserSuccess(data));
+    toast(`Welcome current user`);
   } catch (error) {
     dispatch(fetchCurrentUserError(error.message));
+    toast(`Please execute login`);
   }
 };
 const updateName = userName => async dispatch => {
@@ -108,9 +121,11 @@ const updateName = userName => async dispatch => {
     const {
       data: { user },
     } = await patchUpdateUserName(userName);
+    toast(`Name was updated`);
     dispatch(changeNameUserSuccess(user));
   } catch (error) {
     dispatch(changeNameUserError(error.message));
+    toast(`Wrong input symbols `);
   }
 };
 
@@ -119,11 +134,14 @@ const updateAvatar = avatar => async dispatch => {
   const {
     data: { avatarUrl },
   } = await patchUpdateUserAvatar(avatar);
+  toast(`Wait we are uploading `);
   try {
   } catch (error) {
     dispatch(changeUserAvatarError(error.message));
+    toast(`Photo must be less than 2000KB`);
   } finally {
     await dispatch(changeUserAvatarSuccess(avatarUrl));
+    toast(`Avatar was updated`);
   }
 };
 

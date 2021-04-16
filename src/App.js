@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';

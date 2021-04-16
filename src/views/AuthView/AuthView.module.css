@@ -5,7 +5,7 @@ body {
 .wrapper {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  min-height: calc(100vh - 124px);
 }
 
 .innerWrapper {
@@ -43,7 +43,11 @@ body {
 @media (min-width: 768px) and (max-width: 1280px) {
   .wrapper {
     width: 768px;
-    align-items: center;
+    margin: 0 auto;
+  }
+  .innerWrapper {
+    /* align-items: center; */
+    margin: 0 auto;
   }
 
   .header {
@@ -63,6 +67,7 @@ body {
     flex-direction: row;
     margin: 0 auto;
     align-items: start;
+    justify-content: center;
   }
 
   .innerWrapper {

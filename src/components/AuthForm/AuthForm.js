@@ -1,106 +1,132 @@
-import { useState, useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { authOperations } from '../../redux/auth';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
+import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
-import Modal from '../Modal';
 
 export default function AuthForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  // const [showModal, setShowModal] = useState(false);
-  // const userEmail = useSelector(state => state);
-  // const userCode = useSelector(authSelectors.getCode);
-  // const formatUserEmail = 'https://' + userEmail;
-  // const toggleModal = useCallback(() => {
-  //   setShowModal(prevShowModal => !prevShowModal);
-  // }, []);
-  // useEffect(() => {
-  //   toggleModal();
-  // }, [toggleModal, userCode]);
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'email':
-        return setEmail(value);
-      case 'password':
-        return setPassword(value);
-      default:
-        return;
+  const [checkForm, setCheckForm] = useState('');
+
+  const validationSchema = yup.object({
+    email: yup.string().email().required('Email is required'),
+    password: yup
+      .string('Enter your password')
+      .min(8, 'At least 8 characters')
+      .required('Password is required'),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: ({ email, password }) => {
+      formik.values.email = '';
+      formik.values.password = '';
+      if (checkForm === 'login') {
+        dispatch(authOperations.logIn({ email, password }));
+      }
+      if (checkForm === 'register') {
+        dispatch(authOperations.register({ email, password }));
+      }
+    },
+  });
+  const handleSelectFrom = e => {
+    const {
+      target: { dataset },
+    } = e;
+    if (dataset.login === 'login') {
+      setCheckForm('login');
+      document.getElementById('btn-register').style.backgroundColor =
+        ' #c2c1c1';
+      document.getElementById('btn-login').style.backgroundColor =
+        'rgb(241, 114, 10)';
+    }
+    if (dataset.register === 'register') {
+      setCheckForm('register');
+      document.getElementById('btn-register').style.backgroundColor =
+        'rgb(241, 114, 10)';
+      document.getElementById('btn-login').style.backgroundColor = ' #c2c1c1';
     }
   };
-  const reset = () => {
-    setEmail('');
-    setPassword('');
-  };
-  const handleSignIn = () => {
-    dispatch(authOperations.logIn({ email, password }));
-    reset();
-  };
-  const handleSignUp = () => {
-    dispatch(authOperations.register({ email, password }));
-    reset();
-  };
+  const form = (
+    <form onSubmit={formik.handleSubmit}>
+      <TextField
+        fullWidth
+        id="email"
+        name="email"
+        label="Email"
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
+      />
+      <TextField
+        fullWidth
+        className={s.TextField__formik}
+        id="password"
+        name="password"
+        label="Password*"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={formik.touched.password && formik.errors.password}
+      />
+      <Button
+        className={s.btn__formik}
+        color="primary"
+        variant="contained"
+        fullWidth
+        type="submit"
+      >
+        Submit
+      </Button>
+    </form>
+  );
 
   return (
-    <section className={s.section__forma}>
-      <div className={s.forma}>
-        <p className={s.para}>
-          Для авторизации можете использовать Google Account:
-        </p>
-        <div className={s.btnWrapper}>
-          <a href="https://final-group-project-node.herokuapp.com/auth/google">
-            <button className={s.gBtn} type="submit">
-              Google
-            </button>
-          </a>
-          <img className={s.gLogo} src={gIcon} alt={'gIcon'} />
-        </div>
-        <p className={s.secondPara}>
-          Or login to our app using e-mail and password:
-        </p>
-        <form className={s.innerForm}>
-          <label>
-            <input
-              className={s.input}
-              name="email"
-              type="email"
-              placeholder="Email"
-              onChange={handleChange}
-              required
-              value={email}
-            />
-          </label>
-          <label>
-            <input
-              className={s.input}
-              type="text"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              required
-              value={password}
-            />
-          </label>
-          <div className={s.btnWrapperBottom}>
-            <button className={s.regBtn} onClick={handleSignIn}>
-              Sign In
-            </button>
-            <button data-auth="reg" className={s.regBtn} onClick={handleSignUp}>
-              Sign Up
-            </button>
-          </div>
-        </form>
-        {/* {userCode === 201 && (
-        <Modal onClose={toggleModal}>
-          <p>
-            confirm registration on your{' '}
-            <a href={formatUserEmail}>{userEmail}</a>
-          </p>
-        </Modal>
-      )} */}
+    <div className={s.forma__wrapper}>
+      <p className={s.para}>
+        You can use google registration and login even you have created an
+        account by simple way!
+      </p>
+      <div className={s.btnWrapper}>
+        <a href="https://final-group-project-node.herokuapp.com/auth/google">
+          <button className={s.gBtn} type="submit">
+            Google
+          </button>
+        </a>
+        <img className={s.gLogo} src={gIcon} alt={'gIcon'} />
       </div>
-    </section>
+      <div className={s.form__btn__container}>
+        <button
+          id="btn-login"
+          className={s.form__btn__container__btn}
+          onClick={handleSelectFrom}
+          data-login="login"
+          type="click"
+        >
+          Login
+        </button>
+        <button
+          id="btn-register"
+          className={s.form__btn__container__btn}
+          onClick={handleSelectFrom}
+          data-register="register"
+          type="click"
+        >
+          Register
+        </button>
+      </div>
+      {checkForm === 'login' && form}
+      {checkForm === 'register' && form}
+    </div>
   );
 }
