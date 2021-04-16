@@ -1,24 +1,36 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import s from './AuthForm.module.css';
-import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
+import ModalContent from '../ModalContent';
+import { ReactComponent as GoogleIcon } from '../../assets/icons/svg/googleVector.svg';
+
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+   const [showModal, setShowModal] = useState(false);
+  const [btnClick, setBtnClick] = useState('');
+
   const dispatch = useDispatch();
-  // const [showModal, setShowModal] = useState(false);
-  // const userEmail = useSelector(state => state);
-  // const userCode = useSelector(authSelectors.getCode);
-  // const formatUserEmail = 'https://' + userEmail;
-  // const toggleModal = useCallback(() => {
+    const isModalAuthSelector = useSelector(authSelectors.getIsModalAuth);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  useEffect(() => {
+  if (isModalAuthSelector === true) {
+     openModal();
+  }
+  }, [isModalAuthSelector]);
+  // const toggleModal = () => {
   //   setShowModal(prevShowModal => !prevShowModal);
   // }, []);
-  // useEffect(() => {
-  //   toggleModal();
-  // }, [toggleModal, userCode]);
+
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'email':
@@ -37,29 +49,27 @@ export default function AuthForm() {
     event.preventDefault();
     dispatch(authOperations.logIn({ email, password }));
     reset();
+    setBtnClick('log');
   };
   const handleSignUp = event => {
     event.preventDefault();
     dispatch(authOperations.register({ email, password }));
     reset();
+    setBtnClick('reg');
   };
-  // const makeSubmit = event => {
-  //   event.preventDefault();
-  //   dispatch(authOperations.register({ email, password }));
-  //   reset();
-  // };
+
   return (
     <div className={s.forma}>
       <p className={s.para}>
-        Для авторизации можете использовать Google Account:
+        You can use your Google Account to authorize:
       </p>
       <div className={s.btnWrapper}>
         <a href="https://final-group-project-node.herokuapp.com/auth/google">
           <button className={s.gBtn} type="submit">
+            <GoogleIcon className={s.gLogo} alt='gIcon'/>
             Google
           </button>
         </a>
-        <img className={s.gLogo} src={gIcon} alt={'gIcon'} />
       </div>
       <p className={s.secondPara}>
         Or login to our app using e-mail and password:
@@ -96,14 +106,12 @@ export default function AuthForm() {
           </button>
         </div>
       </form>
-      {/* {userCode === 201 && (
-        <Modal onClose={toggleModal}>
-          <p>
-            confirm registration on your{' '}
-            <a href={formatUserEmail}>{userEmail}</a>
-          </p>
-        </Modal>
-      )} */}
+      {showModal && ( btnClick === 'reg' ?
+        <Modal onClose={closeModal}>
+           <ModalContent
+            onClose={closeModal}/>
+        </Modal> : <Modal onClose={closeModal}> <p> invalid credentials </p> </Modal>
+      )}
     </div>
   );
 }
