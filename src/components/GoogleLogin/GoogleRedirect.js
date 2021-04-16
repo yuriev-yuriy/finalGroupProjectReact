@@ -14,6 +14,7 @@ function GoogleLogin() {
   const { isLoggedIn } = useSelector(state => state.auth);
 
   useEffect(() => {
+    console.log(data, `GoogleLogin`);
     dispatch(authOperations.logInGoogle(data));
   }, [data, dispatch]);
 
