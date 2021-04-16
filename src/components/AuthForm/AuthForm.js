@@ -46,17 +46,27 @@ export default function AuthForm() {
     setPassword('');
   };
 
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const validEmail = re.test(String(email).toLowerCase());
+
   const handleSignIn = event => {
+    if (password.length >= 5 && validEmail) {
       event.preventDefault();
       dispatch(authOperations.logIn({ email, password }));
       reset();
       setBtnClick('log');
+    }
   };
   const handleSignUp = event => {
+  
     event.preventDefault();
+    if (password.length >= 5 && validEmail) {
       dispatch(authOperations.register({ email, password }));
       reset();
       setBtnClick('reg');
+    } else {
+      return
+    }
   };
 
   return (
