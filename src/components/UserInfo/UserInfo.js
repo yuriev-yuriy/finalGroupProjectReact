@@ -64,24 +64,23 @@ function UserInfo({ onOpenMobileMenu }) {
 
   const onChangeName = () => {
     const userName =
-      nameInput.length < 9 ? nameInput : nameInput.slice(0, 9) + '...';
+      nameInput.length < 12 ? nameInput : nameInput.slice(0, 12) + '...';
     const userNameArr = { name: userName };
     dispatch(authOperations.updateName(userNameArr));
     setCheckName(nameInput);
     setNameInput('');
   };
 
-  let isName;
+  let isName = 'Guest';
 
   const checkIsName = () => {
-    isName = 'Guest';
     if (checkName !== '') {
       return (isName = checkName);
     }
     if (name !== null && name !== undefined) {
       return (isName = name);
     }
-    if (email !== null && email !== undefined) {
+    if (email !== null && name !== undefined) {
       return (isName = email);
     }
   };
@@ -92,18 +91,16 @@ function UserInfo({ onOpenMobileMenu }) {
     <div className={styles.container}>
       <div className={styles.userInfo}>
         <div className={styles.avatar} onClick={toggleModal}>
-          <div className={styles.avatarImgWrapper}>
-            {loading ? (
-              <h3 className={styles.loading}>Loading...</h3>
-            ) : (
-              <img
-                id="img-insert"
-                alt="avatar"
-                width="40"
-                className={styles.avatarImg}
-              />
-            )}
-          </div>
+          {loading ? (
+            <h3 className={styles.loading}>Loading...</h3>
+          ) : (
+            <img
+              id="img-insert"
+              alt="avatar"
+              width="40"
+              className={styles.avatarImg}
+            />
+          )}
           <span className={styles.dropdownCaret}></span>
           <div
             className={
@@ -161,7 +158,7 @@ function UserInfo({ onOpenMobileMenu }) {
           </div>
         </div>
         <span className={styles.name}>
-          {isName.length < 9 ? isName : isName.slice(0, 9) + '...'}
+          {isName.length < 12 ? isName : isName.slice(0, 12) + '...'}
         </span>
       </div>
 
