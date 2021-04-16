@@ -5,7 +5,6 @@ import s from './AuthForm.module.css';
 import gIcon from '../../assets/icons/google-logo.png';
 import Modal from '../Modal';
 import { authSelectors } from '../../redux/auth';
-import { getActiveElement } from 'formik';
 export default function AuthForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
