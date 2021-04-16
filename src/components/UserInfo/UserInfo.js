@@ -71,16 +71,17 @@ function UserInfo({ onOpenMobileMenu }) {
     setNameInput('');
   };
 
-  let isName = 'Guest';
+  let isName;
 
   const checkIsName = () => {
+    isName = 'Guest';
     if (checkName !== '') {
       return (isName = checkName);
     }
     if (name !== null && name !== undefined) {
       return (isName = name);
     }
-    if (email !== null && name !== undefined) {
+    if (email !== null && email !== undefined) {
       return (isName = email);
     }
   };
