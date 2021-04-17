@@ -54,6 +54,7 @@ const logOut = () => async dispatch => {
     await logout();
     setToken.unset();
     dispatch(logoutUserSuccess());
+    // localStorage.clear();
   } catch (error) {
     dispatch(logoutUserError(error.message));
   }
